@@ -473,7 +473,9 @@
         </div>
       </div>
       <div class="contact__right reveal reveal-d2">
-        <form class="contact-form" id="contactForm" novalidate aria-label="Contact form">
+        <form class="contact-form" id="contactForm" novalidate aria-label="Contact form" name="contact" netlify netlify-honeypot="bot-field" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="visually-hidden"><label>Don't fill this out: <input name="bot-field"></label></p>
           <div class="form-group">
             <label for="name">Your Name <span aria-hidden="true" class="req">*</span></label>
             <input type="text" id="name" name="name" placeholder="Jane Smith" required autocomplete="name">

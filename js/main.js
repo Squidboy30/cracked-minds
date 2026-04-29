@@ -242,19 +242,20 @@
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
       btn.disabled = true;
 
-      // ── Wire to a real endpoint when ready, e.g. Formspree:
-      // const res = await fetch('https://formspree.io/f/YOUR_ID', {
-      //   method: 'POST',
-      //   body: new FormData(form),
-      //   headers: { Accept: 'application/json' }
-      // });
-      // if (!res.ok) throw new Error('Send failed');
-
-      await new Promise(resolve => setTimeout(resolve, 900));
-
-      status.textContent = "Thank you — we'll be in touch within 24 hours.";
-      status.className = 'form-status success';
-      form.reset();
+      try {
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)).toString(),
+        });
+        if (!res.ok) throw new Error('Send failed');
+        status.textContent = "Thank you — we'll be in touch within 24 hours.";
+        status.className = 'form-status success';
+        form.reset();
+      } catch {
+        status.textContent = 'Something went wrong — please email us directly.';
+        status.className = 'form-status error-msg';
+      }
       btn.innerHTML = originalHTML;
       btn.disabled = false;
     });
