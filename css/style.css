@@ -155,6 +155,50 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .btn-lg   { padding: 1rem 2.25rem; font-size: 0.95rem; }
 .btn-full { width: 100%; justify-content: center; }
 
+/* 6a. Loading Screen
+   ---------------------------------------------------------- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.loader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.loader__logo {
+  height: 90px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+.loader__tagline {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.loader__progress {
+  width: 160px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.loader__progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--orange);
+  border-radius: 1px;
+}
+
 /* 6. Navbar
    ---------------------------------------------------------- */
 .navbar {
@@ -558,7 +602,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 .service-card {
-  --c: 249, 115, 22; /* default orange — overridden per card below */
+  --c: 249, 115, 22;
   background: var(--surface);
   padding: 2.25rem 2rem;
   display: flex;

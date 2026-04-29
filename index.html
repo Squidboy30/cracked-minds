@@ -14,6 +14,17 @@
 </head>
 <body>
 
+  <!-- Loading screen -->
+  <div id="loader" class="loader" aria-hidden="true">
+    <div class="loader__content">
+      <img src="assets/logo.png" alt="CrackedMinds" class="loader__logo">
+      <p class="loader__tagline">Intelligence in. Solutions delivered.</p>
+      <div class="loader__progress">
+        <div class="loader__progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Custom cursor -->
   <div class="cursor-dot"  id="cursorDot"      aria-hidden="true"></div>
   <div class="cursor-ring" id="cursorRing"     aria-hidden="true"></div>
@@ -506,5 +517,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>
