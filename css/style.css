@@ -179,7 +179,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   height: var(--nav-height);
 }
 
-.navbar__logo { flex-shrink: 0; }
+.navbar__logo { flex-shrink: 0; margin-left: -2rem; }
 
 .logo-img {
   height: 160px;
