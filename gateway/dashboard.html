@@ -64,8 +64,20 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .no-data{color:var(--text3);font-size:12px;text-align:center;padding:24px}
 .pulse{animation:pulse 2s ease infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-@media(max-width:900px){.main{grid-template-columns:1fr 1fr}.card.span3{grid-column:span 2}}
-@media(max-width:600px){.main{grid-template-columns:1fr}.card.span2,.card.span3{grid-column:span 1}}
+/* Channel bar */
+.chan-bar-wrap{width:100%;height:8px;background:var(--surface3);border-radius:4px;overflow:hidden;margin:6px 0 2px}
+.chan-bar-local{height:8px;background:var(--gold);border-radius:4px 0 0 4px;display:inline-block;float:left}
+.chan-bar-remote{height:8px;background:var(--green);display:inline-block;float:left}
+.chan-row{padding:10px 0;border-bottom:1px solid var(--border)}
+.chan-row:last-child{border-bottom:none}
+.chan-peer{font-size:12px;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.chan-stats{display:flex;gap:16px;font-size:11px;color:var(--text2)}
+.chan-stat{display:flex;flex-direction:column;gap:1px}
+.chan-stat-val{color:var(--text);font-weight:500}
+.section-divider{grid-column:span 3;border-top:1px solid var(--border);margin:4px 0;display:flex;align-items:center;gap:12px;padding-top:4px}
+.section-divider-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3)}
+@media(max-width:900px){.main{grid-template-columns:1fr 1fr}.card.span3{grid-column:span 2}.section-divider{grid-column:span 2}}
+@media(max-width:600px){.main{grid-template-columns:1fr}.card.span2,.card.span3{grid-column:span 1}.section-divider{grid-column:span 1}}
 </style>
 </head>
 <body>
@@ -73,8 +85,8 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 <header>
   <div class="logo"><span class="logo-bolt">⚡</span> Boltwork Dashboard</div>
   <div class="header-right">
-    <span class="last-update" id="last-update">—</span>
-    <button class="refresh-btn" id="refresh-btn" onclick="fetchMetrics()">↻ Refresh</button>
+    <span class="last-update" id="last-update">–</span>
+    <button class="refresh-btn" id="refresh-btn" onclick="fetchAll()">↻ Refresh</button>
   </div>
 </header>
 
@@ -82,7 +94,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
   <div id="error-banner" class="error-banner"></div>
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
     <input type="password" class="token-input" id="token-input" placeholder="Admin token..." style="max-width:320px;margin:0"
-      onchange="localStorage.setItem('bw_admin_token',this.value);fetchMetrics()">
+      onchange="localStorage.setItem('bw_admin_token',this.value);fetchAll()">
     <span style="font-size:11px;color:var(--text3)">Token is saved locally</span>
   </div>
 </div>
@@ -92,55 +104,66 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
   <!-- Health -->
   <div class="card">
     <div class="card-label">Service health</div>
-    <div id="health-content">
-      <div class="no-data pulse">Loading...</div>
-    </div>
+    <div id="health-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
   <!-- Invoice stats -->
   <div class="card">
     <div class="card-label">Payments</div>
-    <div id="invoice-content">
-      <div class="no-data pulse">Loading...</div>
-    </div>
+    <div id="invoice-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
   <!-- API calls -->
   <div class="card">
-    <div class="card-label">API calls (24 hour)</div>
-    <div id="calls-content">
-      <div class="no-data pulse">Loading...</div>
-    </div>
+    <div class="card-label">API calls (last hour)</div>
+    <div id="calls-content"><div class="no-data pulse">Loading...</div></div>
+  </div>
+
+  <!-- Section divider -->
+  <div class="section-divider">
+    <span class="section-divider-label">⚡ Lightning Node</span>
+  </div>
+
+  <!-- Node status -->
+  <div class="card">
+    <div class="card-label">Node status</div>
+    <div id="node-content"><div class="no-data pulse">Loading...</div></div>
+  </div>
+
+  <!-- Channels -->
+  <div class="card span2">
+    <div class="card-label">Channels</div>
+    <div id="channels-content"><div class="no-data pulse">Loading...</div></div>
+  </div>
+
+  <!-- Section divider -->
+  <div class="section-divider">
+    <span class="section-divider-label">Gateway activity</span>
   </div>
 
   <!-- Gateway requests -->
   <div class="card span2">
     <div class="card-label">Live gateway requests</div>
-    <div id="requests-content">
-      <div class="no-data pulse">Loading...</div>
-    </div>
+    <div id="requests-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
   <!-- Endpoint breakdown -->
   <div class="card">
     <div class="card-label">Endpoint activity</div>
-    <div id="endpoints-content">
-      <div class="no-data pulse">Loading...</div>
-    </div>
+    <div id="endpoints-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
   <!-- Recent API activity -->
   <div class="card span3">
     <div class="card-label">Recent API calls</div>
-    <div id="recent-content">
-      <div class="no-data pulse">Loading...</div>
-    </div>
+    <div id="recent-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
 </div>
 
 <script>
-const API = 'https://parsebit.fly.dev/admin/metrics';
+const API     = 'https://parsebit.fly.dev/admin/metrics';
+const LND_API = 'https://parsebit.fly.dev/admin/lnd';
 let autoRefresh;
 
 function getToken() {
@@ -154,18 +177,21 @@ function statusDot(status) {
 }
 
 function fmtTime(ts) {
-  if (!ts) return '—';
+  if (!ts) return '–';
   try {
     const d = new Date(ts);
     return d.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  } catch { return ts.slice(11,19) || '—'; }
+  } catch { return ts.slice(11,19) || '–'; }
 }
 
-function fmtPath(path) {
-  return path || '/';
+function fmtSats(n) {
+  if (!n) return '0';
+  return Number(n).toLocaleString();
 }
 
-async function fetchMetrics() {
+function fmtPath(path) { return path || '/'; }
+
+async function fetchAll() {
   const token = getToken();
   if (!token) {
     document.getElementById('error-banner').textContent = 'Enter your admin token above to view metrics.';
@@ -178,19 +204,21 @@ async function fetchMetrics() {
   btn.textContent = '↻ Loading...';
 
   try {
-    const r = await fetch(API, {
-      headers: { 'X-Admin-Token': token }
-    });
+    const [metricsRes, lndRes] = await Promise.all([
+      fetch(API,     { headers: { 'X-Admin-Token': token } }),
+      fetch(LND_API, { headers: { 'X-Admin-Token': token } })
+    ]);
 
-    if (r.status === 403) {
+    if (metricsRes.status === 403) {
       document.getElementById('error-banner').textContent = 'Invalid admin token.';
       document.getElementById('error-banner').style.display = 'block';
       return;
     }
 
     document.getElementById('error-banner').style.display = 'none';
-    const data = await r.json();
-    render(data);
+    const data = await metricsRes.json();
+    const lnd  = lndRes.ok ? await lndRes.json() : null;
+    render(data, lnd);
     document.getElementById('last-update').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB');
 
   } catch(e) {
@@ -202,19 +230,19 @@ async function fetchMetrics() {
   }
 }
 
-function render(d) {
+function render(d, lnd) {
   // Health
-  const gw = d.health?.gateway || {};
+  const gw  = d.health?.gateway || {};
   const api = d.health?.api || {};
   document.getElementById('health-content').innerHTML = `
     <div class="health-row">
       ${statusDot(gw.status)}<span class="health-name">L402 Gateway</span>
-      <span class="health-status" style="color:${gw.status==='ok'?'var(--green)':gw.status==='down'?'var(--red)':'var(--amber)'}">${gw.status||'—'}</span>
+      <span class="health-status" style="color:${gw.status==='ok'?'var(--green)':gw.status==='down'?'var(--red)':'var(--amber)'}">${gw.status||'–'}</span>
       ${gw.latency_ms ? `<span class="health-latency">${gw.latency_ms}ms</span>` : ''}
     </div>
     <div class="health-row">
       ${statusDot(api.status)}<span class="health-name">Parsebit API</span>
-      <span class="health-status" style="color:${api.status==='ok'?'var(--green)':api.status==='down'?'var(--red)':'var(--amber)'}">${api.status||'—'}</span>
+      <span class="health-status" style="color:${api.status==='ok'?'var(--green)':api.status==='down'?'var(--red)':'var(--amber)'}">${api.status||'–'}</span>
       ${api.latency_ms ? `<span class="health-latency">${api.latency_ms}ms</span>` : ''}
     </div>
     <div class="health-row">
@@ -232,7 +260,7 @@ function render(d) {
         <div class="stat-label">Settled</div>
       </div>
       <div class="stat-item">
-        <div class="stat-val" style="color:var(--gold)">${(inv.total_sats||0).toLocaleString()}</div>
+        <div class="stat-val" style="color:var(--gold)">${fmtSats(inv.total_sats)}</div>
         <div class="stat-label">Total sats</div>
       </div>
     </div>
@@ -261,6 +289,87 @@ function render(d) {
     </div>
   `;
 
+  // LND Node status
+  if (!lnd) {
+    document.getElementById('node-content').innerHTML = '<div class="no-data">LND data unavailable</div>';
+    document.getElementById('channels-content').innerHTML = '<div class="no-data">LND data unavailable</div>';
+  } else {
+    const nodeStatus = lnd.synced ? 'ok' : 'degraded';
+    document.getElementById('node-content').innerHTML = `
+      <div class="health-row">
+        ${statusDot(nodeStatus)}
+        <span class="health-name">Node</span>
+        <span class="health-status" style="color:${lnd.synced?'var(--green)':'var(--amber)'}">${lnd.synced?'synced':'syncing'}</span>
+      </div>
+      <div class="health-row">
+        ${statusDot(lnd.active_channels > 0 ? 'ok' : 'down')}
+        <span class="health-name">Active channels</span>
+        <span class="health-status" style="color:${lnd.active_channels>0?'var(--green)':'var(--red)'}">${lnd.active_channels||0}</span>
+      </div>
+      <div class="health-row">
+        ${statusDot(lnd.num_peers > 0 ? 'ok' : 'degraded')}
+        <span class="health-name">Peers</span>
+        <span class="health-status">${lnd.num_peers||0}</span>
+      </div>
+      <div class="health-row">
+        <span class="status-dot status-unknown"></span>
+        <span class="health-name">Block height</span>
+        <span class="health-status" style="color:var(--text2)">${(lnd.block_height||0).toLocaleString()}</span>
+      </div>
+      <div class="health-row">
+        <span class="status-dot" style="background:var(--gold)"></span>
+        <span class="health-name">Alias</span>
+        <span class="health-status" style="color:var(--gold)">${lnd.alias||'–'}</span>
+      </div>
+    `;
+
+    // Channels
+    const channels = lnd.channels || [];
+    if (channels.length === 0) {
+      document.getElementById('channels-content').innerHTML = '<div class="no-data">No channels</div>';
+    } else {
+      const totalInbound  = channels.reduce((s,c) => s + (c.remote_balance||0), 0);
+      const totalOutbound = channels.reduce((s,c) => s + (c.local_balance||0), 0);
+      const totalCapacity = channels.reduce((s,c) => s + (c.capacity||0), 0);
+
+      document.getElementById('channels-content').innerHTML = `
+        <div class="stat-grid" style="margin-bottom:14px">
+          <div class="stat-item">
+            <div class="stat-val" style="color:var(--green)">${fmtSats(totalInbound)}</div>
+            <div class="stat-label">Inbound (sats)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" style="color:var(--gold)">${fmtSats(totalOutbound)}</div>
+            <div class="stat-label">Outbound (sats)</div>
+          </div>
+        </div>
+        ${channels.map(ch => {
+          const cap    = ch.capacity || 1;
+          const localPct  = Math.round((ch.local_balance||0) / cap * 100);
+          const remotePct = Math.round((ch.remote_balance||0) / cap * 100);
+          const active = ch.active;
+          return `
+            <div class="chan-row">
+              <div class="chan-peer">
+                <span class="status-dot ${active?'status-ok':'status-down'}"></span>
+                <strong>${ch.peer_alias||ch.remote_pubkey?.slice(0,16)+'...'}</strong>
+                <span style="font-size:10px;color:var(--text3)">${fmtSats(cap)} sats</span>
+              </div>
+              <div class="chan-bar-wrap" style="overflow:hidden">
+                <div class="chan-bar-local"  style="width:${localPct}%"></div>
+                <div class="chan-bar-remote" style="width:${remotePct}%"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:2px">
+                <span style="color:var(--gold)">out: ${fmtSats(ch.local_balance)}</span>
+                <span style="color:var(--green)">in: ${fmtSats(ch.remote_balance)}</span>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      `;
+    }
+  }
+
   // Gateway requests
   const reqs = (d.aperture?.recent_requests || []).slice().reverse();
   if (reqs.length === 0) {
@@ -273,7 +382,7 @@ function render(d) {
             <span class="log-ts">${fmtTime(r.ts)}</span>
             <span class="log-method">${r.method||'?'}</span>
             <span class="log-path">${fmtPath(r.path)}</span>
-            <span class="log-ua" title="${r.user_agent||''}">${r.user_agent||'—'}</span>
+            <span class="log-ua" title="${r.user_agent||''}">${r.user_agent||'–'}</span>
           </div>
         `).join('')}
       </div>
@@ -313,7 +422,7 @@ function render(d) {
           <div class="log-item">
             <span class="log-ts">${fmtTime(r.ts)}</span>
             <span class="log-method" style="color:${r.status==='success'?'var(--green)':r.status==='error'?'var(--red)':'var(--text2)'}">${r.status||'?'}</span>
-            <span class="log-path">${r.endpoint||'—'}</span>
+            <span class="log-path">${r.endpoint||'–'}</span>
             <span class="log-ua">${r.duration_ms?r.duration_ms+'ms':''}</span>
           </div>
         `).join('')}
@@ -326,8 +435,8 @@ function render(d) {
 window.addEventListener('load', () => {
   const saved = localStorage.getItem('bw_admin_token');
   if (saved) document.getElementById('token-input').value = saved;
-  fetchMetrics();
-  autoRefresh = setInterval(fetchMetrics, 30000);
+  fetchAll();
+  autoRefresh = setInterval(fetchAll, 30000);
 });
 </script>
 </body>
