@@ -119,6 +119,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
     <div id="calls-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
+  <!-- All-time stats -->
+  <div class="card span2">
+    <div class="card-label">All-time API calls</div>
+    <div id="alltime-content"><div class="no-data pulse">Loading...</div></div>
+  </div>
+
   <!-- Section divider -->
   <div class="section-divider">
     <span class="section-divider-label">⚡ Lightning Node</span>
@@ -294,6 +300,41 @@ function render(d, lnd) {
       <span style="color:var(--red)">${bw1h.error_calls||0} errors</span>
     </div>
   `;
+
+  // All-time stats
+  const at = d.alltime || {};
+  if (at.total_calls > 0) {
+    const epRows = Object.entries(at.by_endpoint || {})
+      .sort((a,b) => (b[1].success - a[1].success))
+      .map(([ep, s]) => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);font-size:12px">
+          <span style="color:var(--text1)">${ep}</span>
+          <span style="color:var(--text2)">${s.success} calls &nbsp;·&nbsp; <span style="color:var(--gold)">${fmtSats(s.total_sats)} sats</span></span>
+        </div>`).join('');
+    document.getElementById('alltime-content').innerHTML = `
+      <div class="stat-grid" style="margin-bottom:12px">
+        <div class="stat-item">
+          <div class="stat-val">${fmtSats(at.total_calls)}</div>
+          <div class="stat-label">Total calls</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val" style="color:var(--green)">${fmtSats(at.success_calls)}</div>
+          <div class="stat-label">Successful</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val" style="color:var(--red)">${at.error_calls||0}</div>
+          <div class="stat-label">Errors</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val" style="color:var(--gold)">${fmtSats(at.total_sats)}</div>
+          <div class="stat-label">Sats earned</div>
+        </div>
+      </div>
+      ${epRows || '<div class="no-data">No endpoint data yet</div>'}
+    `;
+  } else {
+    document.getElementById('alltime-content').innerHTML = '<div class="no-data">Counter starts accumulating from next deploy</div>';
+  }
 
   // LND Node status
   if (!lnd) {
