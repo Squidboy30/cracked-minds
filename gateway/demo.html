@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boltwork — Live L402 Demo</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f0f0f;
+  --bg2: #1a1a1a;
+  --bg3: #222;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0f0ec;
+  --text2: #888;
+  --text3: #555;
+  --green: #1D9E75;
+  --gold: #f59e0b;
+  --red: #ef4444;
+  --blue: #378ADD;
+  --radius: 10px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.container { max-width: 680px; margin: 0 auto; }
+
+header { text-align: center; margin-bottom: 2.5rem; }
+
+.logo {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+.subtitle { font-size: 15px; color: var(--text2); line-height: 1.5; }
+
+.steps {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.step {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  border-right: 1px solid var(--border);
+  transition: all .3s;
+}
+.step:last-child { border-right: none; }
+.step.active { color: var(--text); background: var(--bg3); }
+.step.done { color: var(--green); }
+.step-n { font-size: 18px; font-weight: 600; display: block; margin-bottom: 3px; }
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text2);
+  margin-bottom: 14px;
+}
+
+.endpoint-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.endpoint-btn {
+  padding: 10px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s;
+}
+.endpoint-btn:hover { border-color: var(--blue); }
+.endpoint-btn.selected { border-color: var(--gold); background: rgba(245,158,11,.08); }
+.endpoint-name { font-weight: 500; }
+.endpoint-price { font-size: 11px; color: var(--gold); margin-top: 2px; }
+
+.input-group { margin-bottom: 12px; }
+label { font-size: 12px; color: var(--text2); display: block; margin-bottom: 6px; }
+input, textarea {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  outline: none;
+  transition: border-color .15s;
+}
+input:focus, textarea:focus { border-color: var(--blue); }
+textarea { min-height: 80px; resize: vertical; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity .15s;
+}
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn-primary { background: var(--gold); color: #000; }
+.btn-green { background: var(--green); color: #fff; }
+.btn-ghost { background: var(--bg3); border: 1px solid var(--border); color: var(--text); }
+.btn:not(:disabled):hover { opacity: .85; }
+
+.invoice-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.invoice-amount {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.invoice-label { font-size: 12px; color: var(--text2); margin-bottom: 12px; }
+
+.qr-placeholder {
+  width: 160px;
+  height: 160px;
+  background: #fff;
+  border-radius: 8px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 11px;
+}
+
+.bolt11 {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--text3);
+  word-break: break-all;
+  margin-bottom: 12px;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+.status-waiting { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2); color: var(--gold); }
+.status-paid    { background: rgba(29,158,117,.1); border: 1px solid rgba(29,158,117,.2); color: var(--green); }
+.status-error   { background: rgba(239,68,68,.1);  border: 1px solid rgba(239,68,68,.2);  color: var(--red); }
+
+.pulse { animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+.result-box {
+  background: var(--bg3);
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 12px;
+  font-family: monospace;
+  max-height: 320px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #9fe0c8;
+}
+
+.wallet-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.wallet-pill {
+  padding: 5px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--text2);
+  text-decoration: none;
+}
+.wallet-pill:hover { border-color: var(--blue); color: var(--text); }
+
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 14px;
+}
+.flow-step {
+  padding: 4px 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.flow-arrow { color: var(--text3); }
+
+.hidden { display: none; }
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text3);
+}
+footer a { color: var(--text2); text-decoration: none; }
+footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="logo">⚡ Boltwork</div>
+  <h1>Live L402 Demo</h1>
+  <p class="subtitle">Pay a Lightning invoice and get a real AI result back.<br>No account. No API key. Just sats.</p>
+</header>
+
+<div class="steps">
+  <div class="step active" id="step1"><span class="step-n">1</span>Pick endpoint</div>
+  <div class="step" id="step2"><span class="step-n">2</span>Pay invoice</div>
+  <div class="step" id="step3"><span class="step-n">3</span>Get result</div>
+</div>
+
+<!-- Step 1: Pick endpoint + input -->
+<div id="panel-1">
+  <div class="card">
+    <div class="card-title">Choose a service</div>
+    <div class="endpoint-grid">
+      <button class="endpoint-btn selected" onclick="selectEndpoint(this,'webpage','100')" data-ep="webpage">
+        <div class="endpoint-name">Summarise webpage</div>
+        <div class="endpoint-price">100 sats</div>
+      </button>
+      <button class="endpoint-btn" onclick="selectEndpoint(this,'pdf','500')" data-ep="pdf">
+        <div class="endpoint-name">Summarise PDF</div>
+        <div class="endpoint-price">500 sats</div>
+      </button>
+      <button class="endpoint-btn" onclick="selectEndpoint(this,'image','200')" data-ep="image">
+        <div class="endpoint-name">Analyse image</div>
+        <div class="endpoint-price">200 sats</div>
+      </button>
+      <button class="endpoint-btn" onclick="selectEndpoint(this,'translate','150')" data-ep="translate">
+        <div class="endpoint-name">Translate text</div>
+        <div class="endpoint-price">150 sats</div>
+      </button>
+    </div>
+
+    <div id="input-webpage" class="input-group">
+      <label>Web page URL</label>
+      <input type="url" id="val-webpage" placeholder="https://example.com" value="https://parsebit.fly.dev/agent-spec.md">
+    </div>
+    <div id="input-pdf" class="input-group hidden">
+      <label>PDF URL</label>
+      <input type="url" id="val-pdf" placeholder="https://example.com/document.pdf">
+    </div>
+    <div id="input-image" class="input-group hidden">
+      <label>Image URL (JPEG, PNG, WebP)</label>
+      <input type="url" id="val-image" placeholder="https://example.com/image.jpg">
+    </div>
+    <div id="input-translate" class="input-group hidden">
+      <label>Text to translate</label>
+      <textarea id="val-translate" placeholder="Enter text to translate..."></textarea>
+      <label style="margin-top:8px">Target language</label>
+      <input type="text" id="val-translate-lang" placeholder="e.g. spanish, french, japanese" value="spanish">
+    </div>
+
+    <button class="btn btn-primary" id="btn-request" onclick="makeRequest()">
+      ⚡ Request invoice
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">No wallet? Try the free trial</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:12px">Two endpoints work without any payment — rate limited to 5 calls/hour.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-ghost" onclick="runTrial('summarise')">Trial: summarise text</button>
+      <button class="btn btn-ghost" onclick="runTrial('review')">Trial: review code</button>
+    </div>
+    <div id="trial-input" class="hidden" style="margin-top:12px">
+      <textarea id="trial-val" placeholder="Paste text or code here..."></textarea>
+      <button class="btn btn-green" style="margin-top:8px" onclick="submitTrial()">Run free trial →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2: Pay invoice -->
+<div id="panel-2" class="hidden">
+  <div class="card">
+    <div class="card-title">Pay this Lightning invoice</div>
+
+    <div class="flow-diagram">
+      <div class="flow-step">Your request</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">HTTP 402</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Pay invoice</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">HTTP 200 + result</div>
+    </div>
+
+    <div class="invoice-box">
+      <div class="invoice-amount" id="inv-amount">0 sats</div>
+      <div class="invoice-label">Lightning invoice — expires in 24 hours</div>
+      <div id="qr-container" class="qr-placeholder">Loading QR...</div>
+      <div class="bolt11" id="bolt11-text">Loading invoice...</div>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="copyInvoice()">
+        📋 Copy invoice
+      </button>
+    </div>
+
+    <div id="webln-section">
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:10px" id="btn-webln" onclick="payWithWebLN()">
+        ⚡ Pay with browser wallet (Alby)
+      </button>
+      <p style="font-size:12px;color:var(--text2);text-align:center;margin-bottom:14px">
+        Or pay manually with any Lightning wallet, then click below
+      </p>
+    </div>
+
+    <div id="status-box" class="status-bar status-waiting pulse">
+      ⏳ Waiting for payment...
+    </div>
+
+    <button class="btn btn-green" style="width:100%;justify-content:center" id="btn-manual-paid" onclick="checkPayment()">
+      ✓ I've paid — get my result
+    </button>
+
+    <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:10px">
+      Compatible wallets:
+    </p>
+    <div class="wallet-list" style="justify-content:center">
+      <a href="https://getalby.com" target="_blank" class="wallet-pill">Alby</a>
+      <a href="https://strike.me" target="_blank" class="wallet-pill">Strike</a>
+      <a href="https://phoenix.acinq.co" target="_blank" class="wallet-pill">Phoenix</a>
+      <a href="https://mutinywallet.com" target="_blank" class="wallet-pill">Mutiny</a>
+      <a href="https://coinos.io" target="_blank" class="wallet-pill">Coinos</a>
+      <a href="https://lnbits.com" target="_blank" class="wallet-pill">LNbits</a>
+    </div>
+  </div>
+</div>
+
+<!-- Step 3: Result -->
+<div id="panel-3" class="hidden">
+  <div class="card">
+    <div class="card-title" style="color:var(--green)">✓ Payment confirmed — here's your result</div>
+    <div class="status-bar status-paid" style="margin-bottom:14px">
+      ⚡ Invoice settled · Payment proof verified · Result delivered
+    </div>
+    <div class="result-box" id="result-box">Loading...</div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn btn-ghost" onclick="copyResult()">📋 Copy JSON</button>
+      <button class="btn btn-ghost" onclick="reset()">← Try another</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Automate this</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:12px">Add Boltwork to Claude, Cursor, or any MCP-compatible AI. Payments happen automatically.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a href="https://github.com/Squidboy30/boltwork-mcp" target="_blank" class="btn btn-ghost">📦 boltwork-mcp on GitHub</a>
+      <a href="https://parsebit.fly.dev/agent-spec.md" target="_blank" class="btn btn-ghost">📄 API docs</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="https://parsebit.fly.dev">Boltwork API</a> &nbsp;·&nbsp;
+  <a href="https://parsebit.fly.dev/.well-known/l402.json">L402 manifest</a> &nbsp;·&nbsp;
+  <a href="https://crackedminds.co.uk">Cracked Minds</a>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const GATEWAY = 'https://parsebit-lnd.fly.dev';
+const API     = 'https://parsebit.fly.dev';
+
+let state = {
+  endpoint: 'webpage',
+  price: '100',
+  macaroon: null,
+  invoice: null,
+  trialMode: null,
+};
+
+function selectEndpoint(btn, ep, price) {
+  document.querySelectorAll('.endpoint-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.endpoint = ep;
+  state.price = price;
+  ['webpage','pdf','image','translate'].forEach(id => {
+    document.getElementById('input-' + id).classList.toggle('hidden', id !== ep);
+  });
+}
+
+function setStep(n) {
+  [1,2,3].forEach(i => {
+    const el = document.getElementById('step' + i);
+    el.classList.remove('active','done');
+    if (i < n) el.classList.add('done');
+    if (i === n) el.classList.add('active');
+    document.getElementById('panel-' + i).classList.toggle('hidden', i !== n);
+  });
+}
+
+async function makeRequest() {
+  const btn = document.getElementById('btn-request');
+  btn.disabled = true;
+  btn.textContent = 'Requesting...';
+
+  let url, body;
+  switch(state.endpoint) {
+    case 'webpage':
+      url = GATEWAY + '/extract/webpage';
+      body = {url: document.getElementById('val-webpage').value};
+      break;
+    case 'pdf':
+      url = GATEWAY + '/summarise/url';
+      body = {url: document.getElementById('val-pdf').value};
+      break;
+    case 'image':
+      url = GATEWAY + '/analyse/image';
+      body = {url: document.getElementById('val-image').value};
+      break;
+    case 'translate':
+      url = GATEWAY + '/translate';
+      body = {
+        text: document.getElementById('val-translate').value,
+        target_language: document.getElementById('val-translate-lang').value
+      };
+      break;
+  }
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+
+    if (res.status === 402) {
+      const wwwAuth = res.headers.get('WWW-Authenticate') || '';
+      const macMatch = wwwAuth.match(/macaroon="([^"]+)"/);
+      const invMatch = wwwAuth.match(/invoice="([^"]+)"/);
+      if (!macMatch || !invMatch) throw new Error('Could not parse L402 header');
+      state.macaroon = macMatch[1];
+      state.invoice  = invMatch[1];
+      showInvoice();
+    } else if (res.status === 200) {
+      // Already paid (cached token)
+      const data = await res.json();
+      showResult(data);
+    } else {
+      throw new Error('HTTP ' + res.status);
+    }
+  } catch(e) {
+    alert('Request failed: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ Request invoice';
+  }
+}
+
+function showInvoice() {
+  document.getElementById('inv-amount').textContent = state.price + ' sats';
+  document.getElementById('bolt11-text').textContent = state.invoice;
+
+  // Generate QR code
+  const qrEl = document.getElementById('qr-container');
+  qrEl.innerHTML = '';
+  qrEl.style.padding = '8px';
+  new QRCode(qrEl, {
+    text: 'lightning:' + state.invoice.toUpperCase(),
+    width: 144, height: 144,
+    colorDark: '#000', colorLight: '#fff',
+  });
+
+  // Check if WebLN available
+  const weblnBtn = document.getElementById('btn-webln');
+  if (typeof window.webln === 'undefined') {
+    weblnBtn.textContent = '⚡ Install Alby for 1-click payment';
+    weblnBtn.onclick = () => window.open('https://getalby.com', '_blank');
+  }
+
+  setStep(2);
+}
+
+async function payWithWebLN() {
+  if (typeof window.webln === 'undefined') {
+    window.open('https://getalby.com', '_blank');
+    return;
+  }
+  const btn = document.getElementById('btn-webln');
+  btn.disabled = true;
+  btn.textContent = '⏳ Paying...';
+  try {
+    await window.webln.enable();
+    const result = await window.webln.sendPayment(state.invoice);
+    if (result.preimage) {
+      await retryWithCredentials(result.preimage);
+    }
+  } catch(e) {
+    setStatus('error', '✗ Payment failed: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ Pay with browser wallet (Alby)';
+  }
+}
+
+async function checkPayment() {
+  const btn = document.getElementById('btn-manual-paid');
+  btn.disabled = true;
+  btn.textContent = 'Checking...';
+  setStatus('waiting', '⏳ Checking payment...');
+
+  // We don't have the preimage from manual payment, so we retry
+  // with a dummy check — in practice the macaroon becomes valid after payment
+  // Try retrying with just the macaroon (some Aperture versions allow this)
+  try {
+    let url;
+    let body;
+    switch(state.endpoint) {
+      case 'webpage':  url = GATEWAY + '/extract/webpage'; body = {url: document.getElementById('val-webpage').value}; break;
+      case 'pdf':      url = GATEWAY + '/summarise/url';   body = {url: document.getElementById('val-pdf').value}; break;
+      case 'image':    url = GATEWAY + '/analyse/image';   body = {url: document.getElementById('val-image').value}; break;
+      case 'translate':url = GATEWAY + '/translate';       body = {text: document.getElementById('val-translate').value, target_language: document.getElementById('val-translate-lang').value}; break;
+    }
+
+    // Prompt for preimage if they paid manually
+    const preimage = prompt('Paste your payment preimage (64 hex chars) from your wallet receipt:');
+    if (!preimage) { setStatus('waiting', '⏳ Waiting for payment...'); btn.disabled = false; btn.textContent = '✓ I've paid — get my result'; return; }
+
+    await retryWithCredentials(preimage);
+  } catch(e) {
+    setStatus('error', '✗ ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✓ I've paid — get my result';
+  }
+}
+
+async function retryWithCredentials(preimage) {
+  let url, body;
+  switch(state.endpoint) {
+    case 'webpage':  url = GATEWAY + '/extract/webpage'; body = {url: document.getElementById('val-webpage').value}; break;
+    case 'pdf':      url = GATEWAY + '/summarise/url';   body = {url: document.getElementById('val-pdf').value}; break;
+    case 'image':    url = GATEWAY + '/analyse/image';   body = {url: document.getElementById('val-image').value}; break;
+    case 'translate':url = GATEWAY + '/translate';       body = {text: document.getElementById('val-translate').value, target_language: document.getElementById('val-translate-lang').value}; break;
+  }
+
+  setStatus('waiting', '⏳ Payment received — fetching result...');
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'L402 ' + state.macaroon + ':' + preimage
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (res.status === 200) {
+    const data = await res.json();
+    setStatus('paid', '✓ Payment confirmed');
+    setTimeout(() => showResult(data), 500);
+  } else {
+    const text = await res.text();
+    throw new Error('HTTP ' + res.status + ': ' + text.slice(0, 100));
+  }
+}
+
+function showResult(data) {
+  document.getElementById('result-box').textContent = JSON.stringify(data, null, 2);
+  setStep(3);
+}
+
+function setStatus(type, msg) {
+  const el = document.getElementById('status-box');
+  el.className = 'status-bar status-' + type + (type === 'waiting' ? ' pulse' : '');
+  el.textContent = msg;
+}
+
+function copyInvoice() {
+  navigator.clipboard.writeText(state.invoice).then(() => alert('Invoice copied!'));
+}
+
+function copyResult() {
+  const text = document.getElementById('result-box').textContent;
+  navigator.clipboard.writeText(text).then(() => alert('Copied!'));
+}
+
+function reset() {
+  state = {endpoint: 'webpage', price: '100', macaroon: null, invoice: null, trialMode: null};
+  setStep(1);
+}
+
+// Trial mode
+let trialType = null;
+function runTrial(type) {
+  trialType = type;
+  const container = document.getElementById('trial-input');
+  const textarea = document.getElementById('trial-val');
+  container.classList.remove('hidden');
+  textarea.placeholder = type === 'summarise' ? 'Paste text to summarise (max ~500 words)...' : 'Paste code to review (max ~50 lines)...';
+}
+
+async function submitTrial() {
+  const val = document.getElementById('trial-val').value.trim();
+  if (!val) return;
+
+  const url = trialType === 'summarise' ? API + '/trial/summarise' : API + '/trial/review';
+  const body = trialType === 'summarise' ? {text: val} : {code: val};
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    document.getElementById('result-box').textContent = JSON.stringify(data, null, 2);
+    setStep(3);
+  } catch(e) {
+    alert('Trial failed: ' + e.message);
+  }
+}
+</script>
+</body>
+</html>
