@@ -336,6 +336,32 @@ function render(d, lnd) {
     document.getElementById('alltime-content').innerHTML = '<div class="no-data">Counter starts accumulating from next deploy</div>';
   }
 
+  // Invoice counts
+  const lndInvoices = lnd.total_invoices;
+  const lndSettled  = lnd.settled_invoices;
+  if (lndInvoices !== null && lndInvoices !== undefined) {
+    const convRate = lndInvoices > 0 ? ((lndSettled || 0) / lndInvoices * 100).toFixed(2) : '0.00';
+    const invHtml = `
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-bottom:8px">Invoice Stats</div>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-val">${fmtSats(lndInvoices)}</div>
+            <div class="stat-label">Total raised</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" style="color:var(--green)">${fmtSats(lndSettled || 0)}</div>
+            <div class="stat-label">Settled</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" style="color:var(--gold)">${convRate}%</div>
+            <div class="stat-label">Conversion</div>
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('node-content').innerHTML += invHtml;
+  }
+
   // LND Node status
   if (!lnd) {
     document.getElementById('node-content').innerHTML = '<div class="no-data">LND data unavailable</div>';
