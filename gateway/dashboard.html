@@ -115,7 +115,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
   <!-- API calls -->
   <div class="card">
-    <div class="card-label">API calls (last hour)</div>
+    <div class="card-label">API calls (last 24h)</div>
     <div id="calls-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
@@ -267,25 +267,31 @@ function render(d, lnd) {
   `;
 
   // API calls
-  const bw = d.boltwork || {};
+  const bw   = d.boltwork    || {};
+  const bw1h = d.boltwork_1h || {};
   document.getElementById('calls-content').innerHTML = `
     <div class="stat-grid">
       <div class="stat-item">
         <div class="stat-val">${bw.total_calls||0}</div>
-        <div class="stat-label">Total</div>
+        <div class="stat-label">Total (24h)</div>
       </div>
       <div class="stat-item">
         <div class="stat-val" style="color:var(--green)">${bw.success_calls||0}</div>
-        <div class="stat-label">Success</div>
+        <div class="stat-label">Success (24h)</div>
       </div>
       <div class="stat-item">
         <div class="stat-val" style="color:var(--red)">${bw.error_calls||0}</div>
-        <div class="stat-label">Errors</div>
+        <div class="stat-label">Errors (24h)</div>
       </div>
       <div class="stat-item">
         <div class="stat-val">${d.aperture?.total_requests||0}</div>
-        <div class="stat-label">402 issued</div>
+        <div class="stat-label">402 issued (24h)</div>
       </div>
+    </div>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--text2)">
+      Last hour — ${bw1h.total_calls||0} calls &nbsp;·&nbsp;
+      <span style="color:var(--green)">${bw1h.success_calls||0} success</span> &nbsp;·&nbsp;
+      <span style="color:var(--red)">${bw1h.error_calls||0} errors</span>
     </div>
   `;
 
