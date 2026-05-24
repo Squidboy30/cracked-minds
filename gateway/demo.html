@@ -651,6 +651,73 @@ function copyResult() {
   navigator.clipboard.writeText(text).then(() => alert('Copied!'));
 }
 
+// Demo wallet
+async function checkDemoAvailability() {
+  const btn = document.getElementById('btn-demo');
+  const note = document.getElementById('demo-note');
+  try {
+    const r = await fetch('https://parsebit.fly.dev/demo/status');
+    const data = await r.json();
+    if (data.available) {
+      btn.style.display = 'flex';
+      note.textContent = `Free demo wallet available — ${data.balance_sats} sats · 1 use per 24h per IP`;
+      note.style.color = 'var(--green)';
+    } else if (data.rate_limited) {
+      btn.style.display = 'none';
+      note.textContent = 'Demo limit reached for your IP (1 per 24h) — use your own wallet below';
+      note.style.color = 'var(--text2)';
+    } else if (data.low_balance) {
+      btn.style.display = 'none';
+      note.textContent = 'Demo wallet is low on funds — use your own wallet';
+      note.style.color = 'var(--text2)';
+    } else {
+      btn.style.display = 'none';
+      note.textContent = 'Or pay manually with any Lightning wallet, then click below';
+      note.style.color = 'var(--text2)';
+    }
+  } catch(e) {
+    btn.style.display = 'none';
+    note.textContent = 'Or pay manually with any Lightning wallet, then click below';
+    note.style.color = 'var(--text2)';
+  }
+}
+
+async function payWithDemo() {
+  const btn = document.getElementById('btn-demo');
+  btn.disabled = true;
+  btn.textContent = '⏳ Paying...';
+  setStatus('waiting', '⏳ Paying with demo wallet...');
+  try {
+    const r = await fetch('https://parsebit.fly.dev/demo/pay', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({invoice: state.invoice, amount_sats: parseInt(state.price)})
+    });
+    const data = await r.json();
+    if (r.status === 200 && data.preimage) {
+      await retryWithCredentials(data.preimage);
+    } else if (r.status === 429) {
+      setStatus('error', '✗ Demo limit reached — use your own wallet');
+      btn.style.display = 'none';
+      document.getElementById('demo-note').textContent = 'Demo limit reached — 1 free payment per 24h';
+    } else {
+      throw new Error(data.detail || 'Payment failed');
+    }
+  } catch(e) {
+    setStatus('error', '✗ Demo payment failed: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🎁 Pay with free demo wallet';
+  }
+}
+
+// Check demo availability when invoice is shown
+const _origShowInvoice = showInvoice;
+showInvoice = function() {
+  _origShowInvoice();
+  checkDemoAvailability();
+};
+
 function reset() {
   state = {endpoint: 'webpage', price: '100', macaroon: null, invoice: null, trialMode: null};
   setStep(1);
