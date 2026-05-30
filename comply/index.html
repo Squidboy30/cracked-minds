@@ -645,18 +645,15 @@ function selectPrice(type) {
 }
 
 async function handleCheckout() {
-  const priceId = selectedPrice === "subscription"
-    ? "price_1TctSgH5v95zsFpR9DG3qBpc" : "price_1TctSAH5v95zsFpRvspR4VjP";
   try {
     const res = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        priceId,
-        companyNumber: selectedFirm?.frn || "",
-        companyName: selectedFirm?.name || "",
+        product: "comply",
         reportType: selectedPrice,
-        product: "comply"
+        companyNumber: selectedFirm?.frn || "",
+        companyName: selectedFirm?.name || ""
       })
     });
     const data = await res.json();
