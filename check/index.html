@@ -3,175 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Check — UK Company Due Diligence by Cracked Minds</title>
-<meta name="description" content="AI-powered UK company due diligence. Search any UK company and get an instant risk assessment, director history, and financial analysis.">
-<meta property="og:title" content="Check — UK Company Due Diligence">
-<meta property="og:description" content="Know who you're dealing with. AI-powered UK company risk reports.">
-<meta property="og:url" content="https://check.crackedminds.co.uk">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&family=Syne:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/check/css/check.css">
+<title>Cracked Minds Check — UK Company Due Diligence</title>
+<meta name="description" content="AI-powered UK company due diligence. Search any UK company and get an instant risk assessment, director history, and filing analysis.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#f0ede8;--text2:#8a8880;--text3:#555450;
+  --teal:#0d9488;--teal2:#0f766e;--teal-dim:rgba(13,148,136,0.12);--teal-glow:rgba(13,148,136,0.25);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.1);
+  --red:#ef4444;--red-dim:rgba(239,68,68,0.1);
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);
+  --mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.4}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}
+.logo-mark{color:var(--teal);font-size:20px}
+.logo-sub{font-size:11px;color:var(--text3);font-weight:400;letter-spacing:0.02em}
+nav{display:flex;align-items:center;gap:32px}
+nav a{font-size:13px;color:var(--text2);text-decoration:none;transition:color 0.2s}
+nav a:hover{color:var(--text)}
+.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff!important;background:var(--teal);padding:8px 20px;border-radius:4px;text-decoration:none;transition:background 0.2s}
+.nav-cta:hover{background:var(--teal2)!important}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 40px 80px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(13,148,136,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(13,148,136,0.04) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent)}
+.hero-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(13,148,136,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:900px;margin:0 auto;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--teal);background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.3);padding:5px 14px;border-radius:2px;margin-bottom:28px;letter-spacing:0.08em;text-transform:uppercase}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+h1{font-family:var(--sans);font-size:clamp(42px,7vw,80px);font-weight:800;line-height:1.0;letter-spacing:-0.04em;color:var(--text);margin-bottom:24px}
+h1 em{font-style:normal;color:var(--teal)}
+.hero-sub{font-size:18px;color:var(--text2);max-width:600px;margin-bottom:48px;line-height:1.7}
+.search-wrap{max-width:640px;margin-bottom:48px}
+.search-row{display:flex;gap:8px;background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:6px 6px 6px 16px;transition:border-color 0.2s}
+.search-row:focus-within{border-color:var(--teal)}
+.search-row input{flex:1;background:none;border:none;outline:none;font-size:15px;color:var(--text);font-family:var(--mono)}
+.search-row input::placeholder{color:var(--text3)}
+.btn-search{padding:10px 24px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background 0.15s;white-space:nowrap}
+.btn-search:hover{background:var(--teal2)}
+.btn-search:disabled{opacity:0.5;cursor:not-allowed}
+.search-hint{font-size:12px;color:var(--text3);margin-top:10px}
+.results-list{max-width:640px;margin:8px 0 0;background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;overflow:hidden;display:none}
+.results-list.visible{display:block}
+.result-item{padding:14px 16px;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background 0.1s;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.result-item:last-child{border-bottom:none}
+.result-item:hover{background:var(--surface2)}
+.result-name{font-size:14px;font-weight:500;font-family:var(--sans)}
+.result-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.sbadge{font-size:11px;padding:2px 8px;border-radius:2px;white-space:nowrap;font-weight:500}
+.sbadge-active{background:var(--green-dim);color:var(--green)}
+.sbadge-dissolved{background:var(--red-dim);color:var(--red)}
+.sbadge-other{background:var(--amber-dim);color:var(--amber)}
+.error-msg{display:none;background:var(--red-dim);border:0.5px solid rgba(239,68,68,0.2);border-radius:4px;padding:12px 16px;font-size:13px;color:var(--red);max-width:640px;margin:8px 0 0}
+.error-msg.visible{display:block}
+.loading{display:none;color:var(--text3);font-size:13px;padding:16px 0}
+.loading.visible{display:block}
+.spinner{display:inline-block;width:12px;height:12px;border:1.5px solid var(--border2);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stub-notice{display:none;font-size:12px;color:var(--amber);background:var(--amber-dim);border:0.5px solid rgba(245,158,11,0.2);border-radius:4px;padding:8px 14px;margin-bottom:16px}
+.report-wrap{max-width:860px;margin:0 auto;padding:48px 40px;display:none}
+.report-wrap.visible{display:block}
+.report-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
+.report-co-name{font-family:var(--sans);font-size:2rem;font-weight:700;letter-spacing:-0.02em}
+.report-co-number{font-size:12px;color:var(--text3);margin-top:4px}
+.risk-score{text-align:center;min-width:90px}
+.risk-n{font-family:var(--sans);font-size:3.5rem;font-weight:800;line-height:1;letter-spacing:-0.04em}
+.risk-n.low{color:var(--green)}.risk-n.medium{color:var(--amber)}.risk-n.high{color:var(--red)}
+.risk-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
+.report-grid.full{grid-template-columns:1fr}
+.rcard{background:var(--surface);padding:24px}
+.rcard-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.kv{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.kv:last-child{border-bottom:none}
+.kv-k{color:var(--text2)}.kv-v{text-align:right;color:var(--text)}
+.pill-list{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;padding:3px 10px;border-radius:2px}
+.pill-red{background:var(--red-dim);color:var(--red)}
+.pill-green{background:var(--green-dim);color:var(--green)}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{font-size:11px;font-weight:500;color:var(--text3);text-align:left;padding:6px 0;border-bottom:0.5px solid var(--border);letter-spacing:0.04em}
+.data-table td{padding:10px 0;border-bottom:0.5px solid var(--border);color:var(--text2)}
+.data-table td:first-child{color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}
+.resigned{text-decoration:line-through;color:var(--text3)!important}
+.recommendation{font-size:14px;line-height:1.8;color:var(--text2)}
+.cta-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:32px;text-align:center;margin-top:2px}
+.cta-title{font-family:var(--sans);font-size:1.25rem;font-weight:700;margin-bottom:8px}
+.cta-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
+.price-options{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.price-card{background:var(--surface2);border:0.5px solid var(--border);border-radius:6px;padding:20px 28px;text-align:center;cursor:pointer;transition:border-color 0.15s;min-width:160px}
+.price-card:hover,.price-card.sel{border-color:var(--teal)}
+.price-amt{font-family:var(--sans);font-size:1.75rem;font-weight:800;letter-spacing:-0.02em}
+.price-per{font-size:12px;color:var(--text3);margin-top:2px}
+.price-desc{font-size:12px;color:var(--text2);margin-top:8px}
+.btn-pay{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);margin-top:20px;transition:background 0.15s}
+.btn-pay:hover{background:var(--teal2)}
+section.how{padding:96px 40px;border-top:0.5px solid var(--border)}
+.section-inner{max-width:900px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+h2{font-family:var(--sans);font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-0.03em;color:var(--text);margin-bottom:20px;line-height:1.1}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:var(--border);border-radius:6px;overflow:hidden}
+.step{background:var(--surface);padding:32px 28px}
+.step-n{font-family:var(--sans);font-size:48px;font-weight:800;color:var(--teal-dim);line-height:1;margin-bottom:16px;letter-spacing:-0.04em;user-select:none}
+.step-title{font-family:var(--sans);font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--text2);line-height:1.7}
+section.pricing{padding:96px 40px;border-top:0.5px solid var(--border);background:var(--surface)}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:640px;background:var(--border);border-radius:6px;overflow:hidden;margin-top:40px}
+.pc{background:var(--bg);padding:32px 28px}
+.pc.feat{background:var(--surface2)}
+.pc-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.pc-price{font-family:var(--sans);font-size:2.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:4px}
+.pc-period{font-size:13px;color:var(--text2);margin-bottom:20px}
+.pc-features{list-style:none}
+.pc-features li{font-size:13px;color:var(--text2);padding:4px 0}
+.pc-features li::before{content:"✓ ";color:var(--teal)}
+footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-left{font-size:13px;color:var(--text3)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--text3);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--text2)}
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  header{padding:16px 20px}nav a:not(.nav-cta){display:none}
+  .hero{padding:100px 20px 60px}h1{font-size:38px}.hero-sub{font-size:15px}
+  .report-wrap{padding:32px 20px}.report-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}
+  section.how,section.pricing{padding:64px 20px}footer{padding:24px 20px}
+}
+@media print{
+  header,.hero,section.how,section.pricing,footer,.cta-box,.search-wrap,.results-list{display:none!important}
+  .report-wrap{display:block!important;padding:0}body{background:white;color:black}
+}
+</style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <span class="tick">✦</span>
-      <div>
-        <div>Check</div>
-        <div class="nav-by mono">by Cracked Minds</div>
-      </div>
-    </a>
-    <div class="nav-links">
-      <a href="#how-it-works">How it works</a>
-      <a href="#pricing">Pricing</a>
-      <a href="https://crackedminds.co.uk" target="_blank" rel="noopener">crackedminds.co.uk</a>
-      <a href="#search-input" class="nav-cta">Search a company →</a>
-    </div>
-  </div>
-</nav>
+<header>
+  <a class="logo" href="#">
+    <span class="logo-mark">✦</span>
+    <div>Check<div class="logo-sub">by Cracked Minds</div></div>
+  </a>
+  <nav>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://crackedminds.co.uk">crackedminds.co.uk</a>
+    <a href="#search-input" class="nav-cta">Search a company →</a>
+  </nav>
+</header>
 
-<!-- Hero -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-badge mono">⚡ AI-powered · UK company data</div>
-    <h1 class="syne">Know who you're<br>dealing with.</h1>
-    <p class="hero-sub">Search any UK company and get an instant risk assessment, director history, and Companies House filing analysis — powered by AI.</p>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Companies House · AI-powered · UK</div>
+    <h1>Know who you're<br><em>dealing with.</em></h1>
+    <p class="hero-sub">Search any UK company. Get an instant risk assessment, director history, and filing analysis — powered by AI.</p>
 
-    <!-- Search -->
-    <div class="search-box">
+    <div class="search-wrap">
       <div class="search-row">
-        <input type="text" id="search-input" placeholder="Enter company name…" autocomplete="off" spellcheck="false">
-        <button class="btn-search" id="search-btn">Search →</button>
+        <input type="text" id="search-input" placeholder="Enter company name e.g. Tesco PLC" autocomplete="off" spellcheck="false">
+        <button class="btn-search" id="search-btn" onclick="handleSearch()">Search →</button>
       </div>
       <div class="search-hint">Free preview · Full report from £2.99</div>
     </div>
 
-    <!-- Results -->
-    <div class="results-list" id="results-list"></div>
-
-    <!-- Error -->
+    <div class="results-list fade-up" id="results-list"></div>
     <div class="error-msg" id="error-msg"></div>
-
-    <!-- Loading -->
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      <div>Fetching company data…</div>
-    </div>
+    <div class="loading" id="loading"><span class="spinner"></span>Fetching company data…</div>
   </div>
 </section>
 
-<!-- Report (hidden until search) -->
-<div class="report-wrap container" id="report-wrap">
+<div class="report-wrap" id="report-wrap">
+  <div class="stub-notice" id="stub-notice">⚠ Demo mode — showing stub data. Live Companies House data activates once API key is configured.</div>
 
-  <!-- Stub notice (hidden by default) -->
-  <div class="stub-notice mono" id="stub-notice" style="display:none">
-    ⚠ Stub mode — showing demo data for Tesco PLC. Set COMPANIES_HOUSE_API_KEY to activate live data.
-  </div>
-
-  <!-- Report header -->
   <div class="report-header">
     <div>
-      <div class="report-company-name syne" id="report-company-name"></div>
-      <div class="report-number mono" id="report-number"></div>
+      <div class="report-co-name" id="rco-name"></div>
+      <div class="report-co-number" id="rco-number"></div>
     </div>
     <div class="risk-score">
-      <div class="risk-score-number" id="risk-score-number">—</div>
-      <div class="risk-score-label mono" id="risk-score-label">risk score</div>
+      <div class="risk-n" id="risk-n">—</div>
+      <div class="risk-label" id="risk-label">risk score</div>
     </div>
   </div>
 
-  <!-- Company details + Directors -->
   <div class="report-grid">
-    <div class="card">
-      <div class="card-title">Company Details</div>
-      <div class="kv-row"><span class="kv-key">Status</span><span class="kv-val" id="kv-status">—</span></div>
-      <div class="kv-row"><span class="kv-key">Type</span><span class="kv-val" id="kv-type">—</span></div>
-      <div class="kv-row"><span class="kv-key">Incorporated</span><span class="kv-val" id="kv-incorporated">—</span></div>
-      <div class="kv-row"><span class="kv-key">Address</span><span class="kv-val" id="kv-address" style="max-width:200px;text-align:right">—</span></div>
+    <div class="rcard">
+      <div class="rcard-title">Company Details</div>
+      <div class="kv"><span class="kv-k">Status</span><span class="kv-v" id="kv-status">—</span></div>
+      <div class="kv"><span class="kv-k">Type</span><span class="kv-v" id="kv-type">—</span></div>
+      <div class="kv"><span class="kv-k">Incorporated</span><span class="kv-v" id="kv-inc">—</span></div>
+      <div class="kv"><span class="kv-k">Address</span><span class="kv-v" id="kv-addr" style="max-width:220px;text-align:right">—</span></div>
     </div>
-
-    <div class="card">
-      <div class="card-title">Filing History</div>
-      <div class="kv-row"><span class="kv-key">Last accounts</span><span class="kv-val" id="kv-last-accounts">—</span></div>
-      <div class="kv-row"><span class="kv-key">Accounts overdue</span><span class="kv-val" id="kv-overdue">—</span></div>
-      <div class="kv-row"><span class="kv-key">Late filings</span><span class="kv-val" id="kv-late-filings">—</span></div>
+    <div class="rcard">
+      <div class="rcard-title">Filing History</div>
+      <div class="kv"><span class="kv-k">Last accounts</span><span class="kv-v" id="kv-accounts">—</span></div>
+      <div class="kv"><span class="kv-k">Accounts overdue</span><span class="kv-v" id="kv-overdue">—</span></div>
+      <div class="kv"><span class="kv-k">Late filings</span><span class="kv-v" id="kv-late">—</span></div>
     </div>
+  </div>
 
-    <div class="card card-full">
-      <div class="card-title">Directors &amp; Officers</div>
+  <div class="report-grid full" style="margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">Directors &amp; Officers</div>
       <table class="data-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Appointed</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Status</th></tr></thead>
         <tbody id="directors-body"></tbody>
       </table>
     </div>
   </div>
 
-  <!-- Flags & Positives -->
-  <div class="report-grid">
-    <div class="card">
-      <div class="card-title">⚠ Risk Flags</div>
+  <div class="report-grid" style="margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">⚠ Risk Flags</div>
       <div class="pill-list" id="flags-list"></div>
     </div>
-    <div class="card">
-      <div class="card-title">✓ Positive Indicators</div>
+    <div class="rcard">
+      <div class="rcard-title">✓ Positive Indicators</div>
       <div class="pill-list" id="positives-list"></div>
     </div>
   </div>
 
-  <!-- Recommendation -->
-  <div class="card" style="margin-bottom:12px">
-    <div class="card-title">AI Recommendation</div>
-    <div class="recommendation" id="report-recommendation"></div>
-  </div>
-
-  <!-- Unlock CTA -->
-  <div class="cta-section" id="unlock-cta" style="display:none">
-    <div class="cta-title syne">Get the full risk report</div>
-    <div class="cta-sub">Full financial analysis, complete AI assessment, and PDF download.</div>
-    <div class="price-options">
-      <div class="price-card" onclick="handleCheckout('one_off')">
-        <div class="price-amount syne">£2.99</div>
-        <div class="price-period">one-off report</div>
-        <div class="price-desc">This company only</div>
-      </div>
-      <div class="price-card featured" onclick="handleCheckout('subscription')">
-        <div class="price-amount syne">£29</div>
-        <div class="price-period">per month</div>
-        <div class="price-desc">Unlimited reports · Pro</div>
-      </div>
+  <div class="report-grid full" style="margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">AI Recommendation</div>
+      <div class="recommendation" id="recommendation"></div>
     </div>
   </div>
 
+  <div class="cta-box fade-up" id="cta-box" style="display:none">
+    <div class="cta-title">Get the full risk report</div>
+    <div class="cta-sub">Full financial analysis, complete AI assessment, and PDF download.</div>
+    <div class="price-options">
+      <div class="price-card" id="pc-one" onclick="selectPrice('one_off')">
+        <div class="price-amt">£2.99</div>
+        <div class="price-per">one-off report</div>
+        <div class="price-desc">This company only</div>
+      </div>
+      <div class="price-card" id="pc-pro" onclick="selectPrice('subscription')">
+        <div class="price-amt">£29</div>
+        <div class="price-per">per month</div>
+        <div class="price-desc">Unlimited reports</div>
+      </div>
+    </div>
+    <button class="btn-pay" onclick="handleCheckout()">Get full report →</button>
+  </div>
 </div>
 
-<!-- How it works -->
-<section class="how-section" id="how-it-works">
-  <div class="container">
-    <div class="section-label mono">How it works</div>
-    <div class="section-title syne">Due diligence in three steps.</div>
-    <div class="steps">
-      <div>
-        <div class="step-n mono">01 —</div>
+<section class="how" id="how">
+  <div class="section-inner">
+    <div class="section-label">How it works</div>
+    <h2>Due diligence in three steps.</h2>
+    <div class="steps fade-up">
+      <div class="step">
+        <div class="step-n">01</div>
         <div class="step-title">Search</div>
         <div class="step-desc">Enter any UK company name. We search Companies House and return matching registered companies instantly.</div>
       </div>
-      <div>
-        <div class="step-n mono">02 —</div>
+      <div class="step">
+        <div class="step-n">02</div>
         <div class="step-title">Free preview</div>
         <div class="step-desc">See registration status, directors, and filing history at no cost. Enough to know if it's worth digging deeper.</div>
       </div>
-      <div>
-        <div class="step-n mono">03 —</div>
+      <div class="step">
+        <div class="step-n">03</div>
         <div class="step-title">Full report</div>
         <div class="step-desc">Pay once for an AI-generated risk assessment — financial analysis, red flags, and a plain English recommendation.</div>
       </div>
@@ -179,56 +282,230 @@
   </div>
 </section>
 
-<!-- Pricing -->
-<section class="pricing-section" id="pricing">
-  <div class="container">
-    <div class="section-label mono">Pricing</div>
-    <div class="section-title syne">Simple, transparent pricing.</div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-card-label mono">Free preview</div>
-        <div class="pricing-price syne">£0</div>
-        <div class="pricing-period">always free</div>
-        <ul class="pricing-features">
-          <li>Company status &amp; registration</li>
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, transparent pricing.</h2>
+    <div class="pricing-grid fade-up">
+      <div class="pc">
+        <div class="pc-label">Free preview</div>
+        <div class="pc-price">£0</div>
+        <div class="pc-period">always free</div>
+        <ul class="pc-features">
+          <li>Company status</li>
           <li>Director history</li>
           <li>Filing summary</li>
           <li>Risk score</li>
         </ul>
       </div>
-      <div class="pricing-card featured">
-        <div class="pricing-card-label mono">Pro — unlimited</div>
-        <div class="pricing-price syne">£29</div>
-        <div class="pricing-period">per month</div>
-        <ul class="pricing-features">
+      <div class="pc feat">
+        <div class="pc-label">Pro — unlimited</div>
+        <div class="pc-price">£29</div>
+        <div class="pc-period">per month</div>
+        <ul class="pc-features">
           <li>Everything in free</li>
-          <li>Full AI risk assessment</li>
+          <li>Full AI assessment</li>
           <li>Financial analysis</li>
           <li>PDF download</li>
           <li>Unlimited reports</li>
         </ul>
       </div>
     </div>
-    <p style="font-size:13px;color:var(--text-tertiary);margin-top:1rem">
-      One-off reports also available at £2.99 per report — select after searching.
-    </p>
+    <p style="font-size:12px;color:var(--text3);margin-top:16px">One-off reports available at £2.99 per report.</p>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
-  <div class="container">
-    <p>
-      <a href="https://crackedminds.co.uk">A Cracked Minds product</a>
-      &nbsp;·&nbsp;
-      <a href="https://crackedminds.co.uk/privacy">Privacy</a>
-      &nbsp;·&nbsp;
-      <a href="https://crackedminds.co.uk/terms">Terms</a>
-    </p>
-    <p style="margin-top:6px">Data sourced from Companies House (Crown copyright). AI analysis by Claude (Anthropic).</p>
+  <div class="footer-left">✦ Check by <a href="https://crackedminds.co.uk" style="color:var(--text2);text-decoration:none">Cracked Minds</a></div>
+  <div class="footer-links">
+    <a href="https://crackedminds.co.uk">crackedminds.co.uk</a>
+    <a href="https://crackedminds.co.uk/gateway">Gateway</a>
   </div>
 </footer>
 
-<script src="/check/js/check.js"></script>
+<script>
+const API = "https://parsebit.fly.dev";
+let selectedCompany = null;
+let selectedPrice = "one_off";
+
+document.getElementById("search-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") handleSearch();
+});
+
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add("visible");
+}), { threshold: 0.1 });
+document.querySelectorAll(".fade-up").forEach(el => obs.observe(el));
+
+// Check for Stripe return
+(function() {
+  const p = new URLSearchParams(window.location.search);
+  if (p.get("success") === "true" && p.get("session_id") && p.get("company")) {
+    handleStripeReturn(p.get("session_id"), p.get("company"));
+  }
+})();
+
+async function handleSearch() {
+  const q = document.getElementById("search-input").value.trim();
+  if (!q) return;
+  setLoading(true);
+  hideError();
+  document.getElementById("results-list").classList.remove("visible");
+  document.getElementById("report-wrap").classList.remove("visible");
+
+  try {
+    const res = await fetch(
+      `https://api.company-information.service.gov.uk/search/companies?q=${encodeURIComponent(q)}&items_per_page=5`
+    );
+    if (!res.ok) throw new Error("Search failed");
+    const data = await res.json();
+    renderResults(data.items || []);
+  } catch {
+    // Fallback to stub mode via Boltwork API
+    await selectCompany({ company_number: null, title: q, company_status: "active" });
+    return;
+  } finally {
+    setLoading(false);
+  }
+}
+
+function renderResults(items) {
+  const list = document.getElementById("results-list");
+  list.innerHTML = "";
+  if (!items.length) { showError("No companies found. Try a different name."); return; }
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "result-item";
+    const sc = item.company_status === "active" ? "sbadge-active" : item.company_status === "dissolved" ? "sbadge-dissolved" : "sbadge-other";
+    div.innerHTML = `<div><div class="result-name">${item.title||""}</div><div class="result-meta">${item.company_number||""} · ${item.address_snippet||""}</div></div><span class="sbadge ${sc}">${item.company_status||"unknown"}</span>`;
+    div.addEventListener("click", () => selectCompany(item));
+    list.appendChild(div);
+  });
+  list.classList.add("visible");
+}
+
+async function selectCompany(item) {
+  selectedCompany = item;
+  document.getElementById("results-list").classList.remove("visible");
+  setLoading(true);
+  document.getElementById("report-wrap").classList.remove("visible");
+  try {
+    const res = await fetch(`${API}/analyse/company`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        company_name: item.title || item.company_name || "",
+        company_number: item.company_number || null,
+        include_accounts: false
+      })
+    });
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    renderReport(await res.json());
+  } catch (err) {
+    showError(`Could not load company data: ${err.message}`);
+  } finally {
+    setLoading(false);
+  }
+}
+
+function renderReport(data) {
+  const c = data.company, risk = data.risk_assessment;
+  const rc = risk.overall === "low" ? "low" : risk.overall === "high" ? "high" : "medium";
+
+  document.getElementById("rco-name").textContent = c.name;
+  document.getElementById("rco-number").textContent = `Company No. ${c.number}`;
+  document.getElementById("risk-n").textContent = risk.score;
+  document.getElementById("risk-n").className = `risk-n ${rc}`;
+  document.getElementById("risk-label").textContent = `${risk.overall} risk`;
+
+  const sb = c.status === "active" ? "sbadge-active" : "sbadge-dissolved";
+  document.getElementById("kv-status").innerHTML = `<span class="sbadge ${sb}">${c.status}</span>`;
+  document.getElementById("kv-type").textContent = c.type || "—";
+  document.getElementById("kv-inc").textContent = c.incorporated || "—";
+  document.getElementById("kv-addr").textContent = c.address || "—";
+  document.getElementById("kv-accounts").textContent = data.filings.latest_accounts_date || "—";
+  document.getElementById("kv-overdue").innerHTML = data.filings.accounts_overdue
+    ? `<span style="color:var(--red)">Yes</span>` : `<span style="color:var(--green)">No</span>`;
+  document.getElementById("kv-late").textContent = data.filings.late_filings_count || "0";
+
+  const tbody = document.getElementById("directors-body");
+  tbody.innerHTML = "";
+  (data.directors || []).forEach(d => {
+    const tr = document.createElement("tr");
+    const nc = d.resigned ? "resigned" : "";
+    tr.innerHTML = `<td class="${nc}">${d.name}</td><td style="color:var(--text3)">${d.role}</td><td style="color:var(--text3)">${d.appointed||"—"}</td><td style="color:var(--text3)">${d.resigned||"<span style=color:var(--green)>Active</span>"}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  const fl = document.getElementById("flags-list");
+  const pl = document.getElementById("positives-list");
+  fl.innerHTML = (risk.flags||[]).length ? (risk.flags||[]).map(f=>`<span class="pill pill-red">${f}</span>`).join("") : `<span style="color:var(--text3);font-size:12px">None identified</span>`;
+  pl.innerHTML = (risk.positives||[]).length ? (risk.positives||[]).map(p=>`<span class="pill pill-green">${p}</span>`).join("") : `<span style="color:var(--text3);font-size:12px">None identified</span>`;
+
+  document.getElementById("recommendation").textContent = risk.recommendation || "";
+
+  if (data._meta && data._meta.stub_mode) document.getElementById("stub-notice").style.display = "block";
+  document.getElementById("cta-box").style.display = "block";
+  document.getElementById("report-wrap").classList.add("visible");
+  document.getElementById("report-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function selectPrice(type) {
+  selectedPrice = type;
+  document.getElementById("pc-one").classList.toggle("sel", type === "one_off");
+  document.getElementById("pc-pro").classList.toggle("sel", type === "subscription");
+}
+
+async function handleCheckout() {
+  if (!selectedCompany) return;
+  const priceId = selectedPrice === "subscription"
+    ? (window.STRIPE_PRICE_ID_PRO || "") : (window.STRIPE_PRICE_ID_REPORT || "");
+  if (!priceId) { showError("Payment not yet configured — coming soon."); return; }
+  try {
+    const res = await fetch("/.netlify/functions/create-checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        priceId,
+        companyNumber: selectedCompany.company_number,
+        companyName: selectedCompany.title || "",
+        reportType: selectedPrice
+      })
+    });
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else throw new Error(data.error || "Checkout failed");
+  } catch (err) { showError(`Payment error: ${err.message}`); }
+}
+
+async function handleStripeReturn(sessionId, companyNumber) {
+  setLoading(true);
+  try {
+    const res = await fetch(`/.netlify/functions/verify-payment?session_id=${sessionId}`);
+    const data = await res.json();
+    if (!data.paid) { showError("Payment not confirmed. Please try again."); return; }
+    const rRes = await fetch(`${API}/analyse/company`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ company_number: companyNumber, include_accounts: true })
+    });
+    if (!rRes.ok) throw new Error("Report fetch failed");
+    renderReport(await rRes.json());
+    document.getElementById("cta-box").style.display = "none";
+    window.history.replaceState({}, "", window.location.pathname);
+  } catch (err) { showError(`Could not load report: ${err.message}`); }
+  finally { setLoading(false); }
+}
+
+function setLoading(on) {
+  document.getElementById("loading").classList.toggle("visible", on);
+  document.getElementById("search-btn").disabled = on;
+}
+function showError(msg) {
+  const el = document.getElementById("error-msg");
+  el.textContent = msg; el.classList.add("visible");
+}
+function hideError() { document.getElementById("error-msg").classList.remove("visible"); }
+</script>
 </body>
 </html>
