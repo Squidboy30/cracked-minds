@@ -4,3 +4,6 @@
 
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
+
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "STRIPE_PRICE_CHECK_PRO,STRIPE_PRICE_CHECK_SINGLE,STRIPE_PRICE_COMPLY_PRO,STRIPE_PRICE_COMPLY_SINGLE"
