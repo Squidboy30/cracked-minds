@@ -115,7 +115,7 @@ h2{font-family:var(--sans);font-size:clamp(28px,4vw,44px);font-weight:700;letter
 .step-title{font-family:var(--sans);font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px}
 .step-desc{font-size:13px;color:var(--text2);line-height:1.7}
 section.pricing{padding:96px 40px;border-top:0.5px solid var(--border);background:var(--surface)}
-.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:640px;background:var(--border);border-radius:6px;overflow:hidden;margin-top:40px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:860px;background:var(--border);border-radius:6px;overflow:hidden;margin-top:40px}
 .pc{background:var(--bg);padding:32px 28px}
 .pc.feat{background:var(--surface2)}
 .pc-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
@@ -131,14 +131,6 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
 .footer-links a:hover{color:var(--text2)}
 .fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}
 .fade-up.visible{opacity:1;transform:translateY(0)}
-.sources-strip{background:var(--surface);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:14px 40px}
-.sources-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.sources-label{font-size:11px;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
-.sources-sep{width:1px;height:16px;background:var(--border);flex-shrink:0}
-.sources-list{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.source-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
-.source-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
-@media(max-width:768px){.sources-strip{padding:12px 20px}.sources-inner{gap:12px}.sources-list{gap:12px}}
 @media(max-width:768px){
   header{padding:16px 20px}nav a:not(.nav-cta){display:none}
   .hero{padding:100px 20px 60px}h1{font-size:38px}.hero-sub{font-size:15px}
@@ -188,19 +180,6 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
     <div class="loading" id="loading"><span class="spinner"></span>Fetching company data…</div>
   </div>
 </section>
-
-<div class="sources-strip">
-  <div class="sources-inner">
-    <span class="sources-label">Data sources</span>
-    <div class="sources-sep"></div>
-    <div class="sources-list">
-      <span class="source-item"><span class="source-dot"></span>Companies House (Crown copyright)</span>
-      <span class="source-item"><span class="source-dot"></span>Claude AI by Anthropic</span>
-      <span class="source-item"><span class="source-dot"></span>UK Register of Directors</span>
-      <span class="source-item"><span class="source-dot"></span>Filing History &amp; Accounts</span>
-    </div>
-  </div>
-</div>
 
 <div class="report-wrap" id="report-wrap">
   <div class="stub-notice" id="stub-notice">⚠ Demo mode — showing stub data. Live Companies House data activates once API key is configured.</div>
@@ -309,30 +288,41 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
     <h2>Simple, transparent pricing.</h2>
     <div class="pricing-grid fade-up">
       <div class="pc">
-        <div class="pc-label">Free preview</div>
+        <div class="pc-label">Free</div>
         <div class="pc-price">£0</div>
         <div class="pc-period">always free</div>
         <ul class="pc-features">
-          <li>Company status</li>
+          <li>Company name search</li>
+          <li>Registration status</li>
+          <li>Incorporation date</li>
+          <li>Registered address</li>
+        </ul>
+      </div>
+      <div class="pc">
+        <div class="pc-label">Pay per report</div>
+        <div class="pc-price">£2.99</div>
+        <div class="pc-period">per report</div>
+        <ul class="pc-features">
+          <li>Full AI risk assessment</li>
           <li>Director history</li>
-          <li>Filing summary</li>
-          <li>Risk score</li>
+          <li>Filing analysis</li>
+          <li>Red flags &amp; positives</li>
+          <li>No account needed</li>
         </ul>
       </div>
       <div class="pc feat">
-        <div class="pc-label">Pro — unlimited</div>
+        <div class="pc-label">Pro subscription</div>
         <div class="pc-price">£29</div>
         <div class="pc-period">per month</div>
         <ul class="pc-features">
-          <li>Everything in free</li>
-          <li>Full AI assessment</li>
+          <li>Everything in pay per report</li>
+          <li>Unlimited reports</li>
           <li>Financial analysis</li>
           <li>PDF download</li>
-          <li>Unlimited reports</li>
+          <li>Cancel anytime</li>
         </ul>
       </div>
     </div>
-    <p style="font-size:12px;color:var(--text3);margin-top:16px">One-off reports available at £2.99 per report.</p>
   </div>
 </section>
 
