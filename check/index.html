@@ -468,17 +468,17 @@ function selectPrice(type) {
 async function handleCheckout() {
   if (!selectedCompany) return;
   const priceId = selectedPrice === "subscription"
-    ? (window.STRIPE_PRICE_ID_PRO || "") : (window.STRIPE_PRICE_ID_REPORT || "");
-  if (!priceId) { showError("Payment not yet configured — coming soon."); return; }
+    ? "price_1TctRgH5v95zsFpRhGTzdpwW" : "price_1TctQwH5v95zsFpR35Ye2WRs";
   try {
     const res = await fetch("/.netlify/functions/create-checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         priceId,
-        companyNumber: selectedCompany.company_number,
-        companyName: selectedCompany.title || "",
-        reportType: selectedPrice
+        companyNumber: selectedCompany.company_number || "",
+        companyName: selectedCompany.title || selectedCompany.company_name || "",
+        reportType: selectedPrice,
+        product: "check"
       })
     });
     const data = await res.json();
