@@ -645,7 +645,24 @@ function selectPrice(type) {
 }
 
 async function handleCheckout() {
-  showError("Payment coming soon — Stripe integration in progress.");
+  const priceId = selectedPrice === "subscription"
+    ? "price_1TctSgH5v95zsFpR9DG3qBpc" : "price_1TctSAH5v95zsFpRvspR4VjP";
+  try {
+    const res = await fetch("/.netlify/functions/create-checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        priceId,
+        companyNumber: selectedFirm?.frn || "",
+        companyName: selectedFirm?.name || "",
+        reportType: selectedPrice,
+        product: "comply"
+      })
+    });
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else throw new Error(data.error || "Checkout failed");
+  } catch (err) { showError(`Payment error: ${err.message}`); }
 }
 
 // ── Utilities ─────────────────────────────────────────────────
