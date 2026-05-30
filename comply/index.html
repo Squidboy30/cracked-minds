@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cracked Minds Comply — UK Regulatory Intelligence</title>
+<meta name="description" content="Search the FCA register and analyse UK regulatory documents instantly. AI-powered compliance intelligence for financial services teams.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#f0ede8;--text2:#8a8880;--text3:#555450;
+  --blue:#3b82f6;--blue2:#2563eb;--blue-dim:rgba(59,130,246,0.12);--blue-glow:rgba(59,130,246,0.25);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.1);
+  --red:#ef4444;--red-dim:rgba(239,68,68,0.1);
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);
+  --mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.4}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}
+.logo-mark{color:var(--blue);font-size:20px}
+.logo-sub{font-size:11px;color:var(--text3);font-weight:400;letter-spacing:0.02em}
+nav{display:flex;align-items:center;gap:32px}
+nav a{font-size:13px;color:var(--text2);text-decoration:none;transition:color 0.2s}
+nav a:hover{color:var(--text)}
+.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff!important;background:var(--blue);padding:8px 20px;border-radius:4px;text-decoration:none;transition:background 0.2s}
+.nav-cta:hover{background:var(--blue2)!important}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 40px 80px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent)}
+.hero-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(59,130,246,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:900px;margin:0 auto;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--blue);background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);padding:5px 14px;border-radius:2px;margin-bottom:28px;letter-spacing:0.08em;text-transform:uppercase}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+h1{font-family:var(--sans);font-size:clamp(42px,7vw,80px);font-weight:800;line-height:1.0;letter-spacing:-0.04em;color:var(--text);margin-bottom:24px}
+h1 em{font-style:normal;color:var(--blue)}
+.hero-sub{font-size:18px;color:var(--text2);max-width:600px;margin-bottom:40px;line-height:1.7}
+/* Tabs */
+.tabs{display:flex;gap:2px;max-width:700px;margin-bottom:16px;background:var(--border);border-radius:4px;padding:3px}
+.tab{flex:1;padding:10px 16px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-radius:2px;text-align:center;transition:all 0.15s;border:none;background:none;font-family:var(--mono)}
+.tab.active{background:var(--surface2);color:var(--text)}
+/* Search */
+.search-wrap{max-width:700px;margin-bottom:20px}
+.search-row{display:flex;gap:8px;background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:6px 6px 6px 16px;transition:border-color 0.2s}
+.search-row:focus-within{border-color:var(--blue)}
+.search-row input{flex:1;background:none;border:none;outline:none;font-size:15px;color:var(--text);font-family:var(--mono)}
+.search-row input::placeholder{color:var(--text3)}
+.btn-search{padding:10px 24px;background:var(--blue);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background 0.15s;white-space:nowrap}
+.btn-search:hover{background:var(--blue2)}
+.btn-search:disabled{opacity:0.5;cursor:not-allowed}
+.search-hint{font-size:12px;color:var(--text3);margin-top:8px}
+/* Document URL input */
+.doc-wrap{max-width:700px;margin-bottom:20px;display:none}
+.doc-wrap.active{display:block}
+.doc-input-row{display:flex;gap:8px;background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:6px 6px 6px 16px;transition:border-color 0.2s;margin-bottom:8px}
+.doc-input-row:focus-within{border-color:var(--blue)}
+.doc-input-row input{flex:1;background:none;border:none;outline:none;font-size:13px;color:var(--text);font-family:var(--mono)}
+.doc-input-row input::placeholder{color:var(--text3)}
+.doc-shortcuts{display:flex;gap:8px;flex-wrap:wrap}
+.doc-shortcut{font-size:11px;padding:4px 10px;background:var(--surface);border:0.5px solid var(--border2);border-radius:2px;cursor:pointer;color:var(--text2);transition:all 0.15s}
+.doc-shortcut:hover{border-color:var(--blue);color:var(--text)}
+/* Results */
+.results-list{max-width:700px;margin:8px 0 0;background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;overflow:hidden;display:none}
+.results-list.visible{display:block}
+.result-item{padding:14px 16px;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background 0.1s;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.result-item:last-child{border-bottom:none}
+.result-item:hover{background:var(--surface2)}
+.result-name{font-size:14px;font-weight:500;font-family:var(--sans)}
+.result-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.sbadge{font-size:11px;padding:2px 8px;border-radius:2px;white-space:nowrap;font-weight:500}
+.sbadge-auth{background:var(--green-dim);color:var(--green)}
+.sbadge-cancel{background:var(--red-dim);color:var(--red)}
+.sbadge-other{background:var(--amber-dim);color:var(--amber)}
+/* Error / Loading */
+.error-msg{display:none;background:var(--red-dim);border:0.5px solid rgba(239,68,68,0.2);border-radius:4px;padding:12px 16px;font-size:13px;color:var(--red);max-width:700px;margin:8px 0 0}
+.error-msg.visible{display:block}
+.loading{display:none;color:var(--text3);font-size:13px;padding:16px 0}
+.loading.visible{display:block}
+.spinner{display:inline-block;width:12px;height:12px;border:1.5px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Sources strip */
+.sources-strip{background:var(--surface);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:14px 40px}
+.sources-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.sources-label{font-size:11px;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.sources-sep{width:1px;height:16px;background:var(--border);flex-shrink:0}
+.sources-list{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.source-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
+.source-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+/* Report */
+.report-wrap{max-width:860px;margin:0 auto;padding:48px 40px;display:none}
+.report-wrap.visible{display:block}
+.report-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
+.report-name{font-family:var(--sans);font-size:2rem;font-weight:700;letter-spacing:-0.02em}
+.report-frn{font-size:12px;color:var(--text3);margin-top:4px}
+.risk-score{text-align:center;min-width:90px}
+.risk-n{font-family:var(--sans);font-size:3.5rem;font-weight:800;line-height:1;letter-spacing:-0.04em}
+.risk-n.low{color:var(--green)}.risk-n.medium{color:var(--amber)}.risk-n.high{color:var(--red)}
+.risk-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
+.report-grid.full{grid-template-columns:1fr}
+.rcard{background:var(--surface);padding:24px}
+.rcard-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.kv{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.kv:last-child{border-bottom:none}
+.kv-k{color:var(--text2)}.kv-v{text-align:right;color:var(--text)}
+.pill-list{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;padding:3px 10px;border-radius:2px}
+.pill-red{background:var(--red-dim);color:var(--red)}
+.pill-green{background:var(--green-dim);color:var(--green)}
+.pill-blue{background:var(--blue-dim);color:var(--blue)}
+.recommendation{font-size:14px;line-height:1.8;color:var(--text2)}
+/* Document report specific */
+.obligations-list{display:flex;flex-direction:column;gap:8px}
+.obligation-item{background:var(--surface2);border:0.5px solid var(--border);border-radius:4px;padding:14px 16px}
+.obligation-text{font-size:13px;color:var(--text);margin-bottom:6px}
+.obligation-meta{display:flex;gap:12px;flex-wrap:wrap}
+.obligation-tag{font-size:11px;color:var(--text3)}
+.obligation-tag strong{color:var(--text2)}
+.action-banner{display:flex;align-items:center;gap:12px;padding:16px 20px;border-radius:4px;margin-bottom:2px;font-size:14px}
+.action-yes{background:var(--red-dim);border:0.5px solid rgba(239,68,68,0.2);color:var(--red)}
+.action-review{background:var(--amber-dim);border:0.5px solid rgba(245,158,11,0.2);color:var(--amber)}
+.action-no{background:var(--green-dim);border:0.5px solid rgba(34,197,94,0.2);color:var(--green)}
+/* CTA */
+.cta-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:32px;text-align:center;margin-top:2px}
+.cta-title{font-family:var(--sans);font-size:1.25rem;font-weight:700;margin-bottom:8px}
+.cta-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
+.price-options{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.price-card{background:var(--surface2);border:0.5px solid var(--border);border-radius:6px;padding:20px 28px;text-align:center;cursor:pointer;transition:border-color 0.15s;min-width:160px}
+.price-card:hover,.price-card.sel{border-color:var(--blue)}
+.price-amt{font-family:var(--sans);font-size:1.75rem;font-weight:800;letter-spacing:-0.02em}
+.price-per{font-size:12px;color:var(--text3);margin-top:2px}
+.price-desc{font-size:12px;color:var(--text2);margin-top:8px}
+.btn-pay{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--blue);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);margin-top:20px;transition:background 0.15s}
+.btn-pay:hover{background:var(--blue2)}
+/* Sections */
+section{padding:96px 40px}
+.section-inner{max-width:900px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+h2{font-family:var(--sans);font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-0.03em;color:var(--text);margin-bottom:20px;line-height:1.1}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:var(--border);border-radius:6px;overflow:hidden}
+.step{background:var(--surface);padding:32px 28px}
+.step-n{font-family:var(--sans);font-size:48px;font-weight:800;color:var(--blue-dim);line-height:1;margin-bottom:16px;letter-spacing:-0.04em;user-select:none}
+.step-title{font-family:var(--sans);font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--text2);line-height:1.7}
+section.pricing-sec{padding:96px 40px;border-top:0.5px solid var(--border);background:var(--surface)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:860px;background:var(--border);border-radius:6px;overflow:hidden;margin-top:40px}
+.pc{background:var(--bg);padding:32px 28px}
+.pc.feat{background:var(--surface2)}
+.pc-label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.pc-price{font-family:var(--sans);font-size:2.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:4px}
+.pc-period{font-size:13px;color:var(--text2);margin-bottom:20px}
+.pc-features{list-style:none}
+.pc-features li{font-size:13px;color:var(--text2);padding:4px 0}
+.pc-features li::before{content:"✓ ";color:var(--blue)}
+footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-left{font-size:13px;color:var(--text3)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--text3);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--text2)}
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  header{padding:16px 20px}nav a:not(.nav-cta){display:none}
+  .hero{padding:100px 20px 60px}h1{font-size:38px}.hero-sub{font-size:15px}
+  .report-wrap{padding:32px 20px}.report-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}
+  section{padding:64px 20px}.sources-strip{padding:12px 20px}footer{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">
+    <span class="logo-mark">⚖</span>
+    <div>Comply<div class="logo-sub">by Cracked Minds</div></div>
+  </a>
+  <nav>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://crackedminds.co.uk">crackedminds.co.uk</a>
+    <a href="#search-input" class="nav-cta">Search now →</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">FCA Register · AI-powered · UK Regulatory</div>
+    <h1>Regulatory intelligence,<br><em>instantly.</em></h1>
+    <p class="hero-sub">Search the FCA register and analyse UK regulatory documents in seconds — powered by AI. Built for compliance teams, lawyers, and financial services professionals.</p>
+
+    <!-- Mode tabs -->
+    <div class="tabs">
+      <button class="tab active" id="tab-fca" onclick="setMode('fca')">⚖ FCA Register Search</button>
+      <button class="tab" id="tab-doc" onclick="setMode('doc')">📄 Regulatory Document</button>
+    </div>
+
+    <!-- FCA search -->
+    <div class="search-wrap" id="fca-wrap">
+      <div class="search-row">
+        <input type="text" id="search-input" placeholder="Enter firm name, FRN number, or individual name…" autocomplete="off" spellcheck="false">
+        <button class="btn-search" id="search-btn" onclick="handleSearch()">Search →</button>
+      </div>
+      <div class="search-hint">Free firm status · Full AI assessment from £4.99</div>
+    </div>
+
+    <!-- Document URL input -->
+    <div class="doc-wrap" id="doc-wrap">
+      <div class="doc-input-row">
+        <input type="text" id="doc-url-input" placeholder="Paste URL of FCA policy, HMRC guidance, ICO ruling…" autocomplete="off">
+        <button class="btn-search" id="doc-btn" onclick="handleDocAnalysis()">Analyse →</button>
+      </div>
+      <div class="doc-shortcuts">
+        <span class="doc-shortcut" onclick="setDocUrl('https://www.fca.org.uk/publications/policy-statements')">FCA Publications</span>
+        <span class="doc-shortcut" onclick="setDocUrl('https://www.gov.uk/government/organisations/hm-revenue-customs/guidance')">HMRC Guidance</span>
+        <span class="doc-shortcut" onclick="setDocUrl('https://ico.org.uk/action-weve-taken/')">ICO Decisions</span>
+      </div>
+      <div class="search-hint" style="margin-top:8px">Accepts PDF or web page URLs · £4.99 per document analysis</div>
+    </div>
+
+    <div class="results-list" id="results-list"></div>
+    <div class="error-msg" id="error-msg"></div>
+    <div class="loading" id="loading"><span class="spinner"></span><span id="loading-text">Searching FCA register…</span></div>
+  </div>
+</section>
+
+<div class="sources-strip">
+  <div class="sources-inner">
+    <span class="sources-label">Data sources</span>
+    <div class="sources-sep"></div>
+    <div class="sources-list">
+      <span class="source-item"><span class="source-dot"></span>FCA Financial Services Register</span>
+      <span class="source-item"><span class="source-dot"></span>Claude AI by Anthropic</span>
+      <span class="source-item"><span class="source-dot"></span>HMRC Guidance Library</span>
+      <span class="source-item"><span class="source-dot"></span>ICO Enforcement Decisions</span>
+    </div>
+  </div>
+</div>
+
+<!-- Report area -->
+<div class="report-wrap" id="report-wrap">
+
+  <!-- FCA Report -->
+  <div id="fca-report" style="display:none">
+    <div class="report-header">
+      <div>
+        <div class="report-name" id="r-name"></div>
+        <div class="report-frn" id="r-frn"></div>
+      </div>
+      <div class="risk-score">
+        <div class="risk-n" id="r-score">—</div>
+        <div class="risk-label" id="r-risk-label">risk score</div>
+      </div>
+    </div>
+
+    <div class="report-grid">
+      <div class="rcard">
+        <div class="rcard-title">Firm Details</div>
+        <div class="kv"><span class="kv-k">FCA Status</span><span class="kv-v" id="r-status">—</span></div>
+        <div class="kv"><span class="kv-k">Business Type</span><span class="kv-v" id="r-type">—</span></div>
+        <div class="kv"><span class="kv-k">FRN</span><span class="kv-v" id="r-frn-val">—</span></div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-title">Permissions Summary</div>
+        <div class="recommendation" id="r-permissions">—</div>
+      </div>
+    </div>
+
+    <div class="report-grid" style="margin-top:2px">
+      <div class="rcard">
+        <div class="rcard-title">⚠ Risk Flags</div>
+        <div class="pill-list" id="r-flags"></div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-title">✓ Positive Indicators</div>
+        <div class="pill-list" id="r-positives"></div>
+      </div>
+    </div>
+
+    <div class="report-grid full" style="margin-top:2px">
+      <div class="rcard">
+        <div class="rcard-title">AI Recommendation</div>
+        <div class="recommendation" id="r-recommendation"></div>
+      </div>
+    </div>
+
+    <div class="cta-box fade-up" id="fca-cta" style="display:none">
+      <div class="cta-title">Get the full regulatory assessment</div>
+      <div class="cta-sub">Complete permissions analysis, individual approved persons, regulatory history.</div>
+      <div class="price-options">
+        <div class="price-card sel" id="pc-one" onclick="selectPrice('one_off')">
+          <div class="price-amt">£4.99</div>
+          <div class="price-per">per report</div>
+          <div class="price-desc">This firm only · No account needed</div>
+        </div>
+        <div class="price-card" id="pc-pro" onclick="selectPrice('subscription')">
+          <div class="price-amt">£49</div>
+          <div class="price-per">per month</div>
+          <div class="price-desc">Unlimited · FCA + document analysis</div>
+        </div>
+      </div>
+      <button class="btn-pay" onclick="handleCheckout()">Get full report →</button>
+    </div>
+  </div>
+
+  <!-- Document Analysis Report -->
+  <div id="doc-report" style="display:none">
+    <div class="report-header">
+      <div style="flex:1">
+        <div class="report-name" id="d-title"></div>
+        <div class="report-frn" id="d-meta"></div>
+      </div>
+      <div id="d-action-badge"></div>
+    </div>
+
+    <div class="report-grid full">
+      <div class="rcard">
+        <div class="rcard-title">Summary</div>
+        <div class="recommendation" id="d-summary"></div>
+      </div>
+    </div>
+
+    <div class="report-grid" style="margin-top:2px">
+      <div class="rcard">
+        <div class="rcard-title">Affected Sectors</div>
+        <div class="pill-list" id="d-sectors"></div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-title">Key Changes</div>
+        <div class="pill-list" id="d-changes"></div>
+      </div>
+    </div>
+
+    <div class="report-grid full" style="margin-top:2px">
+      <div class="rcard">
+        <div class="rcard-title">Key Obligations</div>
+        <div class="obligations-list" id="d-obligations"></div>
+      </div>
+    </div>
+
+    <div class="report-grid full" style="margin-top:2px">
+      <div class="rcard">
+        <div class="rcard-title">Action Required</div>
+        <div class="recommendation" id="d-action-summary"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- How it works -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-label">How it works</div>
+    <h2>Regulatory intelligence in three steps.</h2>
+    <div class="steps fade-up">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-title">Search or paste</div>
+        <div class="step-desc">Search the FCA register by firm name or FRN, or paste any UK regulatory document URL — FCA policy, HMRC guidance, ICO ruling.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-title">Free status check</div>
+        <div class="step-desc">Instantly see FCA authorisation status, firm type, and a high-level risk flag — free, no account needed.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-title">Full AI analysis</div>
+        <div class="step-desc">Pay for a complete AI-powered assessment — permissions summary, approved persons, obligations, deadlines, and action required.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing-sec" id="pricing">
+  <div class="section-inner">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, transparent pricing.</h2>
+    <div class="pricing-grid fade-up">
+      <div class="pc">
+        <div class="pc-label">Free</div>
+        <div class="pc-price">£0</div>
+        <div class="pc-period">always free</div>
+        <ul class="pc-features">
+          <li>FCA register search</li>
+          <li>Authorisation status</li>
+          <li>Firm type &amp; FRN</li>
+          <li>High-level risk flag</li>
+        </ul>
+      </div>
+      <div class="pc">
+        <div class="pc-label">Pay per report</div>
+        <div class="pc-price">£4.99</div>
+        <div class="pc-period">per report</div>
+        <ul class="pc-features">
+          <li>Full AI risk assessment</li>
+          <li>Permissions analysis</li>
+          <li>Document obligations</li>
+          <li>Action required summary</li>
+          <li>No account needed</li>
+        </ul>
+      </div>
+      <div class="pc feat">
+        <div class="pc-label">Pro subscription</div>
+        <div class="pc-price">£49</div>
+        <div class="pc-period">per month</div>
+        <ul class="pc-features">
+          <li>Everything in pay per report</li>
+          <li>Unlimited FCA searches</li>
+          <li>Unlimited document analysis</li>
+          <li>Approved persons detail</li>
+          <li>Cancel anytime</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">⚖ Comply by <a href="https://crackedminds.co.uk" style="color:var(--text2);text-decoration:none">Cracked Minds</a></div>
+  <div class="footer-links">
+    <a href="https://crackedminds.co.uk/check/index.html">Check</a>
+    <a href="https://crackedminds.co.uk/gateway/index.html">Gateway</a>
+    <a href="https://crackedminds.co.uk">crackedminds.co.uk</a>
+  </div>
+</footer>
+
+<script>
+const API = "https://parsebit.fly.dev";
+let mode = "fca";
+let selectedFirm = null;
+let selectedPrice = "one_off";
+
+// Intersection observer for animations
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add("visible");
+}), { threshold: 0.1 });
+document.querySelectorAll(".fade-up").forEach(el => obs.observe(el));
+
+document.getElementById("search-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") handleSearch();
+});
+document.getElementById("doc-url-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") handleDocAnalysis();
+});
+
+function setMode(m) {
+  mode = m;
+  document.getElementById("tab-fca").classList.toggle("active", m === "fca");
+  document.getElementById("tab-doc").classList.toggle("active", m === "doc");
+  document.getElementById("fca-wrap").style.display = m === "fca" ? "block" : "none";
+  document.getElementById("doc-wrap").classList.toggle("active", m === "doc");
+  document.getElementById("results-list").classList.remove("visible");
+  document.getElementById("report-wrap").classList.remove("visible");
+  hideError();
+}
+
+function setDocUrl(url) {
+  document.getElementById("doc-url-input").value = url;
+}
+
+// ── FCA Search ────────────────────────────────────────────────
+async function handleSearch() {
+  const q = document.getElementById("search-input").value.trim();
+  if (!q) return;
+  setLoading(true, "Searching FCA register…");
+  hideError();
+  document.getElementById("results-list").classList.remove("visible");
+  document.getElementById("report-wrap").classList.remove("visible");
+
+  try {
+    const res = await fetch(`${API}/analyse/regulatory`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: q, search_type: "firm" })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || `API error ${res.status}`);
+    }
+    const data = await res.json();
+    renderFCAResults(data);
+  } catch (err) {
+    showError(`Search failed: ${err.message}`);
+  } finally {
+    setLoading(false);
+  }
+}
+
+function renderFCAResults(data) {
+  const results = data.fca_results || [];
+  const list = document.getElementById("results-list");
+  list.innerHTML = "";
+
+  if (!results.length) {
+    showError("No firms found on the FCA register. Try a different name or FRN.");
+    return;
+  }
+
+  // If only one result or top match is confident, go straight to report
+  if (results.length === 1) {
+    renderFCAReport(data);
+    return;
+  }
+
+  results.forEach((item, i) => {
+    const div = document.createElement("div");
+    div.className = "result-item";
+    const status = (item.Status || "").toLowerCase();
+    const sc = status === "authorised" ? "sbadge-auth" : status === "cancelled" ? "sbadge-cancel" : "sbadge-other";
+    div.innerHTML = `
+      <div>
+        <div class="result-name">${item["Organisation Name"] || item["Full Name"] || ""}</div>
+        <div class="result-meta">FRN: ${item.FRN || "—"} · ${item["Business Type"] || ""}</div>
+      </div>
+      <span class="sbadge ${sc}">${item.Status || "unknown"}</span>
+    `;
+    div.addEventListener("click", () => {
+      list.classList.remove("visible");
+      renderFCAReport(i === 0 ? data : { ...data, top_match: { name: item["Organisation Name"], frn: item.FRN, status: item.Status, type: item["Business Type"] }, risk_assessment: data.risk_assessment });
+    });
+    list.appendChild(div);
+  });
+  list.classList.add("visible");
+}
+
+function renderFCAReport(data) {
+  selectedFirm = data.top_match;
+  const risk = data.risk_assessment || {};
+  const rc = risk.risk_level === "low" ? "low" : risk.risk_level === "high" ? "high" : "medium";
+
+  document.getElementById("r-name").textContent = data.top_match?.name || data.query || "";
+  document.getElementById("r-frn").textContent = `FRN: ${data.top_match?.frn || "—"}`;
+  document.getElementById("r-score").textContent = risk.risk_score || "—";
+  document.getElementById("r-score").className = `risk-n ${rc}`;
+  document.getElementById("r-risk-label").textContent = `${risk.risk_level || "—"} risk`;
+
+  const statusEl = document.getElementById("r-status");
+  const status = (risk.overall_status || data.top_match?.status || "—").toLowerCase();
+  const sc = status === "authorised" ? "sbadge-auth" : status === "cancelled" ? "sbadge-cancel" : "sbadge-other";
+  statusEl.innerHTML = `<span class="sbadge ${sc}">${risk.overall_status || data.top_match?.status || "—"}</span>`;
+
+  document.getElementById("r-type").textContent = data.top_match?.type || "—";
+  document.getElementById("r-frn-val").textContent = data.top_match?.frn || "—";
+  document.getElementById("r-permissions").textContent = risk.permissions_summary || "—";
+
+  renderPills("r-flags", risk.flags || [], "pill-red");
+  renderPills("r-positives", risk.positives || [], "pill-green");
+  document.getElementById("r-recommendation").textContent = risk.recommendation || "";
+
+  document.getElementById("fca-cta").style.display = "block";
+  document.getElementById("fca-report").style.display = "block";
+  document.getElementById("doc-report").style.display = "none";
+  document.getElementById("report-wrap").classList.add("visible");
+  document.getElementById("report-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ── Document Analysis ─────────────────────────────────────────
+async function handleDocAnalysis() {
+  const url = document.getElementById("doc-url-input").value.trim();
+  if (!url) return;
+  setLoading(true, "Fetching and analysing document…");
+  hideError();
+  document.getElementById("report-wrap").classList.remove("visible");
+
+  try {
+    const res = await fetch(`${API}/analyse/document`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || `API error ${res.status}`);
+    }
+    const data = await res.json();
+    renderDocReport(data);
+  } catch (err) {
+    showError(`Analysis failed: ${err.message}`);
+  } finally {
+    setLoading(false);
+  }
+}
+
+function renderDocReport(data) {
+  document.getElementById("d-title").textContent = data.title || "Regulatory Document";
+  document.getElementById("d-meta").textContent = [
+    data.issuing_body, data.document_type?.replace(/_/g, " "),
+    data.published_date ? `Published: ${data.published_date}` : null,
+    data.effective_date ? `Effective: ${data.effective_date}` : null
+  ].filter(Boolean).join(" · ");
+
+  // Action banner
+  const ab = document.getElementById("d-action-badge");
+  const ac = (data.action_required || "review").toLowerCase();
+  const acClass = ac === "yes" ? "sbadge-cancel" : ac === "no" ? "sbadge-auth" : "sbadge-other";
+  const acText = ac === "yes" ? "Action Required" : ac === "no" ? "No Action" : "Review Required";
+  ab.innerHTML = `<span class="sbadge ${acClass}" style="font-size:13px;padding:6px 14px">${acText}</span>`;
+
+  document.getElementById("d-summary").textContent = data.summary || "";
+  document.getElementById("d-action-summary").textContent = data.action_summary || "";
+
+  renderPills("d-sectors", data.affected_sectors || [], "pill-blue");
+  renderPills("d-changes", data.key_changes || [], "pill-blue");
+
+  const obList = document.getElementById("d-obligations");
+  obList.innerHTML = "";
+  (data.key_obligations || []).forEach(ob => {
+    const div = document.createElement("div");
+    div.className = "obligation-item";
+    div.innerHTML = `
+      <div class="obligation-text">${ob.obligation || ""}</div>
+      <div class="obligation-meta">
+        ${ob.deadline ? `<span class="obligation-tag"><strong>Deadline:</strong> ${ob.deadline}</span>` : ""}
+        ${ob.applies_to ? `<span class="obligation-tag"><strong>Applies to:</strong> ${ob.applies_to}</span>` : ""}
+      </div>
+    `;
+    obList.appendChild(div);
+  });
+  if (!data.key_obligations?.length) {
+    obList.innerHTML = `<span style="color:var(--text3);font-size:13px">No specific obligations extracted.</span>`;
+  }
+
+  document.getElementById("fca-report").style.display = "none";
+  document.getElementById("doc-report").style.display = "block";
+  document.getElementById("fca-cta").style.display = "none";
+  document.getElementById("report-wrap").classList.add("visible");
+  document.getElementById("report-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ── Stripe / payment ──────────────────────────────────────────
+function selectPrice(type) {
+  selectedPrice = type;
+  document.getElementById("pc-one").classList.toggle("sel", type === "one_off");
+  document.getElementById("pc-pro").classList.toggle("sel", type === "subscription");
+}
+
+async function handleCheckout() {
+  showError("Payment coming soon — Stripe integration in progress.");
+}
+
+// ── Utilities ─────────────────────────────────────────────────
+function renderPills(id, items, cls) {
+  const el = document.getElementById(id);
+  el.innerHTML = items.length
+    ? items.map(i => `<span class="pill ${cls}">${i}</span>`).join("")
+    : `<span style="color:var(--text3);font-size:12px">None identified</span>`;
+}
+
+function setLoading(on, text) {
+  document.getElementById("loading").classList.toggle("visible", on);
+  if (text) document.getElementById("loading-text").textContent = text;
+  document.getElementById("search-btn").disabled = on;
+  document.getElementById("doc-btn").disabled = on;
+}
+
+function showError(msg) {
+  const el = document.getElementById("error-msg");
+  el.textContent = msg;
+  el.classList.add("visible");
+}
+
+function hideError() {
+  document.getElementById("error-msg").classList.remove("visible");
+}
+</script>
+</body>
+</html>
