@@ -4,3 +4,5 @@
 /check/           /check/index.html      200
 /comply           /comply/index.html     200
 /comply/          /comply/index.html     200
+/check/example    /check/example.html    200
+/comply/example   /comply/example.html   200
