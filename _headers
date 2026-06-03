@@ -1,0 +1,8 @@
+# Allow all HTML files
+/check/example.html
+  X-Frame-Options: SAMEORIGIN
+  Cache-Control: public, max-age=3600
+
+/comply/example.html
+  X-Frame-Options: SAMEORIGIN
+  Cache-Control: public, max-age=3600
