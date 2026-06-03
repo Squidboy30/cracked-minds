@@ -91,6 +91,14 @@ h1 em{font-style:normal;color:var(--blue)}
 .sources-list{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .source-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
 .source-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.gazette-item{background:var(--red-dim);border:0.5px solid rgba(239,68,68,0.2);border-radius:4px;padding:12px 16px;margin-bottom:8px}
+.gazette-title{font-size:13px;color:var(--text);margin-bottom:4px}
+.gazette-meta{font-size:12px;color:var(--text3)}
+.related-co-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.related-co-item:last-child{border-bottom:none}
+.charge-item{border-left:3px solid var(--amber);background:var(--surface2);border-radius:4px;padding:14px 16px;margin-bottom:8px}
+.charge-desc{font-size:13px;color:var(--text);margin-bottom:4px}
+.charge-meta{font-size:12px;color:var(--text3)}
 /* Report */
 .report-wrap{max-width:860px;margin:0 auto;padding:48px 40px;display:none}
 .report-wrap.visible{display:block}
@@ -288,6 +296,30 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
       <div class="rcard">
         <div class="rcard-title">AI Recommendation</div>
         <div class="recommendation" id="r-recommendation"></div>
+      </div>
+    </div>
+
+    <!-- Gazette notices -->
+    <div id="r-gazette-section" style="display:none;margin-top:2px">
+      <div class="rcard" style="background:var(--surface)">
+        <div class="rcard-title">&#9888; London Gazette Notices</div>
+        <div id="r-gazette-list"></div>
+      </div>
+    </div>
+
+    <!-- Charges -->
+    <div id="r-charges-section" style="display:none;margin-top:2px">
+      <div class="rcard" style="background:var(--surface)">
+        <div class="rcard-title">Registered Charges</div>
+        <div id="r-charges-list"></div>
+      </div>
+    </div>
+
+    <!-- Related companies -->
+    <div id="r-related-section" style="display:none;margin-top:2px">
+      <div class="rcard" style="background:var(--surface)">
+        <div class="rcard-title">Director Cross-Reference</div>
+        <div id="r-related-list"></div>
       </div>
     </div>
 
@@ -603,6 +635,43 @@ function renderFCAReport(data) {
   renderPills("r-flags", risk.flags || [], "pill-red");
   renderPills("r-positives", risk.positives || [], "pill-green");
   document.getElementById("r-recommendation").textContent = risk.recommendation || "";
+
+  // Gazette notices
+  const gazette = data.gazette_notices || [];
+  if (gazette.length) {
+    document.getElementById("r-gazette-section").style.display = "block";
+    document.getElementById("r-gazette-list").innerHTML = gazette.map(n => `
+      <div class="gazette-item">
+        <div class="gazette-title">${n.title || "Notice"}</div>
+        <div class="gazette-meta">${n.date || ""} ${n.url ? `&nbsp;·&nbsp;<a href="${n.url}" target="_blank" rel="noopener" style="color:var(--red)">View →</a>` : ""}</div>
+      </div>`).join("");
+  }
+
+  // Charges
+  const charges = data.charges || [];
+  if (charges.length) {
+    document.getElementById("r-charges-section").style.display = "block";
+    document.getElementById("r-charges-list").innerHTML = charges.map(ch => `
+      <div class="charge-item">
+        <div class="charge-desc">${ch.description || "Charge"}</div>
+        <div class="charge-meta">${ch.persons_entitled?.length ? `Held by: ${ch.persons_entitled.join(", ")} &nbsp;&middot;&nbsp; ` : ""}Created: ${ch.created || "—"} &nbsp;&middot;&nbsp; <span style="color:${ch.status === "outstanding" ? "var(--amber)" : "var(--green)"}">${ch.status}</span></div>
+      </div>`).join("");
+  }
+
+  // Related companies
+  const related = data.related_companies || [];
+  if (related.length) {
+    document.getElementById("r-related-section").style.display = "block";
+    const items = related.flatMap(r => r.appointments || []);
+    document.getElementById("r-related-list").innerHTML = items.slice(0,8).map(a => `
+      <div class="related-co-item">
+        <div>
+          <div style="font-size:13px;color:var(--text)">${a.company_name}</div>
+          <div style="font-size:11px;color:var(--text3)">${a.company_number} &nbsp;·&nbsp; ${a.role} &nbsp;·&nbsp; ${a.appointed}</div>
+        </div>
+        <a href="https://find-and-update.company-information.service.gov.uk/company/${a.company_number}" target="_blank" rel="noopener" style="font-size:12px;color:var(--blue);white-space:nowrap">View →</a>
+      </div>`).join("");
+  }
 
   document.getElementById("fca-cta").style.display = "block";
   document.getElementById("fca-report").style.display = "block";
