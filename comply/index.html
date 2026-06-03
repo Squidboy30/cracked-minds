@@ -192,7 +192,7 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-badge">FCA Register · AI-powered · UK Regulatory</div>
+    <div class="hero-badge">Companies House · FCA Register · AI-powered · UK</div>
     <h1>Regulatory intelligence,<br><em>instantly.</em></h1>
     <p class="hero-sub">Search the FCA register and analyse UK regulatory documents in seconds — powered by AI. Built for compliance teams, lawyers, and financial services professionals.</p>
 
@@ -208,7 +208,7 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
         <input type="text" id="search-input" placeholder="Enter firm name, FRN number, or individual name…" autocomplete="off" spellcheck="false">
         <button class="btn-search" id="search-btn" onclick="handleSearch()">Search →</button>
       </div>
-      <div class="search-hint">Free firm status · Full AI assessment from £4.99</div>
+      <div class="search-hint">Free company search · Full AI assessment from £4.99</div>
     </div>
 
     <!-- Document URL input -->
@@ -236,9 +236,9 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
     <span class="sources-label">Data sources</span>
     <div class="sources-sep"></div>
     <div class="sources-list">
-      <span class="source-item"><span class="source-dot"></span>FCA Financial Services Register</span>
+      <span class="source-item"><span class="source-dot"></span>Companies House (Crown copyright)</span>
       <span class="source-item"><span class="source-dot"></span>Claude AI by Anthropic</span>
-      <span class="source-item"><span class="source-dot"></span>HMRC Guidance Library</span>
+      <span class="source-item"><span class="source-dot"></span>FCA Register (link)</span>
       <span class="source-item"><span class="source-dot"></span>ICO Enforcement Decisions</span>
     </div>
   </div>
@@ -472,86 +472,133 @@ function setDocUrl(url) {
 async function handleSearch() {
   const q = document.getElementById("search-input").value.trim();
   if (!q) return;
-  setLoading(true, "Searching FCA register…");
+  setLoading(true, "Searching Companies House…");
   hideError();
   document.getElementById("results-list").classList.remove("visible");
   document.getElementById("report-wrap").classList.remove("visible");
 
   try {
+    // Search Companies House directly for firm matches
+    const res = await fetch(
+      `https://api.company-information.service.gov.uk/search/companies?q=${encodeURIComponent(q)}&items_per_page=10`
+    );
+    if (!res.ok) throw new Error("Search failed");
+    const data = await res.json();
+    const items = data.items || [];
+    if (items.length) {
+      renderSearchResults(items);
+    } else {
+      showError("No companies found. Try a different name or company number.");
+    }
+  } catch (err) {
+    // Fallback to Boltwork API
+    try {
+      const res = await fetch(`${API}/analyse/regulatory`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: q, search_type: "firm" })
+      });
+      if (!res.ok) {
+        const err2 = await res.json();
+        throw new Error(err2.detail || `API error ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.all_matches?.length) {
+        renderSearchResults(data.all_matches.map(m => ({
+          title: m.name,
+          company_number: m.number,
+          company_status: m.status,
+          company_type: m.type,
+          address_snippet: m.address,
+        })));
+      } else {
+        renderFCAReport(data);
+      }
+    } catch (err2) {
+      showError(`Search failed: ${err2.message}`);
+    }
+  } finally {
+    setLoading(false);
+  }
+}
+
+function renderSearchResults(items) {
+  const list = document.getElementById("results-list");
+  list.innerHTML = "";
+  if (!items.length) { showError("No companies found."); return; }
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "result-item";
+    const status = (item.company_status || "").toLowerCase();
+    const sc = status === "active" ? "sbadge-auth" : status === "dissolved" ? "sbadge-cancel" : "sbadge-other";
+    div.innerHTML = `
+      <div>
+        <div class="result-name">${item.title || item.name || ""}</div>
+        <div class="result-meta">${item.company_number || item.number || ""} · ${item.address_snippet || item.address || ""}</div>
+      </div>
+      <span class="sbadge ${sc}">${item.company_status || item.status || "unknown"}</span>
+    `;
+    div.addEventListener("click", () => loadFirmReport(item));
+    list.appendChild(div);
+  });
+  list.classList.add("visible");
+}
+
+async function loadFirmReport(item) {
+  document.getElementById("results-list").classList.remove("visible");
+  setLoading(true, "Running compliance assessment…");
+  document.getElementById("report-wrap").classList.remove("visible");
+  try {
     const res = await fetch(`${API}/analyse/regulatory`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: q, search_type: "firm" })
+      body: JSON.stringify({
+        query: item.company_number || item.number || item.title || item.name,
+        search_type: "firm"
+      })
     });
     if (!res.ok) {
       const err = await res.json();
       throw new Error(err.detail || `API error ${res.status}`);
     }
     const data = await res.json();
-    renderFCAResults(data);
+    renderFCAReport(data);
   } catch (err) {
-    showError(`Search failed: ${err.message}`);
+    showError(`Could not load report: ${err.message}`);
   } finally {
     setLoading(false);
   }
 }
 
 function renderFCAResults(data) {
-  const results = data.fca_results || [];
-  const list = document.getElementById("results-list");
-  list.innerHTML = "";
-
-  if (!results.length) {
-    showError("No firms found on the FCA register. Try a different name or FRN.");
-    return;
-  }
-
-  // If only one result or top match is confident, go straight to report
-  if (results.length === 1) {
-    renderFCAReport(data);
-    return;
-  }
-
-  results.forEach((item, i) => {
-    const div = document.createElement("div");
-    div.className = "result-item";
-    const status = (item.Status || "").toLowerCase();
-    const sc = status === "authorised" ? "sbadge-auth" : status === "cancelled" ? "sbadge-cancel" : "sbadge-other";
-    div.innerHTML = `
-      <div>
-        <div class="result-name">${item["Organisation Name"] || item["Full Name"] || ""}</div>
-        <div class="result-meta">FRN: ${item.FRN || "—"} · ${item["Business Type"] || ""}</div>
-      </div>
-      <span class="sbadge ${sc}">${item.Status || "unknown"}</span>
-    `;
-    div.addEventListener("click", () => {
-      list.classList.remove("visible");
-      renderFCAReport(i === 0 ? data : { ...data, top_match: { name: item["Organisation Name"], frn: item.FRN, status: item.Status, type: item["Business Type"] }, risk_assessment: data.risk_assessment });
-    });
-    list.appendChild(div);
-  });
-  list.classList.add("visible");
+  // Legacy function — now handled by renderSearchResults + loadFirmReport
+  renderFCAReport(data);
 }
 
 function renderFCAReport(data) {
   selectedFirm = data.top_match;
   const risk = data.risk_assessment || {};
   const rc = risk.risk_level === "low" ? "low" : risk.risk_level === "high" ? "high" : "medium";
+  const top = data.top_match || {};
 
-  document.getElementById("r-name").textContent = data.top_match?.name || data.query || "";
-  document.getElementById("r-frn").textContent = `FRN: ${data.top_match?.frn || "—"}`;
+  document.getElementById("r-name").textContent = top.name || data.query || "";
+  document.getElementById("r-frn").textContent = `Company No. ${top.number || "—"}`;
   document.getElementById("r-score").textContent = risk.risk_score || "—";
   document.getElementById("r-score").className = `risk-n ${rc}`;
   document.getElementById("r-risk-label").textContent = `${risk.risk_level || "—"} risk`;
 
   const statusEl = document.getElementById("r-status");
-  const status = (risk.overall_status || data.top_match?.status || "—").toLowerCase();
-  const sc = status === "authorised" ? "sbadge-auth" : status === "cancelled" ? "sbadge-cancel" : "sbadge-other";
-  statusEl.innerHTML = `<span class="sbadge ${sc}">${risk.overall_status || data.top_match?.status || "—"}</span>`;
+  const status = (top.status || risk.overall_status || "—").toLowerCase();
+  const sc = status === "active" ? "sbadge-auth" : status === "dissolved" ? "sbadge-cancel" : "sbadge-other";
+  statusEl.innerHTML = `<span class="sbadge ${sc}">${top.status || risk.overall_status || "—"}</span>`;
 
-  document.getElementById("r-type").textContent = data.top_match?.type || "—";
-  document.getElementById("r-frn-val").textContent = data.top_match?.frn || "—";
-  document.getElementById("r-permissions").textContent = risk.permissions_summary || "—";
+  document.getElementById("r-type").textContent = top.type || "—";
+  document.getElementById("r-frn-val").textContent = top.number || "—";
+
+  // Show permissions/summary — include FCA register link
+  const permEl = document.getElementById("r-permissions");
+  const fcaUrl = risk.fca_register_url || `https://register.fca.org.uk/s/search#q=${encodeURIComponent(top.name || "")}&t=Companies&sort=relevance`;
+  permEl.innerHTML = `${risk.summary || "—"}<br><br><a href="${fcaUrl}" target="_blank" rel="noopener" style="color:var(--blue);font-size:12px">View on FCA Register →</a>`;
 
   renderPills("r-flags", risk.flags || [], "pill-red");
   renderPills("r-positives", risk.positives || [], "pill-green");
