@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Example Report — Cracked Minds Comply</title>
+<meta name="description" content="See an example UK regulatory compliance report from Cracked Minds Comply.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#f0ede8;--text2:#8a8880;--text3:#555450;
+  --blue:#3b82f6;--blue2:#2563eb;--blue-dim:rgba(59,130,246,0.12);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.1);
+  --red:#ef4444;--red-dim:rgba(239,68,68,0.1);
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);
+  --mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;
+}
+body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6}
+header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.95);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo-mark{color:var(--blue)}.logo-sub{font-size:11px;color:var(--text3);font-weight:400}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:var(--text2);text-decoration:none}
+.btn-cta{background:var(--blue);color:#fff;padding:8px 20px;border-radius:4px;font-family:var(--sans);font-size:13px;font-weight:600}
+.example-banner{background:var(--amber-dim);border-bottom:0.5px solid rgba(245,158,11,0.2);padding:10px 40px;font-size:13px;color:var(--amber)}
+.wrap{max-width:800px;margin:0 auto;padding:48px 40px}
+.report-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
+.co-name{font-family:var(--sans);font-size:2rem;font-weight:700;letter-spacing:-0.02em}
+.co-sub{font-size:13px;color:var(--text3);margin-top:6px}
+.risk-box{text-align:center;min-width:90px}
+.risk-n{font-family:var(--sans);font-size:3.5rem;font-weight:800;line-height:1;color:var(--green)}
+.risk-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
+.grid1{margin-bottom:2px}
+.card{background:var(--surface);padding:24px}
+.card-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.kv{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.kv:last-child{border-bottom:none}
+.kv-k{color:var(--text2)}.kv-v{text-align:right;color:var(--text)}
+.badge{font-size:11px;padding:2px 8px;border-radius:2px;font-weight:500}
+.badge-green{background:var(--green-dim);color:var(--green)}
+.badge-amber{background:var(--amber-dim);color:var(--amber)}
+.badge-blue{background:var(--blue-dim);color:var(--blue)}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;padding:3px 10px;border-radius:2px}
+.pill-green{background:var(--green-dim);color:var(--green)}
+.pill-amber{background:var(--amber-dim);color:var(--amber)}
+.pill-blue{background:var(--blue-dim);color:var(--blue)}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{font-size:11px;color:var(--text3);text-align:left;padding:6px 0;border-bottom:0.5px solid var(--border)}
+.data-table td{padding:10px 0;border-bottom:0.5px solid var(--border);color:var(--text2)}
+.data-table td:first-child{color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}
+.recommendation{font-size:14px;line-height:1.8;color:var(--text2)}
+.fca-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--blue);text-decoration:none;margin-top:12px}
+.fca-link:hover{text-decoration:underline}
+.cta-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:32px;text-align:center;margin-top:24px}
+.cta-title{font-family:var(--sans);font-size:1.25rem;font-weight:700;margin-bottom:8px}
+.cta-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
+.price-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.price-card{background:var(--surface2);border:0.5px solid var(--border);border-radius:6px;padding:20px 28px;text-align:center;min-width:160px}
+.price-amt{font-family:var(--sans);font-size:1.75rem;font-weight:800}
+.price-per{font-size:12px;color:var(--text3);margin-top:2px}
+.price-desc{font-size:12px;color:var(--text2);margin-top:8px}
+.btn-primary{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--blue);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);margin-top:20px;text-decoration:none}
+.source-strip{display:flex;align-items:center;gap:8px;padding:16px 0;border-top:0.5px solid var(--border);margin-top:24px;font-size:12px;color:var(--text3)}
+.source-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+footer{padding:24px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3);flex-wrap:wrap;gap:12px}
+footer a{color:var(--text2);text-decoration:none}
+@media(max-width:640px){header{padding:16px 20px}.wrap{padding:32px 20px}.grid2{grid-template-columns:1fr}.example-banner{padding:10px 20px}footer{padding:20px}}
+@media print{header,.example-banner,.cta-box,footer{display:none!important}.wrap{padding:0}body{background:white;color:black}.card{background:white;border:1px solid #eee}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/comply/index.html">
+    <span class="logo-mark">⚖</span>
+    <div>Comply<div class="logo-sub">by Cracked Minds</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="/comply/index.html">Search firms</a>
+    <a href="/comply/index.html" class="btn-cta">Get a report →</a>
+  </div>
+</header>
+
+<div class="example-banner">
+  ⚠ This is an example report for demonstration purposes only. Data shown is real public Companies House data for Barclays PLC.
+</div>
+
+<div class="wrap">
+
+  <div class="report-header">
+    <div>
+      <div class="co-name">Barclays PLC</div>
+      <div class="co-sub">Company No. 00048839 &nbsp;·&nbsp; Incorporated 20 July 1896 &nbsp;·&nbsp; <span class="badge badge-green">Active</span></div>
+    </div>
+    <div class="risk-box">
+      <div class="risk-n">2</div>
+      <div class="risk-label">Low risk</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Company details</div>
+      <div class="kv"><span class="kv-k">Status</span><span class="kv-v"><span class="badge badge-green">Active</span></span></div>
+      <div class="kv"><span class="kv-k">Type</span><span class="kv-v">Public Ltd (plc)</span></div>
+      <div class="kv"><span class="kv-k">Incorporated</span><span class="kv-v">20 Jul 1896</span></div>
+      <div class="kv"><span class="kv-k">Trading history</span><span class="kv-v">128+ years</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Registered office</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7">
+        1 Churchill Place<br>London<br>E14 5HP
+      </div>
+      <a class="fca-link" href="https://register.fca.org.uk/s/search#q=BARCLAYS%20PLC&t=Companies&sort=relevance" target="_blank" rel="noopener">
+        View on FCA Register →
+      </a>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Filing history</div>
+      <div class="kv"><span class="kv-k">Latest accounts</span><span class="kv-v">31 Dec 2025</span></div>
+      <div class="kv"><span class="kv-k">Accounts overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
+      <div class="kv"><span class="kv-k">Late filings</span><span class="kv-v" style="color:var(--green)">0</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Regulatory profile</div>
+      <div class="kv"><span class="kv-k">Sector</span><span class="kv-v"><span class="badge badge-blue">Financial services</span></span></div>
+      <div class="kv"><span class="kv-k">Likely FCA regulated</span><span class="kv-v" style="color:var(--green)">Yes</span></div>
+      <div class="kv"><span class="kv-k">Risk score</span><span class="kv-v" style="color:var(--green);font-family:var(--sans);font-weight:700;font-size:18px">2 / 10</span></div>
+    </div>
+  </div>
+
+  <div class="card grid1">
+    <div class="card-title">Active directors &amp; officers</div>
+    <table class="data-table">
+      <thead><tr><th>Name</th><th>Role</th><th>Appointed</th></tr></thead>
+      <tbody>
+        <tr><td>Nigel Paul Higgins</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">01 Mar 2019</td></tr>
+        <tr><td>Dawn Fitzpatrick</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">25 Sep 2019</td></tr>
+        <tr><td>Brian Gilvary, Dr</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">01 Feb 2020</td></tr>
+        <tr><td>Robert Berry</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">08 Feb 2022</td></tr>
+        <tr><td>Angela Anna Cross</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">23 Apr 2022</td></tr>
+        <tr><td>Hannah Elisabeth Ellwood</td><td style="color:var(--text3)">Secretary</td><td style="color:var(--text3)">15 Feb 2023</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">⚠ Risk flags</div>
+      <div style="color:var(--text3);font-size:13px">None identified</div>
+    </div>
+    <div class="card">
+      <div class="card-title">✓ Positive indicators</div>
+      <div class="pill-row">
+        <span class="pill pill-green">128yr history</span>
+        <span class="pill pill-green">No late filings</span>
+        <span class="pill pill-green">No insolvency</span>
+        <span class="pill pill-green">No charges</span>
+        <span class="pill pill-green">PLC governance</span>
+        <span class="pill pill-green">Canary Wharf HQ</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card grid1">
+    <div class="card-title">AI recommendation</div>
+    <div class="recommendation">
+      Barclays PLC is a systemically important UK bank regulated by both the FCA and the PRA, and due diligence should be conducted directly via the FCA Register and PRA supervisory disclosures to confirm the specific regulated permissions applicable to any proposed activity. Given its status as a major listed institution, counterparty or supplier risk from a regulatory compliance perspective is considered very low. No adverse compliance indicators are present at Companies House level — standard commercial due diligence is appropriate.
+    </div>
+  </div>
+
+  <div class="source-strip">
+    <div class="source-dot"></div>
+    Data: Companies House (Crown copyright) · FCA Register link provided · AI analysis: Claude by Anthropic · crackedminds.co.uk
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-title">Run a real compliance report</div>
+    <div class="cta-sub">Search any UK firm. Free company status instantly, full AI assessment from £4.99.</div>
+    <div class="price-row">
+      <div class="price-card">
+        <div class="price-amt">£4.99</div>
+        <div class="price-per">per report</div>
+        <div class="price-desc">No account needed</div>
+      </div>
+      <div class="price-card" style="border-color:var(--blue)">
+        <div class="price-amt">£49</div>
+        <div class="price-per">per month</div>
+        <div class="price-desc">Unlimited reports</div>
+      </div>
+    </div>
+    <a href="/comply/index.html" class="btn-primary">Search a firm →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div>⚖ Comply by <a href="/">Cracked Minds</a></div>
+  <div><a href="/comply/index.html">Search</a> &nbsp;·&nbsp; <a href="/">crackedminds.co.uk</a></div>
+</footer>
+
+</body>
+</html>
