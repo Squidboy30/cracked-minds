@@ -131,6 +131,21 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
 .footer-links a:hover{color:var(--text2)}
 .fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}
 .fade-up.visible{opacity:1;transform:translateY(0)}
+.psc-item{background:var(--surface2);border:0.5px solid var(--border);border-radius:4px;padding:14px 16px;margin-bottom:8px}
+.psc-item:last-child{margin-bottom:0}
+.psc-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.psc-meta{font-size:12px;color:var(--text3)}
+.psc-control{font-size:12px;color:var(--text2);margin-top:6px}
+.charge-item{background:var(--surface2);border:0.5px solid var(--border);border-radius:4px;padding:14px 16px;margin-bottom:8px}
+.charge-item:last-child{margin-bottom:0}
+.charge-desc{font-size:13px;color:var(--text);margin-bottom:4px}
+.charge-meta{font-size:12px;color:var(--text3)}
+.charge-outstanding{border-left:3px solid var(--amber)}
+.charge-satisfied{border-left:3px solid var(--green);opacity:0.7}
+.accounts-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--teal);text-decoration:none;margin-top:10px}
+.accounts-link:hover{text-decoration:underline}
+.prev-name-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.prev-name-item:last-child{border-bottom:none}
 .report-actions{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap}
 .btn-action{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;font-size:13px;font-weight:500;border-radius:4px;cursor:pointer;border:none;font-family:var(--mono);transition:all 0.15s}
 .btn-download{background:var(--teal);color:#fff}
@@ -250,6 +265,54 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
         <thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Status</th></tr></thead>
         <tbody id="directors-body"></tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- Nature of business -->
+  <div class="report-grid full" style="margin-top:2px" id="business-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">Nature of business</div>
+      <div id="business-list" class="pill-list"></div>
+    </div>
+  </div>
+
+  <!-- PSC -->
+  <div class="report-grid full" style="margin-top:2px" id="psc-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">Persons with Significant Control (Beneficial Owners)</div>
+      <div id="psc-list"></div>
+    </div>
+  </div>
+
+  <!-- Charges -->
+  <div class="report-grid full" style="margin-top:2px" id="charges-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">Registered Charges</div>
+      <div id="charges-list"></div>
+    </div>
+  </div>
+
+  <!-- Previous names -->
+  <div class="report-grid full" style="margin-top:2px" id="prev-names-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">Previous Company Names</div>
+      <div id="prev-names-list"></div>
+    </div>
+  </div>
+
+  <!-- Confirmation statement + accounts link -->
+  <div class="report-grid" style="margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">Confirmation Statement</div>
+      <div class="kv"><span class="kv-k">Next due</span><span class="kv-v" id="kv-conf-due">—</span></div>
+      <div class="kv"><span class="kv-k">Overdue</span><span class="kv-v" id="kv-conf-overdue">—</span></div>
+      <div class="kv"><span class="kv-k">Last made up</span><span class="kv-v" id="kv-conf-last">—</span></div>
+    </div>
+    <div class="rcard">
+      <div class="rcard-title">Filed Accounts</div>
+      <div class="kv"><span class="kv-k">Last accounts</span><span class="kv-v" id="kv-accounts2">—</span></div>
+      <div class="kv"><span class="kv-k">Accounts overdue</span><span class="kv-v" id="kv-overdue2">—</span></div>
+      <div id="accounts-link-wrap"></div>
     </div>
   </div>
 
@@ -497,6 +560,69 @@ function renderReport(data) {
   document.getElementById("kv-overdue").innerHTML = data.filings.accounts_overdue
     ? `<span style="color:var(--red)">Yes</span>` : `<span style="color:var(--green)">No</span>`;
   document.getElementById("kv-late").textContent = data.filings.late_filings_count || "0";
+
+  // Nature of business
+  const biz = data.company.nature_of_business || [];
+  if (biz.length) {
+    document.getElementById("business-section").style.display = "block";
+    document.getElementById("business-list").innerHTML =
+      biz.map(b => `<span class="pill" style="background:var(--teal-dim);color:var(--teal)">${b}</span>`).join("");
+  }
+
+  // PSC
+  const pscs = data.persons_with_significant_control || [];
+  if (pscs.length) {
+    document.getElementById("psc-section").style.display = "block";
+    document.getElementById("psc-list").innerHTML = pscs.map(p => `
+      <div class="psc-item">
+        <div class="psc-name">${p.name || "Unknown"}</div>
+        <div class="psc-meta">${p.kind?.replace(/-/g," ") || ""} · Notified: ${p.notified_on || "—"} ${p.ceased ? "· <span style=color:var(--text3)>Ceased</span>" : ""}</div>
+        ${p.natures_of_control?.length ? `<div class="psc-control">${p.natures_of_control.map(n => n.replace(/-/g," ")).join(", ")}</div>` : ""}
+      </div>`).join("");
+  }
+
+  // Charges
+  const charges = data.charges || [];
+  if (charges.length) {
+    document.getElementById("charges-section").style.display = "block";
+    document.getElementById("charges-list").innerHTML = charges.map(ch => `
+      <div class="charge-item ${ch.status === "outstanding" ? "charge-outstanding" : "charge-satisfied"}">
+        <div class="charge-desc">${ch.description || "Charge"}</div>
+        <div class="charge-meta">
+          ${ch.persons_entitled?.length ? `Held by: ${ch.persons_entitled.join(", ")} · ` : ""}
+          Created: ${ch.created || "—"} ·
+          <span style="color:${ch.status === "outstanding" ? "var(--amber)" : "var(--green)"}">${ch.status || "—"}</span>
+        </div>
+      </div>`).join("");
+  }
+
+  // Previous names
+  const prevNames = data.company.previous_names || [];
+  if (prevNames.length) {
+    document.getElementById("prev-names-section").style.display = "block";
+    document.getElementById("prev-names-list").innerHTML = prevNames.map(n => `
+      <div class="prev-name-item">
+        <span>${n.name}</span>
+        <span style="color:var(--text3);font-size:12px">${n.effective_from || ""} — ${n.ceased_on || "current"}</span>
+      </div>`).join("");
+  }
+
+  // Confirmation statement
+  const conf = data.company.confirmation_statement || {};
+  document.getElementById("kv-conf-due").textContent = conf.next_due || "—";
+  document.getElementById("kv-conf-overdue").innerHTML = conf.overdue
+    ? `<span style="color:var(--red)">Yes</span>` : `<span style="color:var(--green)">No</span>`;
+  document.getElementById("kv-conf-last").textContent = conf.last_made_up || "—";
+
+  // Accounts duplicate + PDF link
+  document.getElementById("kv-accounts2").textContent = data.filings.latest_accounts_date || "—";
+  document.getElementById("kv-overdue2").innerHTML = data.filings.accounts_overdue
+    ? `<span style="color:var(--red)">Yes</span>` : `<span style="color:var(--green)">No</span>`;
+  const pdfUrl = data.accounts_summary?.pdf_url || data._meta?.accounts_pdf_url;
+  if (pdfUrl) {
+    document.getElementById("accounts-link-wrap").innerHTML =
+      `<a href="${pdfUrl}" target="_blank" rel="noopener" class="accounts-link">Download filed accounts PDF →</a>`;
+  }
 
   const tbody = document.getElementById("directors-body");
   tbody.innerHTML = "";
