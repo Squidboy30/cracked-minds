@@ -58,6 +58,14 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
 .psc-meta{font-size:12px;color:var(--text3)}
 .psc-control{font-size:12px;color:var(--text2);margin-top:6px}
 .fca-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--blue);text-decoration:none;margin-top:12px}
+.charge-item{border-left:3px solid var(--amber);background:var(--surface2);border-radius:4px;padding:14px 16px;margin-bottom:8px}
+.charge-desc{font-size:13px;color:var(--text);margin-bottom:4px}
+.charge-meta{font-size:12px;color:var(--text3)}
+.related-co-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.related-co-item:last-child{border-bottom:none}
+.related-co-name{color:var(--text);font-size:13px}
+.related-co-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.accounts-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--blue);text-decoration:none;margin-top:10px}
 .recommendation{font-size:14px;line-height:1.8;color:var(--text2)}
 .cta-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:32px;text-align:center;margin-top:24px}
 .cta-title{font-family:var(--sans);font-size:1.25rem;font-weight:700;margin-bottom:8px}
@@ -150,6 +158,20 @@ footer a{color:var(--text2);text-decoration:none}
 
   <div class="grid1">
     <div class="card">
+      <div class="card-title">Registered Charges</div>
+      <div class="charge-item">
+        <div class="charge-desc">Fixed and floating charge</div>
+        <div class="charge-meta">Held by: BANK OF NEW YORK MELLON &nbsp;&middot;&nbsp; Created: 2021-06-15 &nbsp;&middot;&nbsp; <span style="color:var(--amber)">Outstanding</span></div>
+      </div>
+      <div class="charge-item">
+        <div class="charge-desc">Debenture</div>
+        <div class="charge-meta">Held by: HSBC BANK PLC &nbsp;&middot;&nbsp; Created: 2019-03-01 &nbsp;&middot;&nbsp; <span style="color:var(--amber)">Outstanding</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid1">
+    <div class="card">
       <div class="card-title">Active directors &amp; officers</div>
       <table class="data-table">
         <thead><tr><th>Name</th><th>Role</th><th>Appointed</th></tr></thead>
@@ -172,6 +194,7 @@ footer a{color:var(--text2);text-decoration:none}
       <div class="kv"><span class="kv-k">Latest accounts</span><span class="kv-v">31 Dec 2025</span></div>
       <div class="kv"><span class="kv-k">Accounts overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
       <div class="kv"><span class="kv-k">Late filings</span><span class="kv-v" style="color:var(--green)">0</span></div>
+      <a class="accounts-link" href="https://find-and-update.company-information.service.gov.uk/company/00048839/filing-history" target="_blank" rel="noopener">View filed accounts &#8594;</a>
     </div>
     <div class="card">
       <div class="card-title">Confirmation statement</div>
@@ -209,6 +232,33 @@ footer a{color:var(--text2);text-decoration:none}
   <div class="source-strip">
     <div class="source-dot"></div>
     Data: Companies House (Crown copyright) &nbsp;&middot;&nbsp; FCA Register link provided &nbsp;&middot;&nbsp; AI analysis: Claude by Anthropic &nbsp;&middot;&nbsp; crackedminds.co.uk
+  </div>
+
+  <div class="grid1">
+    <div class="card">
+      <div class="card-title">Director Cross-Reference — Other Appointments (sample)</div>
+      <div class="related-co-item">
+        <div>
+          <div class="related-co-name">BARCLAYS BANK PLC</div>
+          <div class="related-co-meta">01026167 &nbsp;&middot;&nbsp; Director &nbsp;&middot;&nbsp; Appointed: 01 Mar 2019</div>
+        </div>
+        <a href="https://find-and-update.company-information.service.gov.uk/company/01026167" target="_blank" rel="noopener" style="font-size:12px;color:var(--blue);white-space:nowrap">View &#8594;</a>
+      </div>
+      <div class="related-co-item">
+        <div>
+          <div class="related-co-name">BARCLAYS BANK UK PLC</div>
+          <div class="related-co-meta">09740322 &nbsp;&middot;&nbsp; Director &nbsp;&middot;&nbsp; Appointed: 01 Mar 2019</div>
+        </div>
+        <a href="https://find-and-update.company-information.service.gov.uk/company/09740322" target="_blank" rel="noopener" style="font-size:12px;color:var(--blue);white-space:nowrap">View &#8594;</a>
+      </div>
+      <div class="related-co-item">
+        <div>
+          <div class="related-co-name">BARCLAYS SERVICES LIMITED</div>
+          <div class="related-co-meta">01986136 &nbsp;&middot;&nbsp; Director &nbsp;&middot;&nbsp; Appointed: 01 Mar 2019</div>
+        </div>
+        <a href="https://find-and-update.company-information.service.gov.uk/company/01986136" target="_blank" rel="noopener" style="font-size:12px;color:var(--blue);white-space:nowrap">View &#8594;</a>
+      </div>
+    </div>
   </div>
 
   <div class="cta-box">
