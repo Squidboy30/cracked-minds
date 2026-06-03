@@ -144,6 +144,17 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
 .charge-satisfied{border-left:3px solid var(--green);opacity:0.7}
 .accounts-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--teal);text-decoration:none;margin-top:10px}
 .accounts-link:hover{text-decoration:underline}
+.gazette-item{background:var(--red-dim);border:0.5px solid rgba(239,68,68,0.2);border-radius:4px;padding:12px 16px;margin-bottom:8px}
+.gazette-title{font-size:13px;color:var(--text);margin-bottom:4px}
+.gazette-meta{font-size:12px;color:var(--text3)}
+.related-co-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.related-co-item:last-child{border-bottom:none}
+.related-co-name{color:var(--text);font-size:13px}
+.related-co-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.insolvency-item{background:var(--red-dim);border:0.5px solid rgba(239,68,68,0.2);border-left:3px solid var(--red);border-radius:4px;padding:14px 16px;margin-bottom:8px}
+.insolvency-type{font-size:13px;font-weight:500;color:var(--red);margin-bottom:6px}
+.insolvency-meta{font-size:12px;color:var(--text2)}
+.resignation-warning{background:var(--amber-dim);border:0.5px solid rgba(245,158,11,0.2);border-radius:4px;padding:10px 14px;font-size:13px;color:var(--amber);margin-bottom:8px}
 .prev-name-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:13px}
 .prev-name-item:last-child{border-bottom:none}
 .report-actions{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap}
@@ -331,6 +342,41 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
     <div class="rcard">
       <div class="rcard-title">AI Recommendation</div>
       <div class="recommendation" id="recommendation"></div>
+    </div>
+  </div>
+
+  <!-- Gazette notices -->
+  <div class="report-grid full" style="margin-top:2px" id="gazette-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">&#9888; London Gazette Notices</div>
+      <div id="gazette-list"></div>
+    </div>
+  </div>
+
+  <!-- Insolvency detail -->
+  <div class="report-grid full" style="margin-top:2px" id="insolvency-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">Insolvency History</div>
+      <div id="insolvency-list"></div>
+    </div>
+  </div>
+
+  <!-- Recent resignations warning -->
+  <div id="resignation-warning" style="display:none;margin-top:2px;padding:0 0"></div>
+
+  <!-- Related companies -->
+  <div class="report-grid full" style="margin-top:2px" id="related-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">Director Cross-Reference — Other Appointments</div>
+      <div id="related-list"></div>
+    </div>
+  </div>
+
+  <!-- Address history -->
+  <div class="report-grid full" style="margin-top:2px" id="address-section" style="display:none">
+    <div class="rcard">
+      <div class="rcard-title">Registered Office Change History</div>
+      <div id="address-list"></div>
     </div>
   </div>
 
@@ -641,6 +687,68 @@ function renderReport(data) {
   document.getElementById("recommendation").textContent = risk.recommendation || "";
 
   if (data._meta && data._meta.stub_mode) document.getElementById("stub-notice").style.display = "block";
+  // Gazette notices
+  const gazette = data.gazette_notices || [];
+  if (gazette.length) {
+    document.getElementById("gazette-section").style.display = "block";
+    document.getElementById("gazette-list").innerHTML = gazette.map(n => `
+      <div class="gazette-item">
+        <div class="gazette-title">${n.title || "Notice"}</div>
+        <div class="gazette-meta">${n.date || ""} ${n.url ? `&nbsp;·&nbsp;<a href="${n.url}" target="_blank" rel="noopener" style="color:var(--red)">View notice →</a>` : ""}</div>
+      </div>`).join("");
+  }
+
+  // Insolvency detail
+  const insolvency = data.insolvency_detail || [];
+  if (insolvency.length) {
+    document.getElementById("insolvency-section").style.display = "block";
+    document.getElementById("insolvency-list").innerHTML = insolvency.map(i => `
+      <div class="insolvency-item">
+        <div class="insolvency-type">${i.type || "Insolvency event"}</div>
+        <div class="insolvency-meta">
+          ${i.dates?.map(d => `${d.type}: ${d.date}`).join(" &nbsp;·&nbsp; ") || ""}
+          ${i.practitioners?.length ? `<br>Practitioner: ${i.practitioners.map(p => p.name).join(", ")}` : ""}
+        </div>
+      </div>`).join("");
+  }
+
+  // Recent resignation warning
+  const resignations = data.recent_resignations || [];
+  if (resignations.length >= 2) {
+    document.getElementById("resignation-warning").style.display = "block";
+    document.getElementById("resignation-warning").innerHTML = `
+      <div class="rcard" style="border-left:3px solid var(--amber)">
+        <div class="rcard-title">&#9888; Governance Alert</div>
+        <div class="resignation-warning">${resignations.length} director${resignations.length > 1 ? "s" : ""} resigned in the last 12 months: ${resignations.map(r => r.name).join(", ")}. Rapid board turnover may indicate governance issues.</div>
+      </div>`;
+  }
+
+  // Related companies
+  const related = data.related_companies || [];
+  if (related.length) {
+    document.getElementById("related-section").style.display = "block";
+    const items = related.flatMap(r => r.appointments || []);
+    document.getElementById("related-list").innerHTML = items.slice(0, 10).map(a => `
+      <div class="related-co-item">
+        <div>
+          <div class="related-co-name">${a.company_name || ""}</div>
+          <div class="related-co-meta">${a.company_number || ""} &nbsp;·&nbsp; ${a.role || ""} &nbsp;·&nbsp; Appointed: ${a.appointed || "—"}</div>
+        </div>
+        <a href="https://find-and-update.company-information.service.gov.uk/company/${a.company_number}" target="_blank" rel="noopener" style="font-size:12px;color:var(--teal);white-space:nowrap">View →</a>
+      </div>`).join("");
+  }
+
+  // Address change history
+  const addresses = data.address_history || [];
+  if (addresses.length) {
+    document.getElementById("address-section").style.display = "block";
+    document.getElementById("address-list").innerHTML = addresses.map(a => `
+      <div class="related-co-item">
+        <div class="related-co-name">${a.description || "Address change"}</div>
+        <div style="font-size:12px;color:var(--text3);white-space:nowrap">${a.date || ""}</div>
+      </div>`).join("");
+  }
+
   document.getElementById("cta-box").style.display = "block";
   document.getElementById("report-wrap").classList.add("visible");
   document.getElementById("report-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
