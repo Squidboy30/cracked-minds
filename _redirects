@@ -1,0 +1,6 @@
+/gateway          /gateway/index.html    200
+/gateway/         /gateway/index.html    200
+/check            /check/index.html      200
+/check/           /check/index.html      200
+/comply           /comply/index.html     200
+/comply/          /comply/index.html     200
