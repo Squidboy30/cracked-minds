@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Example Report - Cracked Minds Check</title>
-<meta name="description" content="See an example UK company due diligence report from Cracked Minds Check">
+<meta name="description" content="See an example UK company due diligence report from Cracked Minds Check.">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -21,23 +21,21 @@
 body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6}
 header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.95);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
 .logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
-.logo-mark{color:var(--teal)}
-.logo-sub{font-size:11px;color:var(--text3);font-weight:400}
+.logo-mark{color:var(--teal)}.logo-sub{font-size:11px;color:var(--text3);font-weight:400}
 .nav-links{display:flex;align-items:center;gap:24px}
 .nav-links a{font-size:13px;color:var(--text2);text-decoration:none}
-.nav-links a:hover{color:var(--text)}
-.btn-cta{background:var(--teal);color:#fff;padding:8px 20px;border-radius:4px;font-family:var(--sans);font-size:13px;font-weight:600}
-.example-banner{background:var(--amber-dim);border-bottom:0.5px solid rgba(245,158,11,0.2);padding:10px 40px;font-size:13px;color:var(--amber);display:flex;align-items:center;gap:8px}
+.btn-cta{background:var(--teal);color:#fff;padding:8px 20px;border-radius:4px;font-family:var(--sans);font-size:13px;font-weight:600;text-decoration:none}
+.example-banner{background:var(--amber-dim);border-bottom:0.5px solid rgba(245,158,11,0.2);padding:10px 40px;font-size:13px;color:var(--amber)}
 .wrap{max-width:800px;margin:0 auto;padding:48px 40px}
+.paid-banner{background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.2);border-radius:4px;padding:10px 16px;font-size:13px;color:var(--teal);margin-bottom:24px}
 .report-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
 .co-name{font-family:var(--sans);font-size:2rem;font-weight:700;letter-spacing:-0.02em}
 .co-sub{font-size:13px;color:var(--text3);margin-top:6px}
 .risk-box{text-align:center;min-width:90px}
-.risk-n{font-family:var(--sans);font-size:3.5rem;font-weight:800;line-height:1;letter-spacing:-0.04em;color:var(--green)}
+.risk-n{font-family:var(--sans);font-size:3.5rem;font-weight:800;line-height:1;color:var(--green)}
 .risk-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
-.paid-banner{background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.2);border-radius:4px;padding:10px 16px;font-size:13px;color:var(--teal);margin-bottom:24px;display:flex;align-items:center;gap:8px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
-.grid1{margin-bottom:2px}
+.grid1{margin-bottom:2px;background:var(--border)}
 .card{background:var(--surface);padding:24px}
 .card-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
 .kv{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
@@ -46,60 +44,67 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
 .badge{font-size:11px;padding:2px 8px;border-radius:2px;font-weight:500}
 .badge-green{background:var(--green-dim);color:var(--green)}
 .badge-amber{background:var(--amber-dim);color:var(--amber)}
-.badge-red{background:var(--red-dim);color:var(--red)}
-.pill-row{display:flex;flex-wrap:wrap;gap:6px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
 .pill{font-size:12px;padding:3px 10px;border-radius:2px}
 .pill-green{background:var(--green-dim);color:var(--green)}
 .pill-amber{background:var(--amber-dim);color:var(--amber)}
+.pill-teal{background:var(--teal-dim);color:var(--teal)}
 .data-table{width:100%;border-collapse:collapse;font-size:13px}
-.data-table th{font-size:11px;font-weight:500;color:var(--text3);text-align:left;padding:6px 0;border-bottom:0.5px solid var(--border);letter-spacing:0.04em}
+.data-table th{font-size:11px;color:var(--text3);text-align:left;padding:6px 0;border-bottom:0.5px solid var(--border)}
 .data-table td{padding:10px 0;border-bottom:0.5px solid var(--border);color:var(--text2)}
 .data-table td:first-child{color:var(--text)}
 .data-table tr:last-child td{border-bottom:none}
+.psc-item{background:var(--surface2);border:0.5px solid var(--border);border-radius:4px;padding:14px 16px;margin-bottom:8px}
+.psc-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.psc-meta{font-size:12px;color:var(--text3)}
+.psc-control{font-size:12px;color:var(--text2);margin-top:6px}
+.charge-item{border-left:3px solid var(--amber);background:var(--surface2);border-radius:4px;padding:14px 16px;margin-bottom:8px}
+.charge-desc{font-size:13px;color:var(--text);margin-bottom:4px}
+.charge-meta{font-size:12px;color:var(--text3)}
+.accounts-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--teal);text-decoration:none;margin-top:10px}
 .recommendation{font-size:14px;line-height:1.8;color:var(--text2)}
 .cta-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:32px;text-align:center;margin-top:24px}
 .cta-title{font-family:var(--sans);font-size:1.25rem;font-weight:700;margin-bottom:8px}
 .cta-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
 .price-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .price-card{background:var(--surface2);border:0.5px solid var(--border);border-radius:6px;padding:20px 28px;text-align:center;min-width:160px}
-.price-amt{font-family:var(--sans);font-size:1.75rem;font-weight:800;letter-spacing:-0.02em}
+.price-amt{font-family:var(--sans);font-size:1.75rem;font-weight:800}
 .price-per{font-size:12px;color:var(--text3);margin-top:2px}
 .price-desc{font-size:12px;color:var(--text2);margin-top:8px}
-.btn-primary{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);margin-top:20px;text-decoration:none;transition:background 0.15s}
-.btn-primary:hover{background:var(--teal2)}
+.btn-primary{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;font-family:var(--sans);margin-top:20px;text-decoration:none}
 .source-strip{display:flex;align-items:center;gap:8px;padding:16px 0;border-top:0.5px solid var(--border);margin-top:24px;font-size:12px;color:var(--text3)}
 .source-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
 footer{padding:24px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3);flex-wrap:wrap;gap:12px}
 footer a{color:var(--text2);text-decoration:none}
 @media(max-width:640px){header{padding:16px 20px}.wrap{padding:32px 20px}.grid2{grid-template-columns:1fr}.example-banner{padding:10px 20px}footer{padding:20px}}
-@media print{header,.example-banner,.cta-box,footer{display:none!important}.wrap{padding:0}body{background:white;color:black}.card{background:white;border:1px solid #eee}}
+@media print{header,.example-banner,.cta-box,footer{display:none!important}.wrap{padding:0}body{background:white;color:black}.card{background:white}}
 </style>
 </head>
 <body>
 
 <header>
   <a class="logo" href="/check/index.html">
-    <span class="logo-mark">✦</span>
+    <span class="logo-mark">&#10022;</span>
     <div>Check<div class="logo-sub">by Cracked Minds</div></div>
   </a>
   <div class="nav-links">
     <a href="/check/index.html">Search a company</a>
-    <a href="/check/index.html" class="btn-cta">Get a report →</a>
+    <a href="/check/index.html" class="btn-cta">Get a report</a>
   </div>
 </header>
 
 <div class="example-banner">
-  ⚠ This is an example report for demonstration purposes only. Data shown is real public Companies House data for Hargreaves Lansdown Limited.
+  Example report - real public data for Hargreaves Lansdown Limited. Search any UK company to generate your own.
 </div>
 
 <div class="wrap">
 
-  <div class="paid-banner">✓ Full report — payment confirmed</div>
+  <div class="paid-banner">&#10003; Full report - payment confirmed</div>
 
   <div class="report-header">
     <div>
       <div class="co-name">Hargreaves Lansdown Limited</div>
-      <div class="co-sub">Company No. 02122142 &nbsp;·&nbsp; Incorporated 10 April 1987 &nbsp;·&nbsp; <span class="badge badge-green">Active</span></div>
+      <div class="co-sub">Company No. 02122142 &nbsp;&middot;&nbsp; Incorporated 10 April 1987 &nbsp;&middot;&nbsp; <span class="badge badge-green">Active</span></div>
     </div>
     <div class="risk-box">
       <div class="risk-n">3</div>
@@ -107,108 +112,145 @@ footer a{color:var(--text2);text-decoration:none}
     </div>
   </div>
 
+  <!-- Company details -->
   <div class="grid2">
     <div class="card">
       <div class="card-title">Company details</div>
       <div class="kv"><span class="kv-k">Status</span><span class="kv-v"><span class="badge badge-green">Active</span></span></div>
-      <div class="kv"><span class="kv-k">Type</span><span class="kv-v">Private Ltd (ltd)</span></div>
+      <div class="kv"><span class="kv-k">Type</span><span class="kv-v">Private Ltd</span></div>
       <div class="kv"><span class="kv-k">Incorporated</span><span class="kv-v">10 Apr 1987</span></div>
       <div class="kv"><span class="kv-k">Trading history</span><span class="kv-v">37+ years</span></div>
     </div>
     <div class="card">
       <div class="card-title">Registered office</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.7">
-        One College Square South<br>Bristol<br>BS1 5HL<br>England
+      <div style="font-size:13px;color:var(--text2);line-height:1.7">One College Square South<br>Bristol, BS1 5HL<br>England</div>
+    </div>
+  </div>
+
+  <!-- Nature of business -->
+  <div class="grid1">
+    <div class="card">
+      <div class="card-title">Nature of business (SIC codes)</div>
+      <div class="pill-row">
+        <span class="pill pill-teal">Financial service activities (SIC 6499)</span>
+        <span class="pill pill-teal">Activities auxiliary to financial services (SIC 6619)</span>
       </div>
     </div>
   </div>
 
+  <!-- PSC -->
+  <div class="grid1">
+    <div class="card">
+      <div class="card-title">Persons with Significant Control (Beneficial Owners)</div>
+      <div class="psc-item">
+        <div class="psc-name">HARGREAVES LANSDOWN PLC</div>
+        <div class="psc-meta">Corporate entity &nbsp;&middot;&nbsp; Notified: 06 Apr 2016</div>
+        <div class="psc-control">Ownership of shares: 75% to 100% &nbsp;&middot;&nbsp; Voting rights: 75% to 100%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charges -->
+  <div class="grid1">
+    <div class="card">
+      <div class="card-title">Registered Charges</div>
+      <div class="charge-item">
+        <div class="charge-desc">Debenture</div>
+        <div class="charge-meta">Held by: LLOYDS BANK PLC &nbsp;&middot;&nbsp; Created: 2019-03-14 &nbsp;&middot;&nbsp; <span style="color:var(--amber)">Outstanding</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Directors -->
+  <div class="grid1">
+    <div class="card">
+      <div class="card-title">Directors &amp; officers</div>
+      <table class="data-table">
+        <thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Richard Charles Flint</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">30 Jun 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td>Jonathan Bruce Hemphill</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td>Declan Joseph Hourican</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">19 Nov 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td>Mary Theresa O'Connor</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td>Craig Diamond</td><td style="color:var(--text3)">Secretary</td><td style="color:var(--text3)">25 Mar 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td style="text-decoration:line-through;color:var(--text3)">Andrea Margaret Blance</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">01 Sep 2020</td><td><span class="badge badge-amber">Resigned</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Filing + Confirmation -->
   <div class="grid2">
     <div class="card">
       <div class="card-title">Filing history</div>
       <div class="kv"><span class="kv-k">Latest accounts</span><span class="kv-v">30 Jun 2025</span></div>
       <div class="kv"><span class="kv-k">Accounts overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
       <div class="kv"><span class="kv-k">Late filings (historic)</span><span class="kv-v"><span class="badge badge-amber">10</span></span></div>
+      <a class="accounts-link" href="https://find-and-update.company-information.service.gov.uk/company/02122142/filing-history" target="_blank" rel="noopener">View filed accounts &#8594;</a>
     </div>
     <div class="card">
-      <div class="card-title">Risk summary</div>
-      <div class="kv"><span class="kv-k">Overall risk</span><span class="kv-v"><span class="badge badge-green">Low</span></span></div>
-      <div class="kv"><span class="kv-k">Risk score</span><span class="kv-v" style="color:var(--green);font-family:var(--sans);font-weight:700;font-size:18px">3 / 10</span></div>
-      <div class="kv"><span class="kv-k">Insolvency history</span><span class="kv-v" style="color:var(--green)">None</span></div>
+      <div class="card-title">Confirmation statement</div>
+      <div class="kv"><span class="kv-k">Next due</span><span class="kv-v">2026-04-15</span></div>
+      <div class="kv"><span class="kv-k">Overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
+      <div class="kv"><span class="kv-k">Last made up</span><span class="kv-v">2025-04-01</span></div>
     </div>
   </div>
 
-  <div class="card grid1">
-    <div class="card-title">Directors &amp; officers</div>
-    <table class="data-table">
-      <thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>Richard Charles Flint</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">30 Jun 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-        <tr><td>Jonathan Bruce Hemphill</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-        <tr><td>Declan Joseph Hourican</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">19 Nov 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-        <tr><td>Lars-Åke Valdemar Norling</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-        <tr><td>Mary Theresa O'Connor</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-        <tr><td>Craig Diamond</td><td style="color:var(--text3)">Secretary</td><td style="color:var(--text3)">25 Mar 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-        <tr><td style="text-decoration:line-through;color:var(--text3)">Andrea Margaret Blance</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">01 Sep 2020</td><td><span class="badge badge-amber">Resigned</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
+  <!-- Risk flags + positives -->
   <div class="grid2">
     <div class="card">
-      <div class="card-title">⚠ Risk flags</div>
-      <div class="pill-row">
-        <span class="pill pill-amber">10 historical late filings</span>
-      </div>
+      <div class="card-title">&#9888; Risk flags</div>
+      <div class="pill-row"><span class="pill pill-amber">10 historical late filings</span></div>
     </div>
     <div class="card">
-      <div class="card-title">✓ Positive indicators</div>
+      <div class="card-title">&#10003; Positive indicators</div>
       <div class="pill-row">
         <span class="pill pill-green">37yr trading history</span>
         <span class="pill pill-green">No insolvency</span>
-        <span class="pill pill-green">No charges</span>
         <span class="pill pill-green">Accounts current</span>
-        <span class="pill pill-green">6 active directors</span>
-        <span class="pill pill-green">Clean filing record</span>
+        <span class="pill pill-green">FCA regulated sector</span>
+        <span class="pill pill-green">Stable ownership</span>
+        <span class="pill pill-green">Conf. statement current</span>
       </div>
     </div>
   </div>
 
-  <div class="card grid1">
-    <div class="card-title">AI recommendation</div>
-    <div class="recommendation">
-      Hargreaves Lansdown Limited presents a low overall risk profile, underpinned by a very long trading history of over 37 years, a clean insolvency record, and up-to-date filings. The 10 historical late filings are a minor concern and worth monitoring, but do not materially affect the company's standing given its size and longevity. This company is generally considered a reliable counterparty for business engagements — standard commercial due diligence is appropriate but no elevated caution is required.
+  <!-- AI Recommendation -->
+  <div class="grid1">
+    <div class="card">
+      <div class="card-title">AI recommendation</div>
+      <div class="recommendation">Hargreaves Lansdown Limited presents a low overall risk profile, underpinned by a very long trading history of over 37 years, a clean insolvency record, and up-to-date filings. The company operates in regulated financial services and is a wholly owned subsidiary of Hargreaves Lansdown PLC, providing clear beneficial ownership transparency. The 10 historical late filings are a minor concern but do not materially affect the company's standing. The outstanding debenture held by Lloyds Bank PLC is standard commercial financing and not a red flag for a firm of this size. This company is generally considered a reliable counterparty for business engagements.</div>
     </div>
   </div>
 
   <div class="source-strip">
     <div class="source-dot"></div>
-    Data: Companies House (Crown copyright) &nbsp;·&nbsp; AI analysis: Claude by Anthropic &nbsp;·&nbsp; 669 tokens used &nbsp;·&nbsp; crackedminds.co.uk
+    Data: Companies House (Crown copyright) &nbsp;&middot;&nbsp; AI analysis: Claude by Anthropic &nbsp;&middot;&nbsp; crackedminds.co.uk
   </div>
 
   <div class="cta-box">
     <div class="cta-title">Run a real report</div>
-    <div class="cta-sub">Search any UK company. Free preview instantly, full report from £2.99.</div>
+    <div class="cta-sub">Search any UK company. Free preview instantly, full report from &pound;2.99.</div>
     <div class="price-row">
       <div class="price-card">
-        <div class="price-amt">£2.99</div>
+        <div class="price-amt">&pound;2.99</div>
         <div class="price-per">per report</div>
         <div class="price-desc">No account needed</div>
       </div>
       <div class="price-card" style="border-color:var(--teal)">
-        <div class="price-amt">£29</div>
+        <div class="price-amt">&pound;29</div>
         <div class="price-per">per month</div>
         <div class="price-desc">Unlimited reports</div>
       </div>
     </div>
-    <a href="/check/index.html" class="btn-primary">Search a company →</a>
+    <a href="/check/index.html" class="btn-primary">Search a company &#8594;</a>
   </div>
 
 </div>
 
 <footer>
-  <div>✦ Check by <a href="/">Cracked Minds</a></div>
-  <div><a href="/check/index.html">Search</a> &nbsp;·&nbsp; <a href="/">crackedminds.co.uk</a></div>
+  <div>&#10022; Check by <a href="/">Cracked Minds</a></div>
+  <div><a href="/check/index.html">Search</a> &nbsp;&middot;&nbsp; <a href="/">crackedminds.co.uk</a></div>
 </footer>
 
 </body>
