@@ -501,7 +501,7 @@ function selectPrice(type) {
 async function handleCheckout() {
   if (!selectedCompany) return;
   try {
-    const res = await fetch("/.netlify/functions/create-checkout", {
+    const res = await fetch("/api/create-checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -521,7 +521,7 @@ async function handleStripeReturn(sessionId, companyRef) {
   setLoading(true);
   try {
     // Verify payment with Stripe
-    const vRes = await fetch(`/.netlify/functions/verify-payment?session_id=${sessionId}`);
+    const vRes = await fetch(`/api/verify-payment?session_id=${sessionId}`);
     const vData = await vRes.json();
 
     if (!vData.paid) {
@@ -611,7 +611,7 @@ async function sendEmail() {
   btn.disabled = true;
 
   try {
-    const res = await fetch("/.netlify/functions/send-report", {
+    const res = await fetch("/api/send-report", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
