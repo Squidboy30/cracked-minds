@@ -625,6 +625,32 @@ async function handleSearch() {
       showError("No companies found matching that name. Try a different search term.");
     }
   } catch {
+    // Fallback to Boltwork API
+    try {
+      const res2 = await fetch(`${API}/analyse/company`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ company_name: q, include_accounts: false })
+      });
+      if (!res2.ok) throw new Error("API error");
+      const data2 = await res2.json();
+      renderResults([{
+        title: data2.company.name,
+        company_number: data2.company.number,
+        company_status: data2.company.status,
+        address_snippet: data2.company.address,
+        _prefetched: data2
+      }]);
+    } catch {
+      showError("Search unavailable. Please try again shortly.");
+    }s.json();
+    const items = data.items || [];
+    if (items.length) {
+      renderResults(items);
+    } else {
+      showError("No companies found matching that name. Try a different search term.");
+    }
+  } catch {
     // Fallback: use Boltwork API which returns top match from Companies House
     try {
       const res = await fetch(`${API}/analyse/company`, {
