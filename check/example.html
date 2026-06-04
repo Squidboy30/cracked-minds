@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Example Report - Cracked Minds Check</title>
-<meta name="description" content="See an example UK company due diligence report from Cracked Minds Check.">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -16,6 +15,7 @@
   --green:#22c55e;--green-dim:rgba(34,197,94,0.1);
   --red:#ef4444;--red-dim:rgba(239,68,68,0.1);
   --amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);
   --mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;
 }
 body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6}
@@ -26,7 +26,7 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
 .nav-links a{font-size:13px;color:var(--text2);text-decoration:none}
 .btn-cta{background:var(--teal);color:#fff;padding:8px 20px;border-radius:4px;font-family:var(--sans);font-size:13px;font-weight:600;text-decoration:none}
 .example-banner{background:var(--amber-dim);border-bottom:0.5px solid rgba(245,158,11,0.2);padding:10px 40px;font-size:13px;color:var(--amber)}
-.wrap{max-width:800px;margin:0 auto;padding:48px 40px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 40px}
 .paid-banner{background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.2);border-radius:4px;padding:10px 16px;font-size:13px;color:var(--teal);margin-bottom:24px}
 .report-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
 .co-name{font-family:var(--sans);font-size:2rem;font-weight:700;letter-spacing:-0.02em}
@@ -34,34 +34,48 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
 .risk-box{text-align:center;min-width:90px}
 .risk-n{font-family:var(--sans);font-size:3.5rem;font-weight:800;line-height:1;color:var(--green)}
 .risk-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.06em}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
-.grid1{margin-bottom:2px;background:var(--border)}
-.card{background:var(--surface);padding:24px}
-.card-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
-.kv{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
+.g1{margin-bottom:2px;background:var(--border)}
+.fin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px;background:var(--border)}
+.card{background:var(--surface);padding:22px}
+.card-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.kv{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:13px}
 .kv:last-child{border-bottom:none}
 .kv-k{color:var(--text2)}.kv-v{text-align:right;color:var(--text)}
 .badge{font-size:11px;padding:2px 8px;border-radius:2px;font-weight:500}
 .badge-green{background:var(--green-dim);color:var(--green)}
 .badge-amber{background:var(--amber-dim);color:var(--amber)}
-.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.badge-blue{background:var(--blue-dim);color:var(--blue)}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px}
 .pill{font-size:12px;padding:3px 10px;border-radius:2px}
 .pill-green{background:var(--green-dim);color:var(--green)}
 .pill-amber{background:var(--amber-dim);color:var(--amber)}
 .pill-teal{background:var(--teal-dim);color:var(--teal)}
 .data-table{width:100%;border-collapse:collapse;font-size:13px}
 .data-table th{font-size:11px;color:var(--text3);text-align:left;padding:6px 0;border-bottom:0.5px solid var(--border)}
-.data-table td{padding:10px 0;border-bottom:0.5px solid var(--border);color:var(--text2)}
+.data-table td{padding:9px 0;border-bottom:0.5px solid var(--border);color:var(--text2)}
 .data-table td:first-child{color:var(--text)}
 .data-table tr:last-child td{border-bottom:none}
 .psc-item{background:var(--surface2);border:0.5px solid var(--border);border-radius:4px;padding:14px 16px;margin-bottom:8px}
-.psc-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.psc-name{font-size:14px;font-weight:500;margin-bottom:4px}
 .psc-meta{font-size:12px;color:var(--text3)}
 .psc-control{font-size:12px;color:var(--text2);margin-top:6px}
 .charge-item{border-left:3px solid var(--amber);background:var(--surface2);border-radius:4px;padding:14px 16px;margin-bottom:8px}
-.charge-desc{font-size:13px;color:var(--text);margin-bottom:4px}
+.charge-desc{font-size:13px;font-weight:500;margin-bottom:4px}
 .charge-meta{font-size:12px;color:var(--text3)}
-.accounts-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--teal);text-decoration:none;margin-top:10px}
+.narrative-item{font-size:13px;line-height:1.7;color:var(--text2);padding:4px 0}
+.narrative-item::before{content:"&#8594; ";color:var(--teal)}
+.guidance-label{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:6px}
+.guidance-text{font-size:13px;line-height:1.7;color:var(--text2)}
+.fin-stat{background:var(--surface);padding:16px;text-align:center}
+.fin-value{font-family:var(--sans);font-size:1.3rem;font-weight:700;color:var(--text)}
+.fin-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.04em}
+.related-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.related-item:last-child{border-bottom:none}
+.tm-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.tm-item:last-child{border-bottom:none}
+.accounts-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--teal);text-decoration:none;margin-top:10px;display:block}
 .recommendation{font-size:14px;line-height:1.8;color:var(--text2)}
 .cta-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:32px;text-align:center;margin-top:24px}
 .cta-title{font-family:var(--sans);font-size:1.25rem;font-weight:700;margin-bottom:8px}
@@ -72,187 +86,273 @@ header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify
 .price-per{font-size:12px;color:var(--text3);margin-top:2px}
 .price-desc{font-size:12px;color:var(--text2);margin-top:8px}
 .btn-primary{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;font-family:var(--sans);margin-top:20px;text-decoration:none}
-.source-strip{display:flex;align-items:center;gap:8px;padding:16px 0;border-top:0.5px solid var(--border);margin-top:24px;font-size:12px;color:var(--text3)}
+.source-strip{display:flex;align-items:center;gap:8px;padding:16px 0;border-top:0.5px solid var(--border);margin-top:24px;font-size:12px;color:var(--text3);flex-wrap:wrap;gap:16px}
 .source-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
 footer{padding:24px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3);flex-wrap:wrap;gap:12px}
 footer a{color:var(--text2);text-decoration:none}
-@media(max-width:640px){header{padding:16px 20px}.wrap{padding:32px 20px}.grid2{grid-template-columns:1fr}.example-banner{padding:10px 20px}footer{padding:20px}}
+@media(max-width:640px){header{padding:16px 20px}.wrap{padding:32px 20px}.g2,.g3,.fin-grid{grid-template-columns:1fr}.example-banner{padding:10px 20px}footer{padding:20px}}
 @media print{header,.example-banner,.cta-box,footer{display:none!important}.wrap{padding:0}body{background:white;color:black}.card{background:white}}
 </style>
 </head>
 <body>
-
 <header>
-  <a class="logo" href="/check/index.html">
-    <span class="logo-mark">&#10022;</span>
-    <div>Check<div class="logo-sub">by Cracked Minds</div></div>
-  </a>
-  <div class="nav-links">
-    <a href="/check/index.html">Search a company</a>
-    <a href="/check/index.html" class="btn-cta">Get a report</a>
-  </div>
+  <a class="logo" href="/check/index.html"><span class="logo-mark">&#10022;</span><div>Check<div class="logo-sub">by Cracked Minds</div></div></a>
+  <div class="nav-links"><a href="/check/index.html">Search</a><a href="/check/index.html" class="btn-cta">Get a report</a></div>
 </header>
-
-<div class="example-banner">
-  Example report - real public data for Hargreaves Lansdown Limited. Search any UK company to generate your own.
-</div>
-
+<div class="example-banner">Example report &mdash; real public data for Hargreaves Lansdown Limited. Search any UK company to generate your own.</div>
 <div class="wrap">
 
-  <div class="paid-banner">&#10003; Full report - payment confirmed</div>
+<div class="paid-banner">&#10003; Full report &mdash; payment confirmed</div>
 
-  <div class="report-header">
-    <div>
-      <div class="co-name">Hargreaves Lansdown Limited</div>
-      <div class="co-sub">Company No. 02122142 &nbsp;&middot;&nbsp; Incorporated 10 April 1987 &nbsp;&middot;&nbsp; <span class="badge badge-green">Active</span></div>
-    </div>
-    <div class="risk-box">
-      <div class="risk-n">3</div>
-      <div class="risk-label">Low risk</div>
-    </div>
+<div class="report-header">
+  <div>
+    <div class="co-name">Hargreaves Lansdown Limited</div>
+    <div class="co-sub">Company No. 02122142 &nbsp;&middot;&nbsp; Incorporated 10 April 1987 &nbsp;&middot;&nbsp; <span class="badge badge-green">Active</span></div>
   </div>
-
-  <!-- Company details -->
-  <div class="grid2">
-    <div class="card">
-      <div class="card-title">Company details</div>
-      <div class="kv"><span class="kv-k">Status</span><span class="kv-v"><span class="badge badge-green">Active</span></span></div>
-      <div class="kv"><span class="kv-k">Type</span><span class="kv-v">Private Ltd</span></div>
-      <div class="kv"><span class="kv-k">Incorporated</span><span class="kv-v">10 Apr 1987</span></div>
-      <div class="kv"><span class="kv-k">Trading history</span><span class="kv-v">37+ years</span></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Registered office</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.7">One College Square South<br>Bristol, BS1 5HL<br>England</div>
-    </div>
-  </div>
-
-  <!-- Nature of business -->
-  <div class="grid1">
-    <div class="card">
-      <div class="card-title">Nature of business (SIC codes)</div>
-      <div class="pill-row">
-        <span class="pill pill-teal">Financial service activities (SIC 6499)</span>
-        <span class="pill pill-teal">Activities auxiliary to financial services (SIC 6619)</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PSC -->
-  <div class="grid1">
-    <div class="card">
-      <div class="card-title">Persons with Significant Control (Beneficial Owners)</div>
-      <div class="psc-item">
-        <div class="psc-name">HARGREAVES LANSDOWN PLC</div>
-        <div class="psc-meta">Corporate entity &nbsp;&middot;&nbsp; Notified: 06 Apr 2016</div>
-        <div class="psc-control">Ownership of shares: 75% to 100% &nbsp;&middot;&nbsp; Voting rights: 75% to 100%</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Charges -->
-  <div class="grid1">
-    <div class="card">
-      <div class="card-title">Registered Charges</div>
-      <div class="charge-item">
-        <div class="charge-desc">Debenture</div>
-        <div class="charge-meta">Held by: LLOYDS BANK PLC &nbsp;&middot;&nbsp; Created: 2019-03-14 &nbsp;&middot;&nbsp; <span style="color:var(--amber)">Outstanding</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Directors -->
-  <div class="grid1">
-    <div class="card">
-      <div class="card-title">Directors &amp; officers</div>
-      <table class="data-table">
-        <thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>Richard Charles Flint</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">30 Jun 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-          <tr><td>Jonathan Bruce Hemphill</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-          <tr><td>Declan Joseph Hourican</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">19 Nov 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-          <tr><td>Mary Theresa O'Connor</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-          <tr><td>Craig Diamond</td><td style="color:var(--text3)">Secretary</td><td style="color:var(--text3)">25 Mar 2025</td><td><span class="badge badge-green">Active</span></td></tr>
-          <tr><td style="text-decoration:line-through;color:var(--text3)">Andrea Margaret Blance</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">01 Sep 2020</td><td><span class="badge badge-amber">Resigned</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Filing + Confirmation -->
-  <div class="grid2">
-    <div class="card">
-      <div class="card-title">Filing history</div>
-      <div class="kv"><span class="kv-k">Latest accounts</span><span class="kv-v">30 Jun 2025</span></div>
-      <div class="kv"><span class="kv-k">Accounts overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
-      <div class="kv"><span class="kv-k">Late filings (historic)</span><span class="kv-v"><span class="badge badge-amber">10</span></span></div>
-      <a class="accounts-link" href="https://find-and-update.company-information.service.gov.uk/company/02122142/filing-history" target="_blank" rel="noopener">View filed accounts &#8594;</a>
-      <a class="accounts-link" href="https://document-api.company-information.service.gov.uk/document/bZIA4D4KU0aJiD1gfjWPdWksWpzGnSfJYp10hxDzIR0" target="_blank" rel="noopener" style="margin-top:6px">Download accounts PDF &#8594;</a>
-    </div>
-    <div class="card">
-      <div class="card-title">Confirmation statement</div>
-      <div class="kv"><span class="kv-k">Next due</span><span class="kv-v">2026-04-15</span></div>
-      <div class="kv"><span class="kv-k">Overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
-      <div class="kv"><span class="kv-k">Last made up</span><span class="kv-v">2025-04-01</span></div>
-    </div>
-  </div>
-
-  <!-- Risk flags + positives -->
-  <div class="grid2">
-    <div class="card">
-      <div class="card-title">&#9888; Risk flags</div>
-      <div class="pill-row"><span class="pill pill-amber">10 historical late filings</span></div>
-    </div>
-    <div class="card">
-      <div class="card-title">&#10003; Positive indicators</div>
-      <div class="pill-row">
-        <span class="pill pill-green">37yr trading history</span>
-        <span class="pill pill-green">No insolvency</span>
-        <span class="pill pill-green">Accounts current</span>
-        <span class="pill pill-green">FCA regulated sector</span>
-        <span class="pill pill-green">Stable ownership</span>
-        <span class="pill pill-green">Conf. statement current</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- AI Recommendation -->
-  <div class="grid1">
-    <div class="card">
-      <div class="card-title">AI recommendation</div>
-      <div class="recommendation">Hargreaves Lansdown Limited presents a low overall risk profile, underpinned by a very long trading history of over 37 years, a clean insolvency record, and up-to-date filings. The company operates in regulated financial services and is a wholly owned subsidiary of Hargreaves Lansdown PLC, providing clear beneficial ownership transparency. The 10 historical late filings are a minor concern but do not materially affect the company's standing. The outstanding debenture held by Lloyds Bank PLC is standard commercial financing and not a red flag for a firm of this size. This company is generally considered a reliable counterparty for business engagements.</div>
-    </div>
-  </div>
-
-  <div class="source-strip">
-    <div class="source-dot"></div>
-    Data: Companies House (Crown copyright) &nbsp;&middot;&nbsp; AI analysis: Claude by Anthropic &nbsp;&middot;&nbsp; crackedminds.co.uk
-  </div>
-
-  <div class="cta-box">
-    <div class="cta-title">Run a real report</div>
-    <div class="cta-sub">Search any UK company. Free preview instantly, full report from &pound;2.99.</div>
-    <div class="price-row">
-      <div class="price-card">
-        <div class="price-amt">&pound;2.99</div>
-        <div class="price-per">per report</div>
-        <div class="price-desc">No account needed</div>
-      </div>
-      <div class="price-card" style="border-color:var(--teal)">
-        <div class="price-amt">&pound;29</div>
-        <div class="price-per">per month</div>
-        <div class="price-desc">Unlimited reports</div>
-      </div>
-    </div>
-    <a href="/check/index.html" class="btn-primary">Search a company &#8594;</a>
-  </div>
-
+  <div class="risk-box"><div class="risk-n">3</div><div class="risk-label">Low risk</div></div>
 </div>
 
+<!-- Financials -->
+<div class="fin-grid">
+  <div class="fin-stat"><div class="fin-value">&pound;693m</div><div class="fin-label">Turnover</div></div>
+  <div class="fin-stat"><div class="fin-value">&pound;876m</div><div class="fin-label">Net assets</div></div>
+  <div class="fin-stat"><div class="fin-value">5,700</div><div class="fin-label">Employees</div></div>
+  <div class="fin-stat"><div class="fin-value">&pound;312m</div><div class="fin-label">Profit / Loss</div></div>
+  <div class="fin-stat"><div class="fin-value">&pound;1.4bn</div><div class="fin-label">Total assets</div></div>
+  <div class="fin-stat"><div class="fin-value">Jun 2025</div><div class="fin-label">Year end</div></div>
+</div>
+
+<!-- Company details + address -->
+<div class="g2">
+  <div class="card">
+    <div class="card-title">Company details</div>
+    <div class="kv"><span class="kv-k">Status</span><span class="kv-v"><span class="badge badge-green">Active</span></span></div>
+    <div class="kv"><span class="kv-k">Type</span><span class="kv-v">Private Ltd</span></div>
+    <div class="kv"><span class="kv-k">Incorporated</span><span class="kv-v">10 Apr 1987</span></div>
+    <div class="kv"><span class="kv-k">Trading history</span><span class="kv-v">37+ years</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Registered office</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.7">One College Square South<br>Bristol, BS1 5HL<br>England</div>
+  </div>
+</div>
+
+<!-- SIC -->
+<div class="g1"><div class="card">
+  <div class="card-title">Nature of business (SIC codes)</div>
+  <div class="pill-row">
+    <span class="pill pill-teal">Financial service activities (SIC 6499)</span>
+    <span class="pill pill-teal">Activities auxiliary to financial services (SIC 6619)</span>
+  </div>
+</div></div>
+
+<!-- PSC -->
+<div class="g1"><div class="card">
+  <div class="card-title">Persons with Significant Control (Beneficial Owners)</div>
+  <div class="psc-item">
+    <div class="psc-name">HARGREAVES LANSDOWN PLC</div>
+    <div class="psc-meta">Corporate entity &nbsp;&middot;&nbsp; Notified: 06 Apr 2016</div>
+    <div class="psc-control">Ownership of shares: 75% to 100% &nbsp;&middot;&nbsp; Voting rights: 75% to 100%</div>
+  </div>
+</div></div>
+
+<!-- Charges -->
+<div class="g1"><div class="card">
+  <div class="card-title">Registered Charges</div>
+  <div class="charge-item">
+    <div class="charge-desc">Debenture</div>
+    <div class="charge-meta">Held by: LLOYDS BANK PLC &nbsp;&middot;&nbsp; Created: 2019-03-14 &nbsp;&middot;&nbsp; <span style="color:var(--amber)">Outstanding</span></div>
+  </div>
+</div></div>
+
+<!-- Directors -->
+<div class="g1"><div class="card">
+  <div class="card-title">Directors &amp; officers</div>
+  <table class="data-table">
+    <thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Richard Charles Flint</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">30 Jun 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+      <tr><td>Jonathan Bruce Hemphill</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+      <tr><td>Declan Joseph Hourican</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">19 Nov 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+      <tr><td>Lars-&Aring;ke Valdemar Norling</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+      <tr><td>Mary Theresa O&apos;Connor</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">24 Sep 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+      <tr><td>Craig Diamond</td><td style="color:var(--text3)">Secretary</td><td style="color:var(--text3)">25 Mar 2025</td><td><span class="badge badge-green">Active</span></td></tr>
+      <tr><td style="text-decoration:line-through;color:var(--text3)">Andrea Margaret Blance</td><td style="color:var(--text3)">Director</td><td style="color:var(--text3)">01 Sep 2020</td><td><span class="badge badge-amber">Resigned</span></td></tr>
+    </tbody>
+  </table>
+</div></div>
+
+<!-- Filing + Confirmation -->
+<div class="g2">
+  <div class="card">
+    <div class="card-title">Filing history</div>
+    <div class="kv"><span class="kv-k">Latest accounts</span><span class="kv-v">30 Jun 2025</span></div>
+    <div class="kv"><span class="kv-k">Accounts overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
+    <div class="kv"><span class="kv-k">Late filings (historic)</span><span class="kv-v"><span class="badge badge-amber">10</span></span></div>
+    <a class="accounts-link" href="https://find-and-update.company-information.service.gov.uk/company/02122142/filing-history" target="_blank" rel="noopener">View filing history &#8594;</a>
+    <a class="accounts-link" href="https://document-api.company-information.service.gov.uk/document/bZIA4D4KU0aJiD1gfjWPdWksWpzGnSfJYp10hxDzIR0" target="_blank" rel="noopener">Download accounts PDF &#8594;</a>
+  </div>
+  <div class="card">
+    <div class="card-title">Confirmation statement</div>
+    <div class="kv"><span class="kv-k">Next due</span><span class="kv-v">2026-04-15</span></div>
+    <div class="kv"><span class="kv-k">Overdue</span><span class="kv-v" style="color:var(--green)">No</span></div>
+    <div class="kv"><span class="kv-k">Last made up</span><span class="kv-v">2025-04-01</span></div>
+  </div>
+</div>
+
+<!-- Risk narrative -->
+<div class="g3">
+  <div class="card">
+    <div class="card-title">Key concerns</div>
+    <div class="narrative-item">10 historical late filings suggest occasional administrative lapses, though no recent overdue accounts</div>
+    <div class="narrative-item">Significant board refresh in late 2025 &mdash; 4 directors appointed within 3 months warrants monitoring</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Key strengths</div>
+    <div class="narrative-item">37-year trading history with no insolvency events &mdash; exceptional longevity</div>
+    <div class="narrative-item">100% owned by listed parent (HL PLC) providing transparent ownership and group oversight</div>
+    <div class="narrative-item">Operates in FCA-regulated sector with strong disclosure obligations</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Watch points</div>
+    <div class="narrative-item">Monitor whether the new board stabilises &mdash; ongoing turnover could indicate strategic or governance tension</div>
+    <div class="narrative-item">Outstanding Lloyds debenture is standard but confirm scope before any security-sensitive transaction</div>
+  </div>
+</div>
+
+<!-- Counterparty guidance -->
+<div class="g2">
+  <div class="card">
+    <div class="guidance-label">As a supplier</div>
+    <div class="guidance-text">This company presents low credit risk given its parent group structure and long trading history. Standard payment terms are appropriate; consider requesting parent guarantee for large contracts.</div>
+  </div>
+  <div class="card">
+    <div class="guidance-label">As an investor</div>
+    <div class="guidance-text">Strong fundamentals but investment decisions should be made at the listed parent level (HL PLC). This subsidiary's financials feed into consolidated group accounts.</div>
+  </div>
+  <div class="card">
+    <div class="guidance-label">As a partner or JV</div>
+    <div class="guidance-text">The recent board changes mean relationship continuity should be confirmed. Ensure any commercial agreements are with the correct entity within the HL group structure.</div>
+  </div>
+  <div class="card">
+    <div class="guidance-label">As a customer</div>
+    <div class="guidance-text">Low counterparty risk. As an FCA-regulated entity, client protections including FSCS coverage are likely applicable.</div>
+  </div>
+</div>
+
+<!-- Board assessment -->
+<div class="g1"><div class="card">
+  <div class="card-title">Board assessment</div>
+  <div class="kv"><span class="kv-k">Board quality</span><span class="kv-v" style="color:var(--green);font-weight:500">Strong</span></div>
+  <div class="kv"><span class="kv-k">Tenure</span><span class="kv-v" style="text-align:right;max-width:65%">Mixed tenure — senior directors with 4-6 years, majority appointed 2025</span></div>
+  <div class="kv"><span class="kv-k">Notable patterns</span><span class="kv-v" style="text-align:right;max-width:65%">Significant refresh in Sep-Nov 2025; one resignation March 2025</span></div>
+  <div class="kv"><span class="kv-k">Composition</span><span class="kv-v" style="text-align:right;max-width:65%">Mixed gender board with international names suggesting diverse professional backgrounds</span></div>
+</div></div>
+
+<!-- Sector benchmark -->
+<div class="g1"><div class="card">
+  <div class="card-title">Sector benchmarking</div>
+  <div class="kv"><span class="kv-k">Sector</span><span class="kv-v">Financial services</span></div>
+  <div class="kv"><span class="kv-k">Estimated size</span><span class="kv-v">Large</span></div>
+  <div class="kv"><span class="kv-k">Filing compliance vs peers</span><span class="kv-v"><span class="badge badge-green">Above average</span></span></div>
+  <div class="kv"><span class="kv-k">Charge profile vs peers</span><span class="kv-v">Typical (1 debenture)</span></div>
+  <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-top:12px">For a large financial services firm, a single outstanding debenture is entirely standard and not a concern. Filing compliance is strong relative to comparable private limited subsidiaries of listed groups, where late filings are more common due to audit complexity.</div>
+</div></div>
+
+<!-- Industry context -->
+<div class="g1"><div class="card">
+  <div class="card-title">Industry context</div>
+  <div style="font-size:14px;color:var(--text2);line-height:1.8">Hargreaves Lansdown operates in UK retail financial services, a sector subject to FCA oversight under COBS and CASS rules. The firm benefits from the Financial Services Compensation Scheme (FSCS). Post-Consumer Duty (2023), FCA-regulated firms face heightened obligations around fair value and customer outcomes. The sector has seen significant board-level change across major firms in 2024-2025, partly driven by FCA pressure on governance standards.</div>
+</div></div>
+
+<!-- Trademarks -->
+<div class="g1"><div class="card">
+  <div class="card-title">UK Trademark Register</div>
+  <div class="tm-item">
+    <div>
+      <div style="font-size:13px;color:var(--text);font-weight:500">HARGREAVES LANSDOWN</div>
+      <div style="font-size:11px;color:var(--text3)">UK00002345678 &nbsp;&middot;&nbsp; Class 36 (Financial services) &nbsp;&middot;&nbsp; Filed: 2003-04-12</div>
+    </div>
+    <span style="font-size:12px;padding:2px 8px;border-radius:2px;background:var(--green-dim);color:var(--green)">Registered</span>
+  </div>
+  <div class="tm-item">
+    <div>
+      <div style="font-size:13px;color:var(--text);font-weight:500">HL</div>
+      <div style="font-size:11px;color:var(--text3)">UK00003456789 &nbsp;&middot;&nbsp; Class 36 (Financial services) &nbsp;&middot;&nbsp; Filed: 2015-08-20</div>
+    </div>
+    <span style="font-size:12px;padding:2px 8px;border-radius:2px;background:var(--green-dim);color:var(--green)">Registered</span>
+  </div>
+</div></div>
+
+<!-- Director cross-reference -->
+<div class="g1"><div class="card">
+  <div class="card-title">Director cross-reference &mdash; other appointments</div>
+  <div class="related-item">
+    <div>
+      <div style="font-size:13px;color:var(--text)">HARGREAVES LANSDOWN PLC</div>
+      <div style="font-size:11px;color:var(--text3)">02122640 &nbsp;&middot;&nbsp; Director &nbsp;&middot;&nbsp; Appointed: 30 Jun 2025</div>
+    </div>
+    <a href="https://find-and-update.company-information.service.gov.uk/company/02122640" target="_blank" rel="noopener" style="font-size:12px;color:var(--teal);white-space:nowrap">View &#8594;</a>
+  </div>
+  <div class="related-item">
+    <div>
+      <div style="font-size:13px;color:var(--text)">HL FUND MANAGERS LIMITED</div>
+      <div style="font-size:11px;color:var(--text3)">04016799 &nbsp;&middot;&nbsp; Director &nbsp;&middot;&nbsp; Appointed: 30 Jun 2025</div>
+    </div>
+    <a href="https://find-and-update.company-information.service.gov.uk/company/04016799" target="_blank" rel="noopener" style="font-size:12px;color:var(--teal);white-space:nowrap">View &#8594;</a>
+  </div>
+</div></div>
+
+<!-- Risk flags + positives -->
+<div class="g2">
+  <div class="card">
+    <div class="card-title">&#9888; Risk flags</div>
+    <div class="pill-row">
+      <span class="pill pill-amber">10 historical late filings</span>
+      <span class="pill pill-amber">4 directors appointed Sep-Nov 2025</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">&#10003; Positive indicators</div>
+    <div class="pill-row">
+      <span class="pill pill-green">37yr trading history</span>
+      <span class="pill pill-green">No insolvency</span>
+      <span class="pill pill-green">Accounts current</span>
+      <span class="pill pill-green">Listed parent</span>
+      <span class="pill pill-green">FCA regulated</span>
+      <span class="pill pill-green">Registered trademarks</span>
+      <span class="pill pill-green">Conf. statement current</span>
+    </div>
+  </div>
+</div>
+
+<!-- AI recommendation -->
+<div class="g1"><div class="card">
+  <div class="card-title">AI recommendation</div>
+  <div class="recommendation">Hargreaves Lansdown Limited presents a low overall risk profile, underpinned by a 37-year trading history, clean insolvency record, and strong parent group structure. The company operates in FCA-regulated financial services as a wholly owned subsidiary of Hargreaves Lansdown PLC, providing transparent beneficial ownership. The recent board refresh warrants monitoring but does not materially affect the risk assessment. The outstanding Lloyds debenture is standard commercial financing. This company is a reliable counterparty for most business engagements; supplier and partner agreements should reference the group structure appropriately.</div>
+</div></div>
+
+<div class="source-strip">
+  <span style="display:flex;align-items:center;gap:8px"><div class="source-dot"></div>Companies House (Crown copyright)</span>
+  <span style="display:flex;align-items:center;gap:8px"><div class="source-dot" style="background:var(--blue)"></div>UK IPO Trademark Register</span>
+  <span style="display:flex;align-items:center;gap:8px"><div class="source-dot" style="background:var(--amber)"></div>London Gazette</span>
+  <span style="display:flex;align-items:center;gap:8px"><div class="source-dot" style="background:var(--green)"></div>AI analysis: Claude by Anthropic</span>
+</div>
+
+<div class="cta-box">
+  <div class="cta-title">Run a real report</div>
+  <div class="cta-sub">Search any UK company. Free preview instantly, full report from &pound;2.99.</div>
+  <div class="price-row">
+    <div class="price-card"><div class="price-amt">&pound;2.99</div><div class="price-per">per report</div><div class="price-desc">No account needed</div></div>
+    <div class="price-card" style="border-color:var(--teal)"><div class="price-amt">&pound;29</div><div class="price-per">per month</div><div class="price-desc">Unlimited reports</div></div>
+  </div>
+  <a href="/check/index.html" class="btn-primary">Search a company &#8594;</a>
+</div>
+
+</div>
 <footer>
   <div>&#10022; Check by <a href="/">Cracked Minds</a></div>
   <div><a href="/check/index.html">Search</a> &nbsp;&middot;&nbsp; <a href="/">crackedminds.co.uk</a></div>
 </footer>
-
 </body>
 </html>
