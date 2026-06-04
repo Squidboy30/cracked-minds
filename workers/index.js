@@ -34,12 +34,60 @@ export default {
       if (path === "/api/send-report" && request.method === "POST") {
         return await sendReport(request, env, json);
       }
+      if (path === "/api/search" && request.method === "GET") {
+        return await handleSearch(request, env, cors);
+      }
       return new Response("Not found", { status: 404, headers: cors });
     } catch (err) {
       return json({ error: err.message }, 500);
     }
   }
 };
+
+// ── Companies House search proxy ─────────────────────────────
+async function handleSearch(request, env, cors) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q") || "";
+  if (!q.trim()) {
+    return new Response(JSON.stringify({ items: [], total: 0 }), {
+      headers: { "Content-Type": "application/json", ...cors }
+    });
+  }
+
+  const apiKey = env.CH_API_KEY;
+  const auth = apiKey ? "Basic " + btoa(apiKey + ":") : "";
+
+  const chUrl = `https://api.company-information.service.gov.uk/search/companies?q=${encodeURIComponent(q)}&items_per_page=10`;
+
+  const res = await fetch(chUrl, {
+    headers: {
+      "Authorization": auth,
+      "Accept": "application/json",
+    }
+  });
+
+  if (!res.ok) {
+    return new Response(JSON.stringify({ error: "Search failed", status: res.status }), {
+      status: res.status,
+      headers: { "Content-Type": "application/json", ...cors }
+    });
+  }
+
+  const data = await res.json();
+  return new Response(JSON.stringify({
+    items: (data.items || []).map(i => ({
+      title: i.title || "",
+      company_number: i.company_number || "",
+      company_status: i.company_status || "",
+      company_type: i.company_type || "",
+      address_snippet: i.address_snippet || "",
+      date_of_creation: i.date_of_creation || "",
+    })),
+    total: data.total_results || 0,
+  }), {
+    headers: { "Content-Type": "application/json", ...cors }
+  });
+}
 
 // ── Stripe price lookup ───────────────────────────────────────
 function getPrice(product, reportType, env) {
