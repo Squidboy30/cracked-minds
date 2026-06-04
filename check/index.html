@@ -155,6 +155,22 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
 .insolvency-type{font-size:13px;font-weight:500;color:var(--red);margin-bottom:6px}
 .insolvency-meta{font-size:12px;color:var(--text2)}
 .resignation-warning{background:var(--amber-dim);border:0.5px solid rgba(245,158,11,0.2);border-radius:4px;padding:10px 14px;font-size:13px;color:var(--amber);margin-bottom:8px}
+.narrative-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
+.narrative-item{font-size:13px;line-height:1.7;color:var(--text2);padding:4px 0}
+.narrative-item::before{content:"→ ";color:var(--teal)}
+.guidance-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}
+.guidance-label{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:6px}
+.guidance-text{font-size:13px;line-height:1.7;color:var(--text2)}
+.benchmark-badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 8px;border-radius:2px;font-weight:500}
+.badge-above{background:var(--green-dim);color:var(--green)}
+.badge-below{background:var(--red-dim);color:var(--red)}
+.badge-avg{background:var(--surface2);color:var(--text2)}
+.trademark-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.trademark-item:last-child{border-bottom:none}
+.financial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-bottom:2px}
+.financial-stat{background:var(--surface);padding:16px;text-align:center}
+.financial-value{font-family:var(--sans);font-size:1.4rem;font-weight:700;color:var(--text)}
+.financial-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.04em}
 .prev-name-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:13px}
 .prev-name-item:last-child{border-bottom:none}
 .report-actions{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap}
@@ -380,6 +396,97 @@ footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align
     </div>
   </div>
 
+  <!-- Financial figures from accounts -->
+  <div id="financials-section" style="display:none;margin-top:2px">
+    <div class="financial-grid">
+      <div class="financial-stat"><div class="financial-value" id="fin-turnover">—</div><div class="financial-label">Turnover</div></div>
+      <div class="financial-stat"><div class="financial-value" id="fin-net-assets">—</div><div class="financial-label">Net assets</div></div>
+      <div class="financial-stat"><div class="financial-value" id="fin-employees">—</div><div class="financial-label">Employees</div></div>
+      <div class="financial-stat"><div class="financial-value" id="fin-profit">—</div><div class="financial-label">Profit / Loss</div></div>
+      <div class="financial-stat"><div class="financial-value" id="fin-assets">—</div><div class="financial-label">Total assets</div></div>
+      <div class="financial-stat"><div class="financial-value" id="fin-year">—</div><div class="financial-label">Year end</div></div>
+    </div>
+  </div>
+
+  <!-- Risk narrative -->
+  <div id="narrative-section" style="display:none;margin-top:2px">
+    <div class="narrative-grid">
+      <div class="rcard">
+        <div class="rcard-title">Key concerns</div>
+        <div id="narrative-concerns"></div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-title">Key strengths</div>
+        <div id="narrative-strengths"></div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-title">Watch points</div>
+        <div id="narrative-watch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Counterparty guidance -->
+  <div id="guidance-section" style="display:none;margin-top:2px">
+    <div class="guidance-grid">
+      <div class="rcard">
+        <div class="guidance-label">As a supplier</div>
+        <div class="guidance-text" id="guidance-supplier"></div>
+      </div>
+      <div class="rcard">
+        <div class="guidance-label">As an investor</div>
+        <div class="guidance-text" id="guidance-investor"></div>
+      </div>
+      <div class="rcard">
+        <div class="guidance-label">As a partner</div>
+        <div class="guidance-text" id="guidance-partner"></div>
+      </div>
+      <div class="rcard">
+        <div class="guidance-label">As a customer</div>
+        <div class="guidance-text" id="guidance-customer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Director assessment -->
+  <div id="director-assessment-section" style="display:none;margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">Board assessment</div>
+      <div class="kv"><span class="kv-k">Board quality</span><span class="kv-v" id="board-quality">—</span></div>
+      <div class="kv"><span class="kv-k">Tenure</span><span class="kv-v" id="board-tenure" style="text-align:right;max-width:60%">—</span></div>
+      <div class="kv"><span class="kv-k">Patterns</span><span class="kv-v" id="board-patterns" style="text-align:right;max-width:60%">—</span></div>
+      <div class="kv"><span class="kv-k">Composition</span><span class="kv-v" id="board-diversity" style="text-align:right;max-width:60%">—</span></div>
+    </div>
+  </div>
+
+  <!-- Sector benchmark -->
+  <div id="benchmark-section" style="display:none;margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">Sector benchmarking</div>
+      <div class="kv"><span class="kv-k">Sector</span><span class="kv-v" id="bench-sector">—</span></div>
+      <div class="kv"><span class="kv-k">Estimated size</span><span class="kv-v" id="bench-size">—</span></div>
+      <div class="kv"><span class="kv-k">Filing compliance vs peers</span><span class="kv-v" id="bench-filing">—</span></div>
+      <div class="kv"><span class="kv-k">Charge profile vs peers</span><span class="kv-v" id="bench-charges">—</span></div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-top:12px" id="bench-comment"></div>
+    </div>
+  </div>
+
+  <!-- Industry context -->
+  <div id="industry-section" style="display:none;margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">Industry context</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.8" id="industry-text"></div>
+    </div>
+  </div>
+
+  <!-- Trademarks -->
+  <div id="trademark-section" style="display:none;margin-top:2px">
+    <div class="rcard">
+      <div class="rcard-title">UK Trademark Register</div>
+      <div id="trademark-list"></div>
+    </div>
+  </div>
+
   <div class="cta-box fade-up" id="cta-box" style="display:none">
     <div class="cta-title">Get the full risk report</div>
     <div class="cta-sub">Full financial analysis, complete AI assessment, and PDF download.</div>
@@ -579,7 +686,9 @@ async function selectCompany(item) {
       })
     });
     if (!res.ok) throw new Error(`API error ${res.status}`);
-    renderReport(await res.json());
+    const rData = await res.json();
+    renderReport(rData);
+    renderNewSections(rData);
   } catch (err) {
     showError(`Could not load company data: ${err.message}`);
   } finally {
@@ -816,6 +925,7 @@ async function handleStripeReturn(sessionId, companyRef) {
     // Hide the CTA box — they've paid
     document.getElementById("cta-box").style.display = "none";
     currentReport = reportData;
+    renderNewSections(reportData);
     showReportActions();
 
     // Show a paid confirmation banner
@@ -843,6 +953,89 @@ function showError(msg) {
   el.textContent = msg; el.classList.add("visible");
 }
 function hideError() { document.getElementById("error-msg").classList.remove("visible"); }
+
+function renderNewSections(data) {
+  const risk = data.risk_assessment || {};
+
+  // Financial figures
+  const fin = data.accounts_summary?.key_figures || {};
+  if (fin.turnover || fin.net_assets || fin.employees) {
+    document.getElementById("financials-section").style.display = "block";
+    document.getElementById("fin-turnover").textContent = fin.turnover || "—";
+    document.getElementById("fin-net-assets").textContent = fin.net_assets || "—";
+    document.getElementById("fin-employees").textContent = fin.employees || "—";
+    document.getElementById("fin-profit").textContent = fin.profit_loss || "—";
+    document.getElementById("fin-assets").textContent = fin.total_assets || "—";
+    document.getElementById("fin-year").textContent = fin.year_end || "—";
+  }
+
+  // Risk narrative
+  const narrative = risk.risk_narrative || {};
+  if (narrative.key_concerns || narrative.key_strengths) {
+    document.getElementById("narrative-section").style.display = "block";
+    const renderNarrative = (id, items) => {
+      document.getElementById(id).innerHTML = (items || []).map(i =>
+        `<div class="narrative-item">${i}</div>`).join("") || "<div style='color:var(--text3);font-size:13px'>None identified</div>";
+    };
+    renderNarrative("narrative-concerns", narrative.key_concerns);
+    renderNarrative("narrative-strengths", narrative.key_strengths);
+    renderNarrative("narrative-watch", narrative.watch_points);
+  }
+
+  // Counterparty guidance
+  const guidance = risk.counterparty_guidance || {};
+  if (guidance.as_supplier) {
+    document.getElementById("guidance-section").style.display = "block";
+    document.getElementById("guidance-supplier").textContent = guidance.as_supplier || "—";
+    document.getElementById("guidance-investor").textContent = guidance.as_investor || "—";
+    document.getElementById("guidance-partner").textContent = guidance.as_partner || "—";
+    document.getElementById("guidance-customer").textContent = guidance.as_customer || "—";
+  }
+
+  // Director assessment
+  const da = risk.director_assessment || {};
+  if (da.board_quality) {
+    document.getElementById("director-assessment-section").style.display = "block";
+    const qColour = da.board_quality === "strong" ? "var(--green)" : da.board_quality === "weak" ? "var(--red)" : "var(--text)";
+    document.getElementById("board-quality").innerHTML = `<span style="color:${qColour};font-weight:500;text-transform:capitalize">${da.board_quality}</span>`;
+    document.getElementById("board-tenure").textContent = da.tenure_summary || "—";
+    document.getElementById("board-patterns").textContent = da.notable_patterns || "—";
+    document.getElementById("board-diversity").textContent = da.diversity_note || "—";
+  }
+
+  // Sector benchmark
+  const bench = risk.sector_benchmark || {};
+  if (bench.sector) {
+    document.getElementById("benchmark-section").style.display = "block";
+    document.getElementById("bench-sector").textContent = bench.sector || "—";
+    document.getElementById("bench-size").textContent = (bench.company_size_estimate || "—").replace(/_/g," ");
+    const filingClass = bench.filing_compliance_vs_sector === "above_average" ? "badge-above" :
+                        bench.filing_compliance_vs_sector === "below_average" ? "badge-below" : "badge-avg";
+    document.getElementById("bench-filing").innerHTML = `<span class="benchmark-badge ${filingClass}">${(bench.filing_compliance_vs_sector||"—").replace(/_/g," ")}</span>`;
+    document.getElementById("bench-charges").textContent = bench.charge_profile_vs_sector || "—";
+    document.getElementById("bench-comment").textContent = bench.benchmark_comment || "";
+  }
+
+  // Industry context
+  if (risk.industry_context) {
+    document.getElementById("industry-section").style.display = "block";
+    document.getElementById("industry-text").textContent = risk.industry_context;
+  }
+
+  // Trademarks
+  const marks = data.trademarks || [];
+  if (marks.length) {
+    document.getElementById("trademark-section").style.display = "block";
+    document.getElementById("trademark-list").innerHTML = marks.map(m => `
+      <div class="trademark-item">
+        <div>
+          <div style="font-size:13px;color:var(--text);font-weight:500">${m.mark || "—"}</div>
+          <div style="font-size:11px;color:var(--text3)">${m.number || ""} &nbsp;·&nbsp; ${m.class || ""} &nbsp;·&nbsp; Filed: ${m.filed || "—"}</div>
+        </div>
+        <span style="font-size:12px;padding:2px 8px;border-radius:2px;background:${m.status?.toLowerCase().includes("regist") ? "var(--green-dim)" : "var(--surface2)"};color:${m.status?.toLowerCase().includes("regist") ? "var(--green)" : "var(--text2)"}">${m.status || "—"}</span>
+      </div>`).join("");
+  }
+}
 
 function showReportActions() {
   document.getElementById("report-actions").style.display = "flex";
