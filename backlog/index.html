@@ -7,47 +7,60 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#f0ede8;--text2:#a8a49f;--text3:#6b6865;--teal:#0d9488;--teal-dim:rgba(13,148,136,0.12);--green:#22c55e;--green-dim:rgba(34,197,94,0.1);--red:#ef4444;--red-dim:rgba(239,68,68,0.1);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);--blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);--purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);--mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif}
+:root{
+  --bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#f0ede8;--text2:#a8a49f;--text3:#6b6865;
+  --teal:#0d9488;--teal-dim:rgba(13,148,136,0.12);
+  --green:#22c55e;--green-dim:rgba(34,197,94,0.1);
+  --red:#ef4444;--red-dim:rgba(239,68,68,0.1);
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);
+  --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
+  --mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;
+}
 body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6}
 header{padding:24px 40px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.logo{font-family:var(--sans);font-size:20px;font-weight:800;color:var(--text)}
+.logo{font-family:var(--sans);font-size:20px;font-weight:800}
 .logo span{color:var(--teal)}
 .meta{font-size:12px;color:var(--text3)}
-.controls{padding:20px 40px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:0.5px solid var(--border);background:var(--surface)}
-.filter-btn{font-family:var(--mono);font-size:12px;padding:5px 14px;border-radius:2px;border:0.5px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all 0.15s}
+.controls{padding:16px 40px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:0.5px solid var(--border);background:var(--surface)}
+.filter-btn{font-family:var(--mono);font-size:12px;padding:5px 12px;border-radius:2px;border:0.5px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all 0.15s}
 .filter-btn:hover,.filter-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
-.search-input{font-family:var(--mono);font-size:13px;padding:6px 14px;border-radius:2px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text);outline:none;width:220px}
+.search-input{font-family:var(--mono);font-size:13px;padding:6px 14px;border-radius:2px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text);outline:none;width:200px}
 .search-input:focus{border-color:var(--teal)}
-.toggle-done{margin-left:auto;font-family:var(--mono);font-size:12px;padding:5px 14px;border-radius:2px;border:0.5px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer}
+.toggle-done{margin-left:auto;font-family:var(--mono);font-size:12px;padding:5px 12px;border-radius:2px;border:0.5px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer}
 .wrap{max-width:1100px;margin:0 auto;padding:32px 40px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);margin-bottom:32px}
+.stat{background:var(--surface);padding:20px;text-align:center}
+.stat-n{font-family:var(--sans);font-size:2rem;font-weight:800;line-height:1}
+.stat-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.05em}
 .section{margin-bottom:32px}
 .section-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:10px;border-bottom:0.5px solid var(--border)}
-.section-title{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:-0.01em}
+.section-title{font-family:var(--sans);font-size:15px;font-weight:700}
 .section-count{font-size:11px;color:var(--text3);padding:2px 8px;background:var(--surface2);border-radius:2px}
 .item{background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;transition:border-color 0.15s}
 .item:hover{border-color:var(--border2)}
-.item.done{opacity:0.45}
+.item.done{opacity:0.4}
 .item.done .item-title{text-decoration:line-through}
-.checkbox{width:16px;height:16px;border-radius:2px;border:0.5px solid var(--border2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.15s}
+.checkbox{width:16px;height:16px;border-radius:2px;border:0.5px solid var(--border2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:11px}
 .item.done .checkbox{background:var(--green);border-color:var(--green);color:#fff}
 .item-body{flex:1}
 .item-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
 .item-desc{font-size:12px;color:var(--text2);line-height:1.6}
-.item-meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.item-meta{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .tag{font-size:11px;padding:2px 8px;border-radius:2px}
 .tag-infra{background:var(--blue-dim);color:var(--blue)}
 .tag-check{background:var(--teal-dim);color:var(--teal)}
 .tag-comply{background:var(--purple-dim);color:var(--purple)}
-.tag-api{background:var(--amber-dim);color:var(--amber)}
+.tag-mcp{background:var(--amber-dim);color:var(--amber)}
+.tag-marketing{background:rgba(236,72,153,0.12);color:#f472b6}
+.tag-boltwork{background:rgba(99,102,241,0.12);color:#818cf8}
 .tag-site{background:rgba(34,197,94,0.08);color:#4ade80}
 .tag-done{background:var(--green-dim);color:var(--green)}
 .tag-high{background:var(--red-dim);color:var(--red)}
 .tag-med{background:var(--amber-dim);color:var(--amber)}
 .tag-low{background:var(--surface2);color:var(--text3)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);margin-bottom:32px}
-.stat{background:var(--surface);padding:20px;text-align:center}
-.stat-n{font-family:var(--sans);font-size:2rem;font-weight:800;line-height:1}
-.stat-label{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.05em}
 @media(max-width:640px){header{padding:16px 20px}.controls{padding:12px 20px}.wrap{padding:20px}.stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -55,7 +68,7 @@ header{padding:24px 40px;border-bottom:0.5px solid var(--border);display:flex;al
 <div id="gate" style="position:fixed;inset:0;background:#0a0a08;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:'IBM Plex Mono',monospace">
   <div style="background:#111110;border:0.5px solid rgba(255,255,255,0.13);border-radius:6px;padding:40px;width:340px;text-align:center">
     <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px">Cracked Minds <span style="color:#0d9488">✦</span></div>
-    <div style="font-size:12px;color:#6b6865;margin-bottom:28px">Internal backlog — restricted access</div>
+    <div style="font-size:12px;color:#6b6865;margin-bottom:28px">Internal backlog</div>
     <input id="pw" type="password" placeholder="Password" style="width:100%;font-family:'IBM Plex Mono',monospace;font-size:13px;padding:10px 14px;border-radius:3px;border:0.5px solid rgba(255,255,255,0.13);background:#1a1a18;color:#f0ede8;outline:none;margin-bottom:12px" onkeydown="if(event.key==='Enter')auth()">
     <button onclick="auth()" style="width:100%;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;padding:10px;background:#0d9488;color:#fff;border:none;border-radius:3px;cursor:pointer">Enter</button>
     <div id="pw-err" style="font-size:12px;color:#ef4444;margin-top:10px;display:none">Incorrect password</div>
@@ -68,170 +81,179 @@ if(sessionStorage.getItem('bl_auth')==='1'){document.addEventListener('DOMConten
 
 <header>
   <div class="logo">Cracked Minds <span>✦</span> Product Backlog</div>
-  <div class="meta">Updated: June 2026 &nbsp;·&nbsp; crackedminds.co.uk &nbsp;·&nbsp; Password protected</div>
+  <div class="meta">Updated: June 2026 &nbsp;·&nbsp; crackedminds.co.uk &nbsp;·&nbsp; <span style="color:var(--teal)">Crackedminds30@4321</span></div>
 </header>
 
 <div class="controls">
   <button class="filter-btn active" onclick="filter('all',event)">All</button>
-  <button class="filter-btn" onclick="filter('infra',event)">Infrastructure</button>
+  <button class="filter-btn" onclick="filter('infra',event)">Infra</button>
   <button class="filter-btn" onclick="filter('check',event)">Check</button>
   <button class="filter-btn" onclick="filter('comply',event)">Comply</button>
-  <button class="filter-btn" onclick="filter('api',event)">Boltwork API</button>
+  <button class="filter-btn" onclick="filter('mcp',event)">MCP servers</button>
+  <button class="filter-btn" onclick="filter('boltwork',event)">Boltwork API</button>
+  <button class="filter-btn" onclick="filter('marketing',event)">Marketing</button>
   <button class="filter-btn" onclick="filter('site',event)">Main site</button>
-  <input class="search-input" type="text" placeholder="Search backlog…" oninput="search(this.value)">
+  <input class="search-input" type="text" placeholder="Search…" oninput="search(this.value)">
   <button class="toggle-done" onclick="toggleDone(event)">Hide completed</button>
 </div>
 
 <div class="wrap">
-
   <div class="stats">
-    <div class="stat"><div class="stat-n" id="stat-total" style="color:var(--text)">0</div><div class="stat-label">Total items</div></div>
-    <div class="stat"><div class="stat-n" id="stat-done" style="color:var(--green)">0</div><div class="stat-label">Completed</div></div>
-    <div class="stat"><div class="stat-n" id="stat-todo" style="color:var(--amber)">0</div><div class="stat-label">Outstanding</div></div>
+    <div class="stat"><div class="stat-n" id="stat-total" style="color:var(--text)">0</div><div class="stat-label">Total</div></div>
+    <div class="stat"><div class="stat-n" id="stat-done" style="color:var(--green)">0</div><div class="stat-label">Done</div></div>
+    <div class="stat"><div class="stat-n" id="stat-todo" style="color:var(--amber)">0</div><div class="stat-label">To do</div></div>
     <div class="stat"><div class="stat-n" id="stat-pct" style="color:var(--teal)">0%</div><div class="stat-label">Complete</div></div>
   </div>
 
   <!-- INFRASTRUCTURE -->
-  <div class="section" data-cat="infra">
-    <div class="section-header">
-      <div class="section-title">Infrastructure</div>
-      <div class="section-count" id="count-infra"></div>
-    </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Infrastructure</div><div class="section-count" id="count-infra"></div></div>
 
-    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Migrate DNS to Cloudflare (from Netlify NS1 via Name.com)</div><div class="item-desc">Nameservers changed to coco.ns.cloudflare.com / zeus.ns.cloudflare.com. Domain registration transferred from Netlify to Name.com account.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">DNS migrated to Cloudflare (from Netlify NS1 via Name.com)</div><div class="item-desc">Nameservers: coco.ns.cloudflare.com / zeus.ns.cloudflare.com. Domain registration at Name.com.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Cloudflare Pages — crackedminds.co.uk live</div><div class="item-desc">GitHub repo Squidboy30/cracked-minds connected to Cloudflare Pages (cracked-minds project). Custom domains crackedminds.co.uk and www.crackedminds.co.uk wired. Auto-deploys on push to main.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Cloudflare Pages — crackedminds.co.uk live</div><div class="item-desc">Repo Squidboy30/cracked-minds → Cloudflare Pages. Auto-deploys on push to main. Custom domains + _redirects for clean URLs.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Cloudflare Worker — Stripe + Resend proxy</div><div class="item-desc">Worker cracked-minds connected to repo workers/ directory. Route crackedminds.co.uk/api/* set. Handles /api/create-checkout, /api/verify-payment, /api/send-report, /api/search. 7 env vars set: STRIPE_SECRET_KEY, 4 price IDs, RESEND_API_KEY, CH_API_KEY.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Cloudflare Worker — /api/* proxy</div><div class="item-desc">Handles /api/create-checkout, /api/verify-payment, /api/send-report, /api/search. 7 env vars set: Stripe keys + price IDs, RESEND_API_KEY, CH_API_KEY.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Resend email — domain verified, API key set</div><div class="item-desc">crackedminds.co.uk added and auto-configured in Resend (whitehouseian30@gmail.com account). API key re_7DBXh98i_ArGdHJQLScqzC5Dy8GTr12wu set as secret in Cloudflare Worker. From address: reports@crackedminds.co.uk.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Resend — domain verified, email delivery live</div><div class="item-desc">crackedminds.co.uk auto-configured. From: reports@crackedminds.co.uk. API key in Worker.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Boltwork API — Fly.io (parsebit.fly.dev)</div><div class="item-desc">Deployed to LHR region. Fly.io IP: 66.241.124.45. GitHub Actions auto-deploy on push to Squidboy30/Boltwork main. Secrets: CH_API_KEY, FCA_API_KEY, ANTHROPIC_API_KEY set.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Boltwork API — Fly.io (parsebit.fly.dev)</div><div class="item-desc">LHR region. IP: 66.241.124.45. GitHub Actions auto-deploy. All secrets configured.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">_redirects — clean URLs on Cloudflare Pages</div><div class="item-desc">/check, /comply, /gateway all resolve without needing /index.html suffix.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Backlog saved to GitHub at /backlog</div><div class="item-desc">crackedminds.co.uk/backlog — password protected, same gate as dashboard.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="infra" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Backlog saved to GitHub — crackedminds.co.uk/backlog</div><div class="item-desc">Password protected. Password: Crackedminds30@4321. Gateway dashboard also protected with same password.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="infra" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Test Stripe + email end-to-end on live domain</div><div class="item-desc">Full flow: search → select → pay → report renders. Email report button sends to inbox. First real transaction.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-high">High</span></div></div></div>
 
-    <div class="item" data-cat="infra" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Domain registration transfer to Cloudflare Registrar</div><div class="item-desc">IPS tag change submitted. Pending Nominet processing. Currently registered at Name.com. Safe to transfer — no downtime.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-med">Medium</span></div></div></div>
+    <div class="item" data-cat="infra" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Transfer domain to Cloudflare Registrar</div><div class="item-desc">IPS tag change submitted. Pending Nominet. Currently at Name.com.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-med">Medium</span></div></div></div>
 
-    <div class="item" data-cat="infra" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Cancel Netlify account</div><div class="item-desc">Nothing depends on Netlify anymore. All products on Cloudflare. Safe to cancel billing.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-low">Low</span></div></div></div>
+    <div class="item" data-cat="infra" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Cancel Netlify account</div><div class="item-desc">Nothing depends on it. Safe to cancel.</div><div class="item-meta"><span class="tag tag-infra">Infra</span><span class="tag tag-low">Low</span></div></div></div>
   </div>
 
   <!-- CHECK -->
-  <div class="section" data-cat="check">
-    <div class="section-header">
-      <div class="section-title">Check — UK Company Due Diligence</div>
-      <div class="section-count" id="count-check"></div>
-    </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Check — UK Company Due Diligence</div><div class="section-count" id="count-check"></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Search — CH proxy via Cloudflare Worker, 10 results, user picks</div><div class="item-desc">Browser calls /api/search, Worker adds CH API key and proxies to Companies House. Returns up to 10 matches. User selects company before report loads. Resolved CORS and auth issues.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Search — CH proxy via Cloudflare Worker, 10 results</div><div class="item-desc">Browser calls /api/search, Worker adds CH API key, returns up to 10 matches. User selects before report loads.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Full enriched report — PSC, charges, SIC, confirmation statement, filing history</div><div class="item-desc">Directors, beneficial owners with control %, registered charges with holder/status, SIC codes with plain English, previous company names, confirmation statement (next due, overdue), filing history with accounts PDF direct download link.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Full enriched report — all CH data</div><div class="item-desc">Directors, PSC (beneficial owners with control %), registered charges, SIC codes + plain English, previous company names, confirmation statement, filing history, accounts PDF direct download.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">AI enrichment — narrative, counterparty guidance, director assessment, sector benchmarking</div><div class="item-desc">Key concerns/strengths/watch points, counterparty guidance (supplier/investor/partner/customer), director assessment (quality/tenure/patterns/composition), sector benchmarking (size/filing compliance vs peers/charge profile), industry context. Haiku + assistant pre-fill for reliable JSON.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">AI enrichment — narrative, counterparty guidance, benchmarking</div><div class="item-desc">Key concerns/strengths/watch points. Counterparty guidance (supplier/investor/partner/customer). Director assessment. Sector benchmarking. Industry context. Haiku + assistant pre-fill for reliable JSON.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Gazette notices, insolvency detail, director cross-reference, address history</div><div class="item-desc">London Gazette winding-up notices with links, insolvency cases with practitioners and dates, director appointments at other companies (cross-reference), registered office change history, governance alert for rapid board turnover (2+ resignations in 12 months).</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Gazette notices, insolvency, director cross-reference, address history</div><div class="item-desc">London Gazette winding-up notices, insolvency cases with practitioners, director appointments at other companies, address change history, governance alert for rapid board turnover.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">UK Trademark Register search</div><div class="item-desc">IPO trademark search — registered marks, application numbers, Nice classes, filed date, status.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">UK Trademark Register search</div><div class="item-desc">IPO search — registered marks, application numbers, Nice classes, filed date, status.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Accounts PDF financial parsing</div><div class="item-desc">fetch_accounts_summary() in Boltwork fetches filed accounts PDF, extracts via pdfplumber, then Claude extracts turnover/net assets/employees/profit/loss/total assets/year end. Displayed as financial figures grid in report.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Accounts PDF financial parsing</div><div class="item-desc">pdfplumber + Claude extracts turnover / net assets / employees / profit / total assets / year end from filed accounts PDF.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Stripe payments — £2.99 per report / £29 per month</div><div class="item-desc">Checkout via Cloudflare Worker /api/create-checkout. Post-payment: /api/verify-payment confirms session, fetches full report, shows confirmation banner. Price IDs: CHECK_SINGLE price_1TctQwH5v95zsFpR35Ye2WRs, CHECK_PRO price_1TctRgH5v95zsFpRhGTzdpwW.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Stripe — £2.99 / £29pm. PDF download + email report.</div><div class="item-desc">Post-payment verify → full report + confirmation banner. Download PDF (print-to-PDF). Email via /api/send-report → Resend.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">PDF download + email report buttons</div><div class="item-desc">Download PDF triggers window.print() with print-specific CSS. Email report shows input form, calls /api/send-report which sends formatted HTML email via Resend from reports@crackedminds.co.uk.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Example report — Hargreaves Lansdown, all features</div><div class="item-desc">crackedminds.co.uk/check/example.html — every section demonstrated with real data.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Example report — Hargreaves Lansdown, all features</div><div class="item-desc">crackedminds.co.uk/check/example.html — full report showing all sections: financials, narrative, counterparty guidance, director assessment, sector benchmarking, industry context, trademarks, director cross-ref, charges, PSC, gazette, confirmation statement, risk flags/positives, AI recommendation.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Verify accounts PDF parsing in production</div><div class="item-desc">Test with a real company to confirm financials extracted correctly from live filed accounts.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-high">High</span></div></div></div>
 
-    <div class="item done" data-cat="check" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Hero text updated — full feature set described</div><div class="item-desc">"Instant UK company intelligence. Directors, beneficial owners, charges, financials, gazette notices, trademarks — plus AI risk assessment, sector benchmarking, and counterparty guidance." Badge: Companies House · FCA · UK IPO · AI-powered.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">VAT validation — surface in UI</div><div class="item-desc">VIES API already wired in Boltwork. Display VAT registration status and number in report.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-med">Medium</span></div></div></div>
 
-    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Test Stripe end-to-end on live domain</div><div class="item-desc">Full flow: search → select → pay £2.99 → Stripe return → verify payment → full report renders with confirmation banner. Test with real card on crackedminds.co.uk.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-high">High</span></div></div></div>
+    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Director disqualification check</div><div class="item-desc">Companies House disqualified directors register. Flag if any active director is disqualified.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-med">Medium</span></div></div></div>
 
-    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Test email report delivery end-to-end</div><div class="item-desc">After paid report: click Email report, enter email, confirm formatted HTML email received from reports@crackedminds.co.uk. Requires Resend domain fully verified.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-high">High</span></div></div></div>
-
-    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Verify accounts PDF financial extraction in production</div><div class="item-desc">Code wired but needs live test with real company to confirm turnover/net assets/employees extracted correctly from filed PDF via pdfplumber + Claude.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-high">High</span></div></div></div>
-
-    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">VAT validation — surface in UI</div><div class="item-desc">VIES API wired in Boltwork, returns VAT registration status. Not yet displayed in report. Show VAT number and registration confirmation.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-med">Medium</span></div></div></div>
-
-    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Director disqualification check</div><div class="item-desc">Companies House disqualified directors register API. Flag if any active director appears as disqualified. Free, server-side lookup.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-med">Medium</span></div></div></div>
-
-    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">CCJ search</div><div class="item-desc">County Court Judgements via Trust Online API (~£2/search). Major red flag for credit risk. Needs Trust Online account and billing integration.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-low">Low</span></div></div></div>
+    <div class="item" data-cat="check" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">CCJ search</div><div class="item-desc">County Court Judgements via Trust Online (~£2/search). Major credit risk signal.</div><div class="item-meta"><span class="tag tag-check">Check</span><span class="tag tag-low">Low</span></div></div></div>
   </div>
 
   <!-- COMPLY -->
-  <div class="section" data-cat="comply">
-    <div class="section-header">
-      <div class="section-title">Comply — Regulatory Intelligence</div>
-      <div class="section-count" id="count-comply"></div>
-    </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Comply — Regulatory Intelligence</div><div class="section-count" id="count-comply"></div></div>
 
-    <div class="item done" data-cat="comply" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">FCA register search — Companies House fallback, 10 results</div><div class="item-desc">Search returns up to 10 matches via CH API (same proxy as Check). FCA register link included in report. Direct FCA API wired but pending IP whitelist approval.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="comply" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">FCA register search + regulatory document analysis</div><div class="item-desc">CH-based search (10 results), FCA register link, /analyse/document endpoint for any regulatory URL. Enriched AI report same as Check.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="comply" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Regulatory document analysis — /analyse/document</div><div class="item-desc">Paste any URL (FCA policy, HMRC guidance, ICO ruling, any regulatory PDF or webpage). Returns: obligations, deadlines, action required, affected sectors, key changes. 600 sats via Aperture.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="comply" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Stripe — £4.99 / £49pm. Example report — Barclays PLC.</div><div class="item-desc">Same payment flow as Check. crackedminds.co.uk/comply/example.html</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="comply" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Enriched AI compliance report — same sections as Check</div><div class="item-desc">Gazette notices, charges, related companies, risk narrative, counterparty guidance, director assessment, sector benchmarking, industry context all wired in Comply live UI.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="comply" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">FCA API direct — pending IP whitelist</div><div class="item-desc">API key d931b6166c5e1054b49770dc81de3fe3 registered. Submit Fly.io IP 66.241.124.45 at register.fca.org.uk/Developer. Auto-activates on approval.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-high">High</span></div></div></div>
 
-    <div class="item done" data-cat="comply" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Stripe payments — £4.99 per report / £49 per month</div><div class="item-desc">Price IDs: COMPLY_SINGLE price_1TctSAH5v95zsFpRvspR4VjP, COMPLY_PRO price_1TctSgH5v95zsFpR9DG3qBpc. Same payment flow as Check.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="comply" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">PRA register integration</div><div class="item-desc">BoE PRA supervised firms list. Systemic bank / insurer flag in Comply reports.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-med">Medium</span></div></div></div>
 
-    <div class="item done" data-cat="comply" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Example report — Barclays PLC, all features</div><div class="item-desc">crackedminds.co.uk/comply/example.html — charges, director cross-reference, accounts link, risk narrative, regulatory AI assessment, FCA register link, PRA overlay, counterparty guidance.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-done">Done</span></div></div></div>
-
-    <div class="item" data-cat="comply" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">FCA API direct integration — pending IP whitelist</div><div class="item-desc">FCA API key d931b6166c5e1054b49770dc81de3fe3 registered at register.fca.org.uk/Developer. Fly.io IP 66.241.124.45 needs whitelisting. Submit at FCA developer portal. Auto-activates once approved.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-high">High</span></div></div></div>
-
-    <div class="item" data-cat="comply" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">PRA register integration</div><div class="item-desc">Bank of England PRA supervised firms list. Cross-reference for systemic banks and insurers. Adds PRA-supervised flag to Comply reports for banking/insurance entities.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-med">Medium</span></div></div></div>
-
-    <div class="item" data-cat="comply" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">ICO register integration</div><div class="item-desc">ICO data protection register — confirm if company is registered for data processing. Free public API. Relevant for GDPR compliance checks.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-med">Medium</span></div></div></div>
+    <div class="item" data-cat="comply" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">ICO register integration</div><div class="item-desc">Data protection registration check. GDPR compliance signal. Free public API.</div><div class="item-meta"><span class="tag tag-comply">Comply</span><span class="tag tag-med">Medium</span></div></div></div>
   </div>
 
   <!-- BOLTWORK API -->
-  <div class="section" data-cat="api">
-    <div class="section-header">
-      <div class="section-title">Boltwork API (parsebit.fly.dev)</div>
-      <div class="section-count" id="count-api"></div>
-    </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Boltwork API</div><div class="section-count" id="count-boltwork"></div></div>
 
-    <div class="item done" data-cat="api" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">/search/companies — free CH search, no auth</div><div class="item-desc">GET endpoint returning up to 10 CH results. Price 0 in PRICE_MAP so Aperture passes through without L402 auth. Used by Check and Comply frontends as fallback.</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="boltwork" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">/search/companies, /analyse/company, /analyse/regulatory, /analyse/document</div><div class="item-desc">All four endpoints live. PRICE_MAP updated so Aperture allows them. Haiku + assistant pre-fill for reliable JSON output.</div><div class="item-meta"><span class="tag tag-boltwork">Boltwork</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="api" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">/analyse/company — full enriched endpoint (1000 sats)</div><div class="item-desc">Returns: profile, directors, PSC, charges, SIC, previous names, confirmation statement, filing history + PDF URL, insolvency detail, gazette notices, address history, director cross-reference, recent resignations, trademark results, accounts financial parsing, enriched AI risk assessment (narrative/guidance/director/benchmark/industry context).</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="boltwork" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">boltwork-mcp PyPI package published</div><div class="item-desc">pip install boltwork-mcp. Wraps all Boltwork endpoints as MCP tools for Claude/Cursor/Windsurf. GitHub Actions auto-publish on version tag.</div><div class="item-meta"><span class="tag tag-boltwork">Boltwork</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="api" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">/analyse/regulatory — compliance assessment (800 sats)</div><div class="item-desc">Companies House search + AI compliance assessment + FCA register link. Sector identification (FCA/PRA regulated flag). FCA direct API auto-activates on whitelist approval.</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="boltwork" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">arXiv research paper search — /analyse/research</div><div class="item-desc">Search academic papers, extract key findings, methodology, relevance. Uses arXiv public API (free).</div><div class="item-meta"><span class="tag tag-boltwork">Boltwork</span><span class="tag tag-med">Medium</span></div></div></div>
 
-    <div class="item done" data-cat="api" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">/analyse/document — regulatory document analysis (600 sats)</div><div class="item-desc">Fetches any URL, extracts obligations/deadlines/action required/affected sectors/key changes. Works on PDFs, HTML pages, FCA/HMRC/ICO publications.</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="boltwork" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">HMRC trade / export data</div><div class="item-desc">Trade statistics by company. International activity signal for Check reports. Free HMRC public data.</div><div class="item-meta"><span class="tag tag-boltwork">Boltwork</span><span class="tag tag-low">Low</span></div></div></div>
 
-    <div class="item done" data-cat="api" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Claude haiku + assistant pre-fill — reliable JSON output</div><div class="item-desc">Switched from sonnet to haiku with {"role":"assistant","content":"{"} pre-fill. Guarantees JSON output starts with { — eliminates "malformed JSON" 500 errors that were breaking search.</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="boltwork" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">OpenCorporates — international company lookup</div><div class="item-desc">200M+ companies across 140 jurisdictions. Fallback / complement to UK Companies House for non-UK entities.</div><div class="item-meta"><span class="tag tag-boltwork">Boltwork</span><span class="tag tag-low">Low</span></div></div></div>
+  </div>
 
-    <div class="item done" data-cat="api" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">PRICE_MAP updated — new endpoints in Aperture</div><div class="item-desc">Added /search/companies (0), /analyse/company (1000), /analyse/regulatory (800), /analyse/document (600) to PRICE_MAP in main.py so Aperture L402 proxy allows them through.</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-done">Done</span></div></div></div>
+  <!-- MCP SERVERS -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">MCP Server Portfolio</div><div class="section-count" id="count-mcp"></div></div>
 
-    <div class="item" data-cat="api" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">arXiv research paper search</div><div class="item-desc">POST /analyse/research — query returns top academic papers with key findings, methodology, relevance extracted. Uses arXiv public API (free).</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-low">Low</span></div></div></div>
+    <div class="item done" data-cat="mcp" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">UK Due Diligence MCP — shipped as Check product</div><div class="item-desc">CH data + Boltwork AI layer. Now live as crackedminds.co.uk/check. The engine is /analyse/company on Boltwork.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item" data-cat="api" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">HMRC export/import trade data</div><div class="item-desc">Trade statistics by company. Signal for international trading activity. Free public HMRC data. Adds context to company due diligence.</div><div class="item-meta"><span class="tag tag-api">API</span><span class="tag tag-low">Low</span></div></div></div>
+    <div class="item done" data-cat="mcp" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Regulatory Document MCP — shipped as Comply product</div><div class="item-desc">FCA/HMRC/ICO search + document analysis. Now live as crackedminds.co.uk/comply. Engine is /analyse/regulatory + /analyse/document.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-done">Done</span></div></div></div>
+
+    <div class="item" data-cat="mcp" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">UK Land Registry MCP</div><div class="item-desc">Property price paid history, title register lookups, ownership data. Combine with company due diligence for property transactions. HMLR price paid API is free. Tools: property_price_history, title_register_lookup. Audience: estate agents, solicitors, buyers.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-high">High</span></div></div></div>
+
+    <div class="item" data-cat="mcp" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">EU/UK VAT Validation MCP</div><div class="item-desc">Validate VAT numbers via HMRC API + EU VIES. Returns registered name, address, status. 20-line build. High search volume in MCP registry. Funnel asset to the heavier servers. Tools: validate_vat_number, lookup_company_vat.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-high">High</span></div></div></div>
+
+    <div class="item" data-cat="mcp" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Patent Intelligence MCP</div><div class="item-desc">Search USPTO + EPO databases by keyword or applicant. Fetch patent PDFs, summarise claims in plain English via Boltwork /summarise. Prior art landscape. Audience: IP lawyers, R&D, startups. Tools: search_patents, explain_patent, prior_art_search.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-med">Medium</span></div></div></div>
+
+    <div class="item" data-cat="mcp" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">npm / PyPI Package Intelligence MCP</div><div class="item-desc">Search packages, summarise READMEs, check download trends, flag CVEs. Fetch and review source via Boltwork /review/url. Audience: developers. High discoverability in MCP registry. Low effort build.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-med">Medium</span></div></div></div>
+
+    <div class="item" data-cat="mcp" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">PubMed Clinical Literature MCP</div><div class="item-desc">Search 35M biomedical papers, summarise full-text PDFs via Boltwork /summarise. Audience: healthcare, pharma, medical researchers. High value per query.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-med">Medium</span></div></div></div>
+
+    <div class="item" data-cat="mcp" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Charity & Trustee Register MCP</div><div class="item-desc">Charity Commission register, pull accounts PDFs, summarise financials and governance via Boltwork. Audience: grant makers, fundraisers, auditors. Free API, low build effort.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-low">Low</span></div></div></div>
+
+    <div class="item" data-cat="mcp" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">arXiv Research MCP</div><div class="item-desc">Search and summarise AI/ML/science papers. Massive developer audience. Combines directly with Boltwork /summarise/url. Zero auth needed.</div><div class="item-meta"><span class="tag tag-mcp">MCP</span><span class="tag tag-low">Low</span></div></div></div>
+  </div>
+
+  <!-- MARKETING -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">Marketing & Distribution</div><div class="section-count" id="count-marketing"></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Stacker News post — Boltwork L402 API</div><div class="item-desc">Bitcoin/Lightning developer community. High-intent audience for L402 tools. Post explaining what Boltwork is, how agent-to-agent payments work, link to MCP package and gateway.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-high">High</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Product Hunt launch — Check</div><div class="item-desc">Launch Check as "Instant UK company due diligence, powered by AI". Target: legal/compliance/finance community. Prepare example report, pricing, screenshots. Schedule for a Tuesday.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-high">High</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">MCP registry listings — all servers</div><div class="item-desc">Submit each MCP server to glama.ai, mcp.so, and the Anthropic MCP directory. Proper README with examples. This is the primary discovery channel for developer users.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-high">High</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">boltwork-mcp — update PyPI listing and README</div><div class="item-desc">Add Check and Comply MCP tools to the package. Update README with new endpoints. Publish new version. This is the main acquisition channel for developer users of Boltwork.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-high">High</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">SEO — landing pages for Check and Comply</div><div class="item-desc">"UK company due diligence", "Companies House API", "FCA register search" — high intent keywords. Dedicated landing pages with structured data, example reports as anchor content.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-med">Medium</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">LinkedIn content — Cracked Minds company page</div><div class="item-desc">Regular posts on UK company intelligence, regulatory changes, due diligence tips. Check and Comply are the natural lead magnets. Target: compliance officers, lawyers, M&A teams.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-med">Medium</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Hacker News Show HN — Boltwork / boltwork-mcp</div><div class="item-desc">"Show HN: Pay-per-call AI services for agents via Lightning L402". Technical audience, high discoverability. Best timing: Tuesday 9am EST.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-med">Medium</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Email campaign — existing Boltwork users</div><div class="item-desc">Announce Check and Comply to anyone who has hit the Boltwork API. Short email: "We've built two products on top of Boltwork — here's what they do."</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-low">Low</span></div></div></div>
+
+    <div class="item" data-cat="marketing" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Blog — "How we built UK company intelligence with Companies House + Claude"</div><div class="item-desc">Technical post on the architecture. SEO value + HN / dev.to appeal. Covers CH API, PDF parsing, haiku assistant pre-fill trick for reliable JSON.</div><div class="item-meta"><span class="tag tag-marketing">Marketing</span><span class="tag tag-low">Low</span></div></div></div>
   </div>
 
   <!-- MAIN SITE -->
-  <div class="section" data-cat="site">
-    <div class="section-header">
-      <div class="section-title">Main Site (crackedminds.co.uk)</div>
-      <div class="section-count" id="count-site"></div>
-    </div>
+  <div class="section">
+    <div class="section-header"><div class="section-title">Main Site</div><div class="section-count" id="count-site"></div></div>
 
-    <div class="item done" data-cat="site" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Two-section layout — Business Services + AI Products & APIs</div><div class="item-desc">Services split: Business Services (IT, AI, M&A, PMO, Boltwork) and AI Products & APIs (Check #06, Comply #07). Each card has "View example report" and "Search" links.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="site" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Two-section layout — Business Services + AI Products</div><div class="item-desc">Check #06 and Comply #07 cards added. Example report links. Hero text updated for both products.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="site" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Check and Comply service cards added</div><div class="item-desc">Cards #06 and #07 added to main site services grid. Links to /check and /comply with "Search a company" and "Search FCA register" CTAs.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item done" data-cat="site" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Password-protected backlog at /backlog</div><div class="item-desc">Gateway dashboard also protected. Password: Crackedminds30@4321.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-done">Done</span></div></div></div>
 
-    <div class="item done" data-cat="site" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Gateway link fixed — /gateway/index.html</div><div class="item-desc">Was pointing to full domain URL. Updated to relative path for Cloudflare Pages compatibility.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="site" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Dedicated pricing page</div><div class="item-desc">Standalone /pricing page comparing Check and Comply tiers side by side. SEO target: "UK company check price". Direct CTA to each product.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-med">Medium</span></div></div></div>
 
-    <div class="item done" data-cat="site" onclick="toggle(this)"><div class="checkbox">✓</div><div class="item-body"><div class="item-title">Internal backlog at /backlog — password protected</div><div class="item-desc">crackedminds.co.uk/backlog/index.html. Password: Crackedminds30@4321. Session persists. Gateway dashboard also protected with same password.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-done">Done</span></div></div></div>
+    <div class="item" data-cat="site" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Analytics — Cloudflare Web Analytics or Plausible</div><div class="item-desc">Know which pages drive conversions. Cloudflare Analytics is built-in and privacy-friendly — just needs enabling. Or Plausible for more detail.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-med">Medium</span></div></div></div>
+
+    <div class="item" data-cat="site" onclick="toggle(this)"><div class="checkbox"></div><div class="item-body"><div class="item-title">Contact / sales page</div><div class="item-desc">For enterprise or bespoke enquiries. Simple form routed to tech@crackedminds.co.uk via Resend.</div><div class="item-meta"><span class="tag tag-site">Site</span><span class="tag tag-low">Low</span></div></div></div>
   </div>
 
 </div>
 
 <script>
-let showDone = true;
-let currentFilter = 'all';
+let showDone = true, currentFilter = 'all';
 
-function toggle(el) {
-  el.classList.toggle('done');
-  updateStats();
-  saveState();
-}
+function toggle(el) { el.classList.toggle('done'); updateStats(); saveState(); }
 
 function filter(cat, event) {
   currentFilter = cat;
@@ -247,11 +269,10 @@ function filter(cat, event) {
 function search(q) {
   const lower = q.toLowerCase();
   document.querySelectorAll('.item').forEach(item => {
-    const text = item.textContent.toLowerCase();
-    const matchSearch = !q || text.includes(lower);
+    const match = !q || item.textContent.toLowerCase().includes(lower);
     const matchCat = currentFilter === 'all' || item.dataset.cat === currentFilter;
     const matchDone = showDone || !item.classList.contains('done');
-    item.style.display = (matchSearch && matchCat && matchDone) ? 'flex' : 'none';
+    item.style.display = (match && matchCat && matchDone) ? 'flex' : 'none';
   });
   updateCounts();
 }
@@ -267,19 +288,17 @@ function toggleDone(event) {
 }
 
 function updateStats() {
-  const all = document.querySelectorAll('.item');
-  const done = document.querySelectorAll('.item.done');
-  const total = all.length, doneCount = done.length, todo = total - doneCount;
-  const pct = total ? Math.round(doneCount/total*100) : 0;
+  const all = document.querySelectorAll('.item'), done = document.querySelectorAll('.item.done');
+  const total = all.length, doneCount = done.length;
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-done').textContent = doneCount;
-  document.getElementById('stat-todo').textContent = todo;
-  document.getElementById('stat-pct').textContent = pct + '%';
+  document.getElementById('stat-todo').textContent = total - doneCount;
+  document.getElementById('stat-pct').textContent = total ? Math.round(doneCount/total*100)+'%' : '0%';
   updateCounts();
 }
 
 function updateCounts() {
-  ['infra','check','comply','api','site'].forEach(cat => {
+  ['infra','check','comply','boltwork','mcp','marketing','site'].forEach(cat => {
     const items = document.querySelectorAll(`.item[data-cat="${cat}"]`);
     const done = document.querySelectorAll(`.item.done[data-cat="${cat}"]`);
     const el = document.getElementById(`count-${cat}`);
@@ -288,23 +307,22 @@ function updateCounts() {
 }
 
 function saveState() {
-  const states = {};
-  document.querySelectorAll('.item').forEach((item, i) => { states[i] = item.classList.contains('done'); });
-  try { localStorage.setItem('backlog_state', JSON.stringify(states)); } catch(e) {}
+  const s = {};
+  document.querySelectorAll('.item').forEach((item, i) => { s[i] = item.classList.contains('done'); });
+  try { localStorage.setItem('bl', JSON.stringify(s)); } catch(e) {}
 }
 
 function loadState() {
   try {
-    const states = JSON.parse(localStorage.getItem('backlog_state') || '{}');
+    const s = JSON.parse(localStorage.getItem('bl') || '{}');
     document.querySelectorAll('.item').forEach((item, i) => {
-      if (states[i] === true) item.classList.add('done');
-      if (states[i] === false) item.classList.remove('done');
+      if (s[i] === true) item.classList.add('done');
+      if (s[i] === false) item.classList.remove('done');
     });
   } catch(e) {}
 }
 
-loadState();
-updateStats();
+loadState(); updateStats();
 </script>
 </body>
 </html>
