@@ -81,6 +81,29 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 </style>
 </head>
 <body>
+<div id="gate" style="position:fixed;inset:0;background:#0a0a08;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:'IBM Plex Mono',monospace">
+  <div style="background:#111110;border:0.5px solid rgba(255,255,255,0.13);border-radius:6px;padding:40px;width:340px;text-align:center">
+    <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px">Cracked Minds <span style="color:#0d9488">✦</span></div>
+    <div style="font-size:12px;color:#6b6865;margin-bottom:28px">Internal dashboard — restricted access</div>
+    <input id="pw" type="password" placeholder="Password" style="width:100%;font-family:'IBM Plex Mono',monospace;font-size:13px;padding:10px 14px;border-radius:3px;border:0.5px solid rgba(255,255,255,0.13);background:#1a1a18;color:#f0ede8;outline:none;margin-bottom:12px" onkeydown="if(event.key==='Enter')auth()">
+    <button onclick="auth()" style="width:100%;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;padding:10px;background:#0d9488;color:#fff;border:none;border-radius:3px;cursor:pointer">Enter</button>
+    <div id="pw-err" style="font-size:12px;color:#ef4444;margin-top:10px;display:none">Incorrect password</div>
+  </div>
+</div>
+<script>
+function auth(){
+  const pw = document.getElementById('pw').value;
+  if(pw === 'Crackedminds30@4321'){
+    document.getElementById('gate').style.display='none';
+    sessionStorage.setItem('dash_auth','1');
+  } else {
+    document.getElementById('pw-err').style.display='block';
+  }
+}
+if(sessionStorage.getItem('dash_auth')==='1'){
+  document.addEventListener('DOMContentLoaded',()=>{const g=document.getElementById('gate');if(g)g.style.display='none';});
+}
+</script>
 
 <header>
   <div class="logo"><span class="logo-bolt">⚡</span> Boltwork Dashboard</div>
