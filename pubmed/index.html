@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cracked Minds PubMed — Clinical Literature Search</title>
+<meta name="description" content="Search 35 million PubMed articles. Get AI summaries, methodology critique, evidence quality ratings, and related literature — instantly.">
+<style>@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#f0ede8;--text2:#a8a49f;--text3:#6b6865;--teal:#0d9488;--teal2:#0f766e;--teal-dim:rgba(13,148,136,0.12);--green:#22c55e;--green-dim:rgba(34,197,94,0.1);--red:#ef4444;--red-dim:rgba(239,68,68,0.1);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);--mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;}
+html{scroll-behavior:smooth}body{font-family:var(--mono);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.4}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}.logo-mark{color:var(--teal);font-size:20px}
+nav{display:flex;align-items:center;gap:32px}nav a{font-size:13px;color:var(--text2);text-decoration:none;transition:color 0.2s}nav a:hover{color:var(--text)}
+.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff!important;background:var(--teal);padding:8px 20px;border-radius:4px;text-decoration:none}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 40px 80px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(13,148,136,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(13,148,136,0.04) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent)}
+.hero-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(13,148,136,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:900px;margin:0 auto;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--teal);background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.3);padding:5px 14px;border-radius:2px;margin-bottom:28px;letter-spacing:0.08em;text-transform:uppercase}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+h1{font-family:var(--sans);font-size:clamp(42px,7vw,80px);font-weight:800;line-height:1.0;letter-spacing:-0.04em;color:var(--text);margin-bottom:24px}h1 em{font-style:normal;color:var(--teal)}
+.hero-sub{font-size:18px;color:var(--text2);max-width:600px;margin-bottom:48px;line-height:1.7}
+.search-wrap{max-width:640px;margin-bottom:48px}
+.search-row{display:flex;gap:8px;background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:6px 6px 6px 16px;transition:border-color 0.2s}.search-row:focus-within{border-color:var(--teal)}
+.search-row input{flex:1;background:none;border:none;outline:none;font-size:15px;color:var(--text);font-family:var(--mono)}.search-row input::placeholder{color:var(--text3)}
+.btn-search{padding:10px 24px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background 0.15s;white-space:nowrap}.btn-search:hover{background:var(--teal2)}.btn-search:disabled{opacity:0.5;cursor:not-allowed}
+.search-hint{font-size:12px;color:var(--text3);margin-top:10px}
+.results-list{max-width:640px;margin:8px 0 0;background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;overflow:hidden;display:none}.results-list.visible{display:block}
+.result-item{padding:14px 16px;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background 0.1s;display:flex;align-items:center;justify-content:space-between;gap:12px}.result-item:last-child{border-bottom:none}.result-item:hover{background:var(--surface2)}
+.result-name{font-size:14px;font-weight:500;font-family:var(--sans)}.result-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.sbadge{font-size:11px;padding:2px 8px;border-radius:2px;white-space:nowrap;font-weight:500}.sbadge-active{background:var(--green-dim);color:var(--green)}.sbadge-other{background:var(--amber-dim);color:var(--amber)}
+.error-msg{display:none;background:var(--red-dim);border:0.5px solid rgba(239,68,68,0.2);border-radius:4px;padding:12px 16px;font-size:13px;color:var(--red);max-width:640px;margin:8px 0 0}.error-msg.visible{display:block}
+.loading{display:none;color:var(--text3);font-size:13px;padding:16px 0}.loading.visible{display:block}
+.spinner{display:inline-block;width:12px;height:12px;border:1.5px solid var(--border2);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle}@keyframes spin{to{transform:rotate(360deg)}}
+.report-wrap{max-width:860px;margin:0 auto;padding:48px 40px;display:none}.report-wrap.visible{display:block}
+.report-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
+.report-title{font-family:var(--sans);font-size:2rem;font-weight:700;letter-spacing:-0.02em}.report-sub{font-size:12px;color:var(--text3);margin-top:4px}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;background:var(--border)}.report-grid.full{grid-template-columns:1fr}
+.rcard{background:var(--surface);padding:24px}.rcard-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.kv{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px}.kv:last-child{border-bottom:none}.kv-k{color:var(--text);opacity:0.7}.kv-v{text-align:right;color:var(--text)}
+.recommendation{font-size:14px;line-height:1.8;color:var(--text2)}
+.cta-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:32px;text-align:center;margin-top:2px}
+.cta-title{font-family:var(--sans);font-size:1.25rem;font-weight:700;margin-bottom:8px}.cta-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
+.price-options{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.price-card{background:var(--surface2);border:0.5px solid var(--border);border-radius:6px;padding:20px 28px;text-align:center;cursor:pointer;transition:border-color 0.15s;min-width:160px}.price-card:hover,.price-card.sel{border-color:var(--teal)}
+.price-amt{font-family:var(--sans);font-size:1.75rem;font-weight:800;letter-spacing:-0.02em}.price-per{font-size:12px;color:var(--text3);margin-top:2px}.price-desc{font-size:12px;color:var(--text2);margin-top:8px}
+.btn-pay{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);margin-top:20px;transition:background 0.15s}.btn-pay:hover{background:var(--teal2)}
+section.how{padding:96px 40px;border-top:0.5px solid var(--border)}.section-inner{max-width:900px;margin:0 auto}
+.section-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+h2{font-family:var(--sans);font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-0.03em;color:var(--text);margin-bottom:20px;line-height:1.1}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:var(--border);border-radius:6px;overflow:hidden}.step{background:var(--surface);padding:32px 28px}
+.step-n{font-family:var(--sans);font-size:48px;font-weight:800;color:var(--teal-dim);line-height:1;margin-bottom:16px;letter-spacing:-0.04em;user-select:none}
+.step-title{font-family:var(--sans);font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px}.step-desc{font-size:13px;color:var(--text2);line-height:1.7}
+footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-left{font-size:13px;color:var(--text3)}.footer-links{display:flex;gap:24px}.footer-links a{font-size:13px;color:var(--text3);text-decoration:none}
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){header{padding:16px 20px}nav a:not(.nav-cta){display:none}.hero{padding:100px 20px 60px}h1{font-size:38px}.report-wrap{padding:32px 20px}.report-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}section.how{padding:64px 20px}footer{padding:24px 20px}}</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo"><span class="logo-mark">⚡</span>Cracked Minds</a>
+  <nav><a href="/check/">Check</a><a href="/comply/">Comply</a><a href="/pubmed/" style="color:var(--teal)">PubMed</a><a href="/backlog/" class="nav-cta">Backlog</a></nav>
+</header>
+<section class="hero">
+  <div class="hero-grid"></div><div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">PubMed · NCBI · Clinical · AI Analysis</div>
+    <h1>Clinical <em>intelligence.</em></h1>
+    <p class="hero-sub">Search 35 million PubMed articles. Get AI summaries, methodology critique, evidence quality ratings, and related literature — instantly.</p>
+    <div class="search-wrap">
+      <div class="search-row">
+        <input type="text" id="search-input" placeholder="Search clinical literature… e.g. metformin diabetes, mRNA vaccines" autocomplete="off" onkeydown="if(event.key==='Enter')handleSearch()">
+        <button class="btn-search" onclick="handleSearch()" id="search-btn">Search</button>
+      </div>
+      <div class="search-hint">Search by keyword, condition, drug, or author</div>
+    </div>
+    <div class="results-list" id="results-list"></div>
+    <div class="error-msg" id="error-msg"></div>
+    <div class="loading" id="loading"><span class="spinner"></span><span id="loading-text">Searching…</span></div>
+  </div>
+</section>
+<div class="report-wrap" id="report-wrap">
+  <div id="report-content"></div>
+  <div class="cta-box fade-up" id="cta-box" style="display:none">
+    <div class="cta-title">Get the full report</div>
+    <div class="cta-sub">Complete AI analysis, full data, and detailed intelligence.</div>
+    <div class="price-options">
+      <div class="price-card sel" onclick="selectPrice('one_off',this)"><div class="price-amt">£2.99</div><div class="price-per">one-off report</div><div class="price-desc">Single full report</div></div>
+      <div class="price-card" onclick="selectPrice('subscription',this)"><div class="price-amt">£29</div><div class="price-per">per month</div><div class="price-desc">Unlimited reports</div></div>
+    </div>
+    <button class="btn-pay" onclick="checkout()">Get Full Report →</button>
+  </div>
+</div>
+<section class="how">
+  <div class="section-inner">
+    <div class="section-label">How it works</div><h2>Intelligence in seconds</h2>
+    <div class="steps">
+      <div class="step"><div class="step-n">01</div><div class="step-title">Search PubMed</div><div class="step-desc">Enter keywords, drug names, conditions, or author names to search 35M+ articles.</div></div>
+      <div class="step"><div class="step-n">02</div><div class="step-title">View publication data</div><div class="step-desc">See authors, journal, publication date, citations, and abstract.</div></div>
+      <div class="step"><div class="step-n">03</div><div class="step-title">AI evidence analysis</div><div class="step-desc">Get AI critique of methodology, evidence quality rating, and clinical significance.</div></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-left">© 2026 Cracked Minds Ltd · Manchester, UK</div>
+  <div class="footer-links"><a href="/check/">Check</a><a href="/comply/">Comply</a><a href="/">Home</a></div>
+</footer>
+<script>
+const API='https://parsebit.fly.dev';
+const PRODUCT_KEY='pubmed';
+
+async function handleSearch(){
+  const q=document.getElementById('search-input').value.trim();
+  if(!q)return;
+  setLoading(true,'Searching PubMed…');hideError();
+  try{
+    const searchRes=await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(q)}&retmax=10&retmode=json`);
+    const searchData=await searchRes.json();
+    const ids=(searchData.esearchresult?.idlist||[]).slice(0,8);
+    if(!ids.length){showError('No results found. Try different keywords.');return;}
+    const sumRes=await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${ids.join(',')}&retmode=json`);
+    const sumData=await sumRes.json();
+    const items=ids.map(id=>{const a=sumData.result?.[id];return{id,title:a?.title||'Unknown',authors:(a?.authors||[]).map(x=>x.name).slice(0,2).join(', '),journal:a?.source||'',date:a?.pubdate||''};});
+    renderResults(items);
+  }catch(e){showError('Search failed. PubMed may be rate limiting — try again.');}finally{setLoading(false);}
+}
+function renderResults(items){const el=document.getElementById('results-list');if(!items||!items.length){showError('No results found.');el.className='results-list';return;}el.innerHTML=items.map((item,i)=>`<div class="result-item" onclick="loadReport('${item.id}','${item.title}');currentRef='${item.id}';">
+  <div><div class="result-name">${item.title.substring(0,80)}${item.title.length>80?'…':''}</div><div class="result-meta">${item.authors} · ${item.journal} · ${item.date}</div></div>
+  <span class="sbadge sbadge-active">PMID ${item.id}</span>
+</div>`).join('');el.className='results-list visible';}
+function renderReport(data){const wrap=document.getElementById('report-wrap');document.getElementById('report-content').innerHTML=`<div class="report-header"><div><div class="report-title">Literature Report</div><div class="report-sub">PubMed / NCBI</div></div></div>
+<div class="report-grid full"><div class="rcard"><div class="rcard-title">Publication Details</div>
+<div class="kv"><span class="kv-k">PMID</span><span class="kv-v" id="r-id">—</span></div>
+<div class="kv"><span class="kv-k">Title</span><span class="kv-v" id="r-title" style="text-align:right;max-width:400px">—</span></div>
+<div class="kv"><span class="kv-k">Authors</span><span class="kv-v" id="r-authors">—</span></div>
+<div class="kv"><span class="kv-k">Journal</span><span class="kv-v" id="r-journal">—</span></div>
+<div class="kv"><span class="kv-k">Published</span><span class="kv-v" id="r-date">—</span></div>
+</div></div>
+<div class="report-grid full"><div class="rcard"><div class="rcard-title">AI Clinical Summary</div><div class="recommendation">Full AI analysis — methodology critique, clinical significance, evidence quality rating, and related literature — in the paid report.</div></div></div>`;wrap.className='report-wrap visible';document.getElementById('cta-box').style.display='block';setTimeout(()=>document.getElementById('cta-box').classList.add('visible'),100);wrap.scrollIntoView({behavior:'smooth'});}
+
+let selectedPrice = 'one_off';
+let currentRef = '';
+function selectPrice(type,el){selectedPrice=type;document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+function setLoading(on,txt){const l=document.getElementById('loading');if(on){l.className='loading visible';document.getElementById('loading-text').textContent=txt||'Searching…';document.getElementById('search-btn').disabled=true;}else{l.className='loading';document.getElementById('search-btn').disabled=false;}}
+function showError(msg){const e=document.getElementById('error-msg');e.textContent=msg;e.className='error-msg visible';}
+function hideError(){document.getElementById('error-msg').className='error-msg';}
+async function checkout(){try{const res=await fetch('/api/create-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:PRODUCT_KEY,reportType:selectedPrice,companyNumber:currentRef,companyName:currentRef})});const data=await res.json();if(data.url)window.location.href=data.url;}catch(e){showError('Checkout failed.');}}
+const observer=new IntersectionObserver(els=>els.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}));
+document.querySelectorAll('.fade-up').forEach(e=>observer.observe(e));
+
+</script>
+</body>
+</html>
