@@ -37,6 +37,9 @@ export default {
       if (path === "/api/search" && request.method === "GET") {
         return await handleSearch(request, env, cors);
       }
+      if (path === "/api/fca-search" && request.method === "GET") {
+        return await handleFCASearch(request, env, cors);
+      }
       return new Response("Not found", { status: 404, headers: cors });
     } catch (err) {
       return json({ error: err.message }, 500);
@@ -85,6 +88,48 @@ async function handleSearch(request, env, cors) {
     })),
     total: data.total_results || 0,
   }), {
+    headers: { "Content-Type": "application/json", ...cors }
+  });
+}
+
+
+// ── FCA Register search proxy ─────────────────────────────────
+async function handleFCASearch(request, env, cors) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q") || "";
+  if (!q.trim()) {
+    return new Response(JSON.stringify({ items: [], total: 0 }), {
+      headers: { "Content-Type": "application/json", ...cors }
+    });
+  }
+
+  const fcaUrl = `https://register.fca.org.uk/services/V0.1/Search?q=${encodeURIComponent(q)}`;
+
+  const res = await fetch(fcaUrl, {
+    headers: {
+      "X-AUTH-KEY": env.FCA_API_KEY,
+      "X-AUTH-EMAIL": "hello@crackedminds.co.uk",
+      "Accept": "application/json",
+    }
+  });
+
+  if (!res.ok) {
+    return new Response(JSON.stringify({ error: "FCA search failed", status: res.status }), {
+      status: res.status,
+      headers: { "Content-Type": "application/json", ...cors }
+    });
+  }
+
+  const data = await res.json();
+  const items = (data.Data || []).map(i => ({
+    name: i.Name || "",
+    frn: i.FRN || "",
+    status: i.Status || "",
+    type: i.Type || "",
+    address: i.Address || "",
+  }));
+
+  return new Response(JSON.stringify({ items, total: items.length }), {
     headers: { "Content-Type": "application/json", ...cors }
   });
 }
