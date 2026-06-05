@@ -103,7 +103,7 @@ async function handleFCASearch(request, env, cors) {
     });
   }
 
-  const fcaUrl = `https://register.fca.org.uk/services/V0.1/Search?q=${encodeURIComponent(q)}`;
+  const fcaUrl = `https://register.fca.org.uk/services/V0.1/Firm/Search?q=${encodeURIComponent(q)}&type=firm`;
 
   const res = await fetch(fcaUrl, {
     headers: {
@@ -121,12 +121,13 @@ async function handleFCASearch(request, env, cors) {
   }
 
   const data = await res.json();
-  const items = (data.Data || []).map(i => ({
+  const results = data.Data || [];
+  const items = results.map(i => ({
     name: i.Name || "",
-    frn: i.FRN || "",
+    frn: String(i.FRN || ""),
     status: i.Status || "",
     type: i.Type || "",
-    address: i.Address || "",
+    address: [i.Address1, i.Address2, i.Town, i.Postcode].filter(Boolean).join(", "),
   }));
 
   return new Response(JSON.stringify({ items, total: items.length }), {
