@@ -137,10 +137,12 @@ async function handleFCASearch(request, env, cors) {
 
 // ── Stripe price lookup ───────────────────────────────────────
 function getPrice(product, reportType, env) {
-  return {
+  const prices = {
     check:  { one_off: env.STRIPE_PRICE_CHECK_SINGLE,  subscription: env.STRIPE_PRICE_CHECK_PRO },
     comply: { one_off: env.STRIPE_PRICE_COMPLY_SINGLE, subscription: env.STRIPE_PRICE_COMPLY_PRO },
-  }[product]?.[reportType] || null;
+  };
+  // All new products fall back to Check pricing until dedicated prices are set
+  return (prices[product] || prices.check)[reportType] || null;
 }
 
 // ── Create Stripe checkout ────────────────────────────────────
@@ -149,9 +151,18 @@ async function createCheckout(request, env, json) {
   const priceId = getPrice(product, reportType, env);
   if (!priceId) return json({ error: `No price for ${product}/${reportType}` }, 400);
 
-  const base = product === "comply"
-    ? "https://crackedminds.co.uk/comply/index.html"
-    : "https://crackedminds.co.uk/check/index.html";
+  const knownBases = {
+    check:  "https://crackedminds.co.uk/check/index.html",
+    comply: "https://crackedminds.co.uk/comply/index.html",
+    "land-registry": "https://crackedminds.co.uk/land-registry/index.html",
+    vat:      "https://crackedminds.co.uk/vat/index.html",
+    patent:   "https://crackedminds.co.uk/patent/index.html",
+    packages: "https://crackedminds.co.uk/packages/index.html",
+    pubmed:   "https://crackedminds.co.uk/pubmed/index.html",
+    charity:  "https://crackedminds.co.uk/charity/index.html",
+    arxiv:    "https://crackedminds.co.uk/arxiv/index.html",
+  };
+  const base = knownBases[product] || knownBases.check;
 
   const body = new URLSearchParams({
     "payment_method_types[]": "card",
