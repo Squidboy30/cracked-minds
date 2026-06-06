@@ -103,6 +103,71 @@ function auth(){
 if(sessionStorage.getItem('dash_auth')==='1'){
   document.addEventListener('DOMContentLoaded',()=>{const g=document.getElementById('gate');if(g)g.style.display='none';});
 }
+
+  // ── Website visit counter ─────────────────────────────────────
+  async function loadVisits() {
+    const el = document.getElementById('visits-content');
+    if (!el) return;
+    try {
+      // counter.dev — free privacy-friendly visit counter
+      // Tracks unique visits per page, no cookies, GDPR compliant
+      const pages = [
+        { path: '/', label: 'Home' },
+        { path: '/check/', label: 'Check' },
+        { path: '/comply/', label: 'Comply' },
+        { path: '/products/', label: 'AI Searches' },
+        { path: '/boltwork/', label: 'Boltwork' },
+        { path: '/land-registry/', label: 'Land Registry' },
+        { path: '/vat/', label: 'VAT' },
+        { path: '/patent/', label: 'Patent' },
+        { path: '/packages/', label: 'Packages' },
+        { path: '/pubmed/', label: 'PubMed' },
+        { path: '/charity/', label: 'Charity' },
+        { path: '/arxiv/', label: 'arXiv' },
+      ];
+
+      const results = await Promise.all(
+        pages.map(p =>
+          fetch(`https://counter.dev/stats?url=https://crackedminds.co.uk${p.path}&timeframe=30d`)
+            .then(r => r.ok ? r.json() : null)
+            .catch(() => null)
+        )
+      );
+
+      let total = 0;
+      const rows = pages.map((p, i) => {
+        const count = results[i]?.visits || 0;
+        total += count;
+        return `<div class="health-row">
+          <span class="health-name">${p.label} <span style="color:var(--text3);font-size:11px">${p.path}</span></span>
+          <span class="health-status">${count.toLocaleString()}</span>
+        </div>`;
+      }).join('');
+
+      el.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:20px">
+          <div>
+            <div class="metric-big" id="total-visits">${total.toLocaleString()}</div>
+            <div class="metric-sub">Total visits (30d)</div>
+          </div>
+          <div>
+            <div class="metric-big" style="color:var(--teal)">${pages.length}</div>
+            <div class="metric-sub">Pages tracked</div>
+          </div>
+          <div>
+            <div class="metric-big">${total > 0 ? Math.round(total / 30) : 0}</div>
+            <div class="metric-sub">Avg visits/day</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em">Page breakdown</div>
+        ${rows}
+        <div style="font-size:11px;color:var(--text3);margin-top:12px">Powered by counter.dev · privacy-friendly · no cookies</div>`;
+
+    } catch(e) {
+      el.innerHTML = `<div class="no-data">Visit counter unavailable — add counter.dev tracking to each page to enable</div>`;
+    }
+  }
+
 </script>
 
 <header>
@@ -146,6 +211,12 @@ if(sessionStorage.getItem('dash_auth')==='1'){
   <div class="card span2">
     <div class="card-label">All-time API calls</div>
     <div id="alltime-content"><div class="no-data pulse">Loading...</div></div>
+  </div>
+
+  <!-- Website visits -->
+  <div class="card span3" id="visits-card">
+    <div class="card-label">Website visits — crackedminds.co.uk</div>
+    <div id="visits-content"><div class="no-data pulse">Loading...</div></div>
   </div>
 
   <!-- Section divider -->
@@ -520,5 +591,7 @@ window.addEventListener('load', () => {
   autoRefresh = setInterval(fetchAll, 30000);
 });
 </script>
+  <!-- counter.dev visit tracking -->
+  <script async src="https://cdn.counter.dev/script.js" data-id="crackedminds" data-utcoffset="1"></script>
 </body>
 </html>
