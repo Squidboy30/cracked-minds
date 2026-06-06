@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boltwork — AI API & MCP Server | Cracked Minds</title>
+<meta name="description" content="Boltwork: pay-per-call AI services via Bitcoin Lightning. MCP server for Claude, Cursor, and Windsurf. PDF summarisation, code review, translation, and more.">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#f0ede8;--text2:#a8a49f;--text3:#6b6865;--teal:#0d9488;--teal2:#0f766e;--teal-dim:rgba(13,148,136,0.12);--amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);--green:#22c55e;--green-dim:rgba(34,197,94,0.1);--mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;}
+body{font-family:var(--mono);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.4}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}.logo-mark{color:var(--teal)}
+nav{display:flex;align-items:center;gap:32px}nav a{font-size:13px;color:var(--text2);text-decoration:none;transition:color 0.2s}nav a:hover,nav a.active{color:var(--text)}
+.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff!important;background:var(--teal);padding:8px 20px;border-radius:4px}
+.page{max-width:900px;margin:0 auto;padding:140px 40px 80px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--teal);background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.3);padding:5px 14px;border-radius:2px;margin-bottom:24px;letter-spacing:0.08em;text-transform:uppercase}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+h1{font-family:var(--sans);font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.05;letter-spacing:-0.04em;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--teal)}
+.hero-sub{font-size:16px;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:40px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:64px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--teal);color:#fff;border-radius:4px;font-size:14px;font-weight:600;text-decoration:none;font-family:var(--sans);transition:background 0.15s}
+.btn-primary:hover{background:var(--teal2)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:none;color:var(--text2);border:0.5px solid var(--border2);border-radius:4px;font-size:14px;font-weight:600;text-decoration:none;font-family:var(--sans);transition:all 0.15s}
+.btn-ghost:hover{border-color:var(--teal);color:var(--text)}
+
+/* Section */
+.section{margin-bottom:64px}
+.section-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+h2{font-family:var(--sans);font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-0.03em;margin-bottom:20px;line-height:1.2}
+h2 em{font-style:normal;color:var(--teal)}
+p{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px}
+
+/* Code blocks */
+.code-block{background:var(--surface);border:0.5px solid var(--border2);border-radius:6px;padding:20px 24px;margin:16px 0;overflow-x:auto;position:relative}
+.code-block pre{font-family:var(--mono);font-size:13px;color:#e0e0e0;line-height:1.7;white-space:pre}
+.code-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
+.copy-btn{position:absolute;top:12px;right:12px;background:var(--surface2);border:0.5px solid var(--border2);color:var(--text3);padding:4px 10px;border-radius:3px;font-size:11px;cursor:pointer;font-family:var(--mono);transition:all 0.15s}
+.copy-btn:hover{border-color:var(--teal);color:var(--teal)}
+
+/* Tools table */
+.tools-table{width:100%;border-collapse:collapse;margin:16px 0}
+.tools-table th{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text3);text-align:left;padding:8px 12px;border-bottom:0.5px solid var(--border2)}
+.tools-table td{font-size:13px;color:var(--text2);padding:10px 12px;border-bottom:0.5px solid var(--border);vertical-align:top}
+.tools-table tr:last-child td{border-bottom:none}
+.tools-table td:first-child{font-family:var(--mono);color:var(--teal);white-space:nowrap}
+.tools-table td:last-child{text-align:right;white-space:nowrap}
+.free-badge{background:var(--green-dim);color:var(--green);padding:2px 8px;border-radius:2px;font-size:11px}
+.sat-badge{background:var(--amber-dim);color:var(--amber);padding:2px 8px;border-radius:2px;font-size:11px}
+
+/* Wallet cards */
+.wallet-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:6px;overflow:hidden;margin:16px 0}
+.wallet-card{background:var(--surface);padding:24px}
+.wallet-card h4{font-family:var(--sans);font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.wallet-card p{font-size:13px;color:var(--text2);margin-bottom:12px}
+.wallet-card .tag{font-size:11px;background:var(--teal-dim);color:var(--teal);border:0.5px solid rgba(13,148,136,0.3);padding:2px 10px;border-radius:2px;display:inline-block}
+.wallet-card ol{padding-left:16px;font-size:13px;color:var(--text2);line-height:1.9}
+
+/* Config table */
+.config-table{width:100%;border-collapse:collapse;margin:16px 0}
+.config-table th{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text3);text-align:left;padding:8px 12px;border-bottom:0.5px solid var(--border2)}
+.config-table td{font-size:13px;padding:10px 12px;border-bottom:0.5px solid var(--border);color:var(--text2)}
+.config-table td:first-child{color:var(--text);font-family:var(--mono)}
+.config-table tr:last-child td{border-bottom:none}
+
+/* Flow steps */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border-radius:6px;overflow:hidden;margin:20px 0}
+.flow-step{background:var(--surface);padding:20px 16px;text-align:center}
+.flow-step__num{font-family:var(--sans);font-size:32px;font-weight:800;color:var(--teal-dim);line-height:1;margin-bottom:8px}
+.flow-step__title{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.flow-step__desc{font-size:12px;color:var(--text3);line-height:1.5}
+
+footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-left{font-size:13px;color:var(--text3)}.footer-links{display:flex;gap:24px}.footer-links a{font-size:13px;color:var(--text3);text-decoration:none}
+@media(max-width:768px){header{padding:16px 20px}nav a:not(.nav-cta){display:none}.page{padding:100px 20px 60px}.wallet-grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}footer{padding:24px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo"><span class="logo-mark">⚡</span>Cracked Minds</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/boltwork/" class="active">Boltwork</a>
+    <a href="/products/">AI Searches</a>
+    <a href="/backlog/" class="nav-cta">Backlog</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <div class="hero-badge">AI API · Bitcoin Lightning · MCP Server</div>
+  <h1>Boltwork.<br><em>Pay per call.</em></h1>
+  <p class="hero-sub">AI services for autonomous agents. Pay in sats via Bitcoin Lightning — no accounts, no API keys, no subscriptions. Plug into any MCP-compatible AI in 2 minutes.</p>
+
+  <div class="hero-actions">
+    <a href="#mcp" class="btn-primary"><i class="fa-solid fa-plug"></i> Install MCP Server</a>
+    <a href="#api" class="btn-ghost"><i class="fa-solid fa-code"></i> API Reference</a>
+    <a href="https://parsebit.fly.dev" class="btn-ghost" target="_blank" rel="noopener"><i class="fa-solid fa-server"></i> Live API</a>
+  </div>
+
+  <!-- How it works -->
+  <div class="section">
+    <div class="section-label">How it works</div>
+    <h2>Your agent pays <em>automatically</em></h2>
+    <p>Boltwork uses the L402 protocol — an open standard for machine-to-machine payments over the Lightning Network. Your agent calls an endpoint, receives a Lightning invoice, pays it in under a second, and gets the result back. No human involved.</p>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-step__num">01</div><div class="flow-step__title">Agent calls API</div><div class="flow-step__desc">POST to any Boltwork endpoint</div></div>
+      <div class="flow-step"><div class="flow-step__num">02</div><div class="flow-step__title">402 + invoice</div><div class="flow-step__desc">Server returns Lightning invoice</div></div>
+      <div class="flow-step"><div class="flow-step__num">03</div><div class="flow-step__title">Wallet pays</div><div class="flow-step__desc">Your wallet settles in &lt;1 second</div></div>
+      <div class="flow-step"><div class="flow-step__num">04</div><div class="flow-step__title">Result returned</div><div class="flow-step__desc">AI result delivered to agent</div></div>
+    </div>
+  </div>
+
+  <!-- MCP Server -->
+  <div class="section" id="mcp">
+    <div class="section-label">MCP Server</div>
+    <h2>Works with <em>Claude, Cursor, Windsurf</em></h2>
+    <p>The <code>boltwork-mcp</code> package wraps the Boltwork API as a Model Context Protocol server. Add it to your MCP config and your AI can call any Boltwork tool as a native capability — payments handled transparently in the background.</p>
+
+    <div class="section-label" style="margin-top:24px">Quick start — no wallet needed</div>
+    <p>Two tools work free with zero setup:</p>
+    <div class="code-block">
+      <div class="code-label">Install</div>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <pre>pip install boltwork-mcp
+
+# Or use directly with uvx (no install):
+uvx boltwork-mcp</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">claude_desktop_config.json / .cursor/mcp.json</div>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <pre>{
+  "mcpServers": {
+    "boltwork": {
+      "command": "uvx",
+      "args": ["boltwork-mcp"],
+      "env": {}
+    }
+  }
+}</pre>
+    </div>
+
+    <p>Then ask your AI: <code>"Use trial_review_code to review this: def add(a, b): return a + b"</code></p>
+
+    <div class="section-label" style="margin-top:32px">Config file locations</div>
+    <table class="config-table">
+      <tr><th>Client</th><th>Config file</th></tr>
+      <tr><td>Claude Desktop (Windows)</td><td>%APPDATA%\Claude\claude_desktop_config.json</td></tr>
+      <tr><td>Claude Desktop (macOS)</td><td>~/Library/Application Support/Claude/claude_desktop_config.json</td></tr>
+      <tr><td>Cursor</td><td>.cursor/mcp.json in your project</td></tr>
+      <tr><td>Windsurf</td><td>~/.codeium/windsurf/mcp_config.json</td></tr>
+    </table>
+  </div>
+
+  <!-- Wallet Setup -->
+  <div class="section" id="wallet">
+    <div class="section-label">Wallet setup</div>
+    <h2>Pick a <em>Lightning wallet</em></h2>
+    <p>For paid tools, you need a Lightning wallet configured. Alby NWC is the fastest — 2 minutes from zero to paying.</p>
+
+    <div class="wallet-grid">
+      <div class="wallet-card">
+        <h4>⚡ Alby / NWC <span class="tag">Recommended</span></h4>
+        <p>Works with Alby, Mutiny, Coinos, Primal, and any NWC-compatible wallet.</p>
+        <ol>
+          <li>Go to <strong>nwc.getalby.com</strong></li>
+          <li>Create account → set a budget</li>
+          <li>Copy the connection string</li>
+          <li>Add to MCP config as <code>NWC_CONNECTION_STRING</code></li>
+        </ol>
+        <br>
+        <div class="code-block" style="margin:0">
+          <pre>"env": {
+  "NWC_CONNECTION_STRING": "nostr+walletconnect://..."
+}</pre>
+        </div>
+      </div>
+      <div class="wallet-card">
+        <h4>🏦 LNbits</h4>
+        <p>Works with lnbits.com or any self-hosted LNbits instance.</p>
+        <ol>
+          <li>Create wallet at <strong>lnbits.com</strong></li>
+          <li>Copy your Invoice/read key</li>
+          <li>Add to MCP config</li>
+        </ol>
+        <br>
+        <div class="code-block" style="margin:0">
+          <pre>"env": {
+  "LNBITS_URL": "https://lnbits.com",
+  "LNBITS_API_KEY": "your-key"
+}</pre>
+        </div>
+      </div>
+      <div class="wallet-card">
+        <h4>💳 Strike</h4>
+        <p>Simple API key setup. Good for US users.</p>
+        <ol>
+          <li>Create account at <strong>strike.me</strong></li>
+          <li>Go to Developers → API keys</li>
+          <li>Add to MCP config</li>
+        </ol>
+        <br>
+        <div class="code-block" style="margin:0">
+          <pre>"env": {
+  "STRIKE_API_KEY": "your-api-key"
+}</pre>
+        </div>
+      </div>
+      <div class="wallet-card">
+        <h4>🔧 Phoenixd</h4>
+        <p>Self-hosted Lightning node by ACINQ.</p>
+        <ol>
+          <li>Install <strong>Phoenixd</strong></li>
+          <li>Get HTTP password from config</li>
+          <li>Add to MCP config</li>
+        </ol>
+        <br>
+        <div class="code-block" style="margin:0">
+          <pre>"env": {
+  "PHOENIXD_URL": "http://localhost:9740",
+  "PHOENIXD_PASSWORD": "your-password"
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tools -->
+  <div class="section" id="tools">
+    <div class="section-label">Available tools</div>
+    <h2>15 tools. <em>Fractions of a penny.</em></h2>
+    <table class="tools-table">
+      <tr><th>Tool</th><th>What it does</th><th>Cost</th></tr>
+      <tr><td>trial_summarise</td><td>Summarise text — free trial, rate limited</td><td><span class="free-badge">Free</span></td></tr>
+      <tr><td>trial_review_code</td><td>Code review — free trial, rate limited</td><td><span class="free-badge">Free</span></td></tr>
+      <tr><td>summarise_pdf</td><td>Summarise a PDF from URL</td><td><span class="sat-badge">500 sats</span></td></tr>
+      <tr><td>summarise_webpage</td><td>Summarise any web page</td><td><span class="sat-badge">100 sats</span></td></tr>
+      <tr><td>review_code</td><td>Full code review — bugs, security, quality</td><td><span class="sat-badge">2000 sats</span></td></tr>
+      <tr><td>review_code_url</td><td>Review code from GitHub/GitLab URL</td><td><span class="sat-badge">2000 sats</span></td></tr>
+      <tr><td>extract_data</td><td>Extract structured data from a PDF</td><td><span class="sat-badge">200 sats</span></td></tr>
+      <tr><td>translate</td><td>Translate text or document (24 languages)</td><td><span class="sat-badge">150 sats</span></td></tr>
+      <tr><td>extract_tables</td><td>Extract all tables from a PDF</td><td><span class="sat-badge">300 sats</span></td></tr>
+      <tr><td>compare_documents</td><td>Diff two PDF documents</td><td><span class="sat-badge">500 sats</span></td></tr>
+      <tr><td>explain_code</td><td>Explain code in plain English</td><td><span class="sat-badge">500 sats</span></td></tr>
+      <tr><td>memory_store</td><td>Store persistent agent memory</td><td><span class="sat-badge">10 sats</span></td></tr>
+      <tr><td>memory_retrieve</td><td>Retrieve agent memory</td><td><span class="sat-badge">5 sats</span></td></tr>
+      <tr><td>memory_delete</td><td>Delete a memory key</td><td><span class="free-badge">Free</span></td></tr>
+      <tr><td>run_workflow</td><td>Chain multiple services in one call</td><td><span class="sat-badge">1000 sats</span></td></tr>
+    </table>
+  </div>
+
+  <!-- API Reference -->
+  <div class="section" id="api">
+    <div class="section-label">API Reference</div>
+    <h2>Direct API <em>access</em></h2>
+    <p>All endpoints are at <code>https://parsebit.fly.dev</code>. Every paid endpoint uses L402 — you'll receive a <code>402 Payment Required</code> with a Lightning invoice if you don't include a valid payment token.</p>
+
+    <div class="code-block">
+      <div class="code-label">Example — summarise a PDF</div>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <pre>curl -X POST https://parsebit.fly.dev/summarise/upload   -H "Content-Type: application/json"   -d '{"url": "https://example.com/document.pdf"}'
+
+# Returns HTTP 402 with WWW-Authenticate header containing invoice
+# Pay the invoice, then retry with:
+# -H "Authorization: L402 &lt;token&gt;:&lt;preimage&gt;"</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">Check setup endpoint</div>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <pre>curl https://parsebit.fly.dev/setup
+# Returns wallet setup guide as JSON</pre>
+    </div>
+
+    <p>For full endpoint documentation and the L402 manifest: <a href="https://parsebit.fly.dev/.well-known/l402.json" target="_blank" style="color:var(--teal)">parsebit.fly.dev/.well-known/l402.json</a></p>
+  </div>
+
+  <!-- Links -->
+  <div class="section">
+    <div class="section-label">Links</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:6px;overflow:hidden">
+      <a href="https://pypi.org/project/boltwork-mcp/" target="_blank" rel="noopener" style="background:var(--surface);padding:20px;text-decoration:none;display:block;transition:background 0.15s" onmouseover="this.style.background='#1a1a18'" onmouseout="this.style.background='var(--surface)'">
+        <div style="font-size:20px;margin-bottom:8px">📦</div>
+        <div style="font-family:var(--sans);font-weight:600;color:var(--text);margin-bottom:4px">PyPI</div>
+        <div style="font-size:12px;color:var(--text3)">pip install boltwork-mcp</div>
+      </a>
+      <a href="https://github.com/Squidboy30/Boltwork" target="_blank" rel="noopener" style="background:var(--surface);padding:20px;text-decoration:none;display:block;transition:background 0.15s" onmouseover="this.style.background='#1a1a18'" onmouseout="this.style.background='var(--surface)'">
+        <div style="font-size:20px;margin-bottom:8px">⭐</div>
+        <div style="font-family:var(--sans);font-weight:600;color:var(--text);margin-bottom:4px">GitHub</div>
+        <div style="font-size:12px;color:var(--text3)">Source code & issues</div>
+      </a>
+      <a href="https://parsebit.fly.dev" target="_blank" rel="noopener" style="background:var(--surface);padding:20px;text-decoration:none;display:block;transition:background 0.15s" onmouseover="this.style.background='#1a1a18'" onmouseout="this.style.background='var(--surface)'">
+        <div style="font-size:20px;margin-bottom:8px">🚀</div>
+        <div style="font-family:var(--sans);font-weight:600;color:var(--text);margin-bottom:4px">Live API</div>
+        <div style="font-size:12px;color:var(--text3)">parsebit.fly.dev</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 Cracked Minds Ltd · Manchester, UK</div>
+  <div class="footer-links"><a href="/">Home</a><a href="/products/">AI Searches</a><a href="https://parsebit.fly.dev">Live API</a></div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  var pre = btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.color = 'var(--teal)';
+    setTimeout(function() { btn.textContent = orig; btn.style.color = ''; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
