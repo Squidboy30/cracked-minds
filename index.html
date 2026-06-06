@@ -423,7 +423,7 @@
       </p>
       <div class="cta-section__actions reveal reveal-d2">
         <a href="#contact" class="btn btn-primary btn-lg">Get Started Today</a>
-        <a href="mailto:hello@crackedminds.co.uk" class="btn btn-ghost btn-lg">
+        <a href="mailto:hello@crackedminds.co.uk" class="btn btn-ghost btn-lg" onclick="if(!navigator.userAgent.match(/Mobi/)){navigator.clipboard&&navigator.clipboard.writeText('hello@crackedminds.co.uk').then(()=>{var t=this;var o=t.innerHTML;t.innerHTML='<i class=\'fa-solid fa-check\'></i> Copied!';setTimeout(()=>t.innerHTML=o,2000);});return false;}">
           <i class="fa-solid fa-envelope" aria-hidden="true"></i>
           hello@crackedminds.co.uk
         </a>
@@ -440,10 +440,11 @@
         <h2>Ready to solve<br><span class="text-orange">something complex?</span></h2>
         <p class="contact__sub">Whether you have a defined brief or just a problem that needs thinking through &mdash; we want to hear from you.</p>
         <div class="contact__details">
-          <a href="mailto:hello@crackedminds.co.uk" class="contact__item">
+          <div class="contact__item" style="cursor:pointer" onclick="navigator.clipboard&&navigator.clipboard.writeText('hello@crackedminds.co.uk').then(()=>{this.querySelector('.copy-hint').textContent='Copied!';setTimeout(()=>{this.querySelector('.copy-hint').textContent='Click to copy'},2000)})">
             <span class="contact__item-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
             hello@crackedminds.co.uk
-          </a>
+            <span class="copy-hint" style="font-size:11px;opacity:0.5;margin-left:8px">Click to copy</span>
+          </div>
           <div class="contact__item">
             <span class="contact__item-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
             Manchester &amp; London, United Kingdom
