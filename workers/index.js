@@ -40,6 +40,9 @@ export default {
       if (path === "/api/fca-search" && request.method === "GET") {
         return await handleFCASearch(request, env, cors);
       }
+      if (path === "/api/contact" && request.method === "POST") {
+        return await handleContact(request, env, cors);
+      }
       return new Response("Not found", { status: 404, headers: cors });
     } catch (err) {
       return json({ error: err.message }, 500);
@@ -92,6 +95,46 @@ async function handleSearch(request, env, cors) {
   });
 }
 
+
+
+// ── Contact form handler ──────────────────────────────────────────
+async function handleContact(request, env, cors) {
+  try {
+    const { name, email, organisation, message } = await request.json();
+    if (!name || !email || !message) {
+      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+        status: 400, headers: { "Content-Type": "application/json", ...cors }
+      });
+    }
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "website@crackedminds.co.uk",
+        to: ["hello@crackedminds.co.uk"],
+        reply_to: email,
+        subject: `New enquiry from ${name}${organisation ? ' at ' + organisation : ''}`,
+        html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p>${organisation ? `<p><strong>Organisation:</strong> ${organisation}</p>` : ''}<p><strong>Message:</strong></p><p>${message.replace(/\n/g, '<br>')}</p>`,
+      }),
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      return new Response(JSON.stringify({ error: "Email failed", detail: err }), {
+        status: 500, headers: { "Content-Type": "application/json", ...cors }
+      });
+    }
+    return new Response(JSON.stringify({ ok: true }), {
+      headers: { "Content-Type": "application/json", ...cors }
+    });
+  } catch (e) {
+    return new Response(JSON.stringify({ error: e.message }), {
+      status: 500, headers: { "Content-Type": "application/json", ...cors }
+    });
+  }
+}
 
 // ── FCA Register search proxy ─────────────────────────────────
 async function handleFCASearch(request, env, cors) {
