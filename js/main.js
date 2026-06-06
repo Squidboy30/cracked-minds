@@ -243,10 +243,16 @@
       btn.disabled = true;
 
       try {
-        const res = await fetch('/', {
+        const formData = new FormData(form);
+        const res = await fetch('/api/contact', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(new FormData(form)).toString(),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            organisation: formData.get('organisation') || '',
+            message: formData.get('message'),
+          }),
         });
         if (!res.ok) throw new Error('Send failed');
         status.textContent = "Thank you — we'll be in touch within 24 hours.";
