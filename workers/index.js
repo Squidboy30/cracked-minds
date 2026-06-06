@@ -120,9 +120,9 @@ async function handleContact(request, env, cors) {
         html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p>${organisation ? `<p><strong>Organisation:</strong> ${organisation}</p>` : ''}<p><strong>Message:</strong></p><p>${message.replace(/\n/g, '<br>')}</p>`,
       }),
     });
+    const resBody = await res.text();
     if (!res.ok) {
-      const err = await res.text();
-      return new Response(JSON.stringify({ error: "Email failed", detail: err }), {
+      return new Response(JSON.stringify({ error: "Email failed", status: res.status, detail: resBody }), {
         status: 500, headers: { "Content-Type": "application/json", ...cors }
       });
     }
