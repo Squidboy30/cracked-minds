@@ -259,7 +259,7 @@
         status.className = 'form-status success';
         form.reset();
       } catch {
-        status.textContent = 'Something went wrong — please email us directly.';
+        status.textContent = 'Something went wrong — please email us directly at hello@crackedminds.co.uk';
         status.className = 'form-status error-msg';
       }
       btn.innerHTML = originalHTML;
