@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cracked Minds — AI Intelligence Products</title>
+<meta name="description" content="9 AI-powered intelligence products. From £2.99.">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#f0ede8;--text2:#a8a49f;--text3:#6b6865;--teal:#0d9488;--teal2:#0f766e;--teal-dim:rgba(13,148,136,0.12);--mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;}
+body{font-family:var(--mono);background:var(--bg);color:var(--text);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.4}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}.logo-mark{color:var(--teal)}
+nav{display:flex;align-items:center;gap:32px}nav a{font-size:13px;color:var(--text2);text-decoration:none;transition:color 0.2s}nav a:hover,nav a.active{color:var(--text)}
+.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff!important;background:var(--teal);padding:8px 20px;border-radius:4px}
+.page{max-width:1200px;margin:0 auto;padding:140px 40px 80px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--teal);background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.3);padding:5px 14px;border-radius:2px;margin-bottom:24px;letter-spacing:0.08em;text-transform:uppercase}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+h1{font-family:var(--sans);font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.05;letter-spacing:-0.04em;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--teal)}
+.hero-sub{font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:40px}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.filter-btn{font-family:var(--mono);font-size:12px;padding:6px 16px;border:0.5px solid var(--border2);border-radius:2px;background:none;color:var(--text2);cursor:pointer;transition:all 0.15s;letter-spacing:0.04em}
+.filter-btn:hover,.filter-btn.active{background:var(--teal-dim);border-color:var(--teal);color:var(--teal)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:6px;overflow:hidden}
+.pcard{background:var(--surface);padding:28px;display:flex;flex-direction:column;gap:10px;transition:background 0.15s}
+.pcard:hover{background:var(--surface2)}
+.pcard__num{font-size:11px;color:var(--text3)}
+.pcard__icon{font-size:22px;color:var(--teal)}
+.pcard h3{font-family:var(--sans);font-size:1.05rem;font-weight:700}
+.pcard__tag{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.04em}
+.pcard__desc{font-size:13px;color:var(--text2);line-height:1.6;flex:1}
+.pcard__price{font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--teal)}
+.pcard__btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;background:var(--teal);color:#fff;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none;font-family:var(--sans);transition:background 0.15s;margin-top:auto;width:fit-content}
+.pcard__btn:hover{background:var(--teal2)}
+.slider-nav{display:flex;align-items:center;justify-content:center;gap:8px;padding:24px 0 0}
+.dot{width:8px;height:8px;border-radius:50%;border:0.5px solid var(--border2);background:none;cursor:pointer;padding:0;transition:all 0.2s}
+.dot.active{background:var(--teal);border-color:var(--teal)}
+.arr{background:var(--surface);border:0.5px solid var(--border2);color:var(--text2);width:32px;height:32px;border-radius:4px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.arr:hover{border-color:var(--teal);color:var(--teal)}.arr:disabled{opacity:0.3;cursor:not-allowed}
+.hidden{display:none!important}
+footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-left{font-size:13px;color:var(--text3)}.footer-links{display:flex;gap:24px}.footer-links a{font-size:13px;color:var(--text3);text-decoration:none}
+@media(max-width:768px){header{padding:16px 20px}nav a:not(.nav-cta){display:none}.page{padding:100px 20px 60px}.grid{grid-template-columns:1fr}footer{padding:24px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo"><span class="logo-mark">⚡</span>Cracked Minds</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/products/" class="active">Products</a>
+    <a href="/check/">Check</a>
+    <a href="/comply/">Comply</a>
+    <a href="/backlog/" class="nav-cta">Backlog</a>
+  </nav>
+</header>
+
+<div class="page">
+  <div class="hero-badge">AI Intelligence Products</div>
+  <h1>9 products.<br><em>One platform.</em></h1>
+  <p class="hero-sub">AI-powered intelligence across company, property, regulatory, clinical, patent, research, VAT, charity, and package data. Every report from £2.99.</p>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all',this)">All (9)</button>
+    <button class="filter-btn" onclick="filter('business',this)">Business</button>
+    <button class="filter-btn" onclick="filter('property',this)">Property</button>
+    <button class="filter-btn" onclick="filter('regulatory',this)">Regulatory</button>
+    <button class="filter-btn" onclick="filter('research',this)">Research</button>
+    <button class="filter-btn" onclick="filter('developer',this)">Developer</button>
+  </div>
+
+  <div class="grid" id="grid">
+    <div class="pcard" data-cat="business"><div class="pcard__num">01</div><div class="pcard__icon"><i class="fa-solid fa-building"></i></div><h3>Check</h3><div class="pcard__tag">Company Intelligence</div><p class="pcard__desc">UK company due diligence. Directors, PSC, charges, filing history, AI risk narrative, and counterparty guidance.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/check/" class="pcard__btn">Search a company <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="regulatory"><div class="pcard__num">02</div><div class="pcard__icon"><i class="fa-solid fa-scale-balanced"></i></div><h3>Comply</h3><div class="pcard__tag">Regulatory Intelligence</div><p class="pcard__desc">FCA register search and regulatory document analysis. AI compliance intelligence and HMRC guidance.</p><div class="pcard__price">£4.99 / £49pm</div><a href="/comply/" class="pcard__btn">Search FCA register <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="property"><div class="pcard__num">03</div><div class="pcard__icon"><i class="fa-solid fa-house"></i></div><h3>Land Registry</h3><div class="pcard__tag">Property Intelligence</div><p class="pcard__desc">UK property price history, title and ownership data from HM Land Registry, with AI valuation context.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/land-registry/" class="pcard__btn">Search properties <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="regulatory"><div class="pcard__num">04</div><div class="pcard__icon"><i class="fa-solid fa-receipt"></i></div><h3>VAT Validation</h3><div class="pcard__tag">Tax Intelligence</div><p class="pcard__desc">UK and EU VAT number validation via HMRC and VIES. Live registration status with AI fraud risk assessment.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/vat/" class="pcard__btn">Validate a VAT number <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="business"><div class="pcard__num">05</div><div class="pcard__icon"><i class="fa-solid fa-lightbulb"></i></div><h3>Patent</h3><div class="pcard__tag">IP Intelligence</div><p class="pcard__desc">USPTO and EPO patent search. Claim scope analysis, prior art landscape, and infringement risk with AI.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/patent/" class="pcard__btn">Search patents <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="developer"><div class="pcard__num">06</div><div class="pcard__icon"><i class="fa-solid fa-box"></i></div><h3>Packages</h3><div class="pcard__tag">Developer Intelligence</div><p class="pcard__desc">npm and PyPI package intelligence. Dependency risk, security vulnerabilities, and supply chain AI analysis.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/packages/" class="pcard__btn">Search packages <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="research"><div class="pcard__num">07</div><div class="pcard__icon"><i class="fa-solid fa-flask"></i></div><h3>PubMed</h3><div class="pcard__tag">Clinical Intelligence</div><p class="pcard__desc">35 million PubMed articles. AI summaries, evidence quality ratings, methodology critique, and related literature.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/pubmed/" class="pcard__btn">Search literature <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="business"><div class="pcard__num">08</div><div class="pcard__icon"><i class="fa-solid fa-heart"></i></div><h3>Charity Register</h3><div class="pcard__tag">Charity Intelligence</div><p class="pcard__desc">Charity Commission search for England, Wales and Scotland. Financial health, trustee history, and governance risk.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/charity/" class="pcard__btn">Search charities <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pcard" data-cat="research"><div class="pcard__num">09</div><div class="pcard__icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>arXiv</h3><div class="pcard__tag">Research Intelligence</div><p class="pcard__desc">2 million arXiv preprints across CS, physics, maths, and biology. AI novelty assessment and practical application analysis.</p><div class="pcard__price">£2.99 / £29pm</div><a href="/arxiv/" class="pcard__btn">Search research <i class="fa-solid fa-arrow-right"></i></a></div>
+  </div>
+
+  <div class="slider-nav" id="nav"></div>
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 Cracked Minds Ltd · Manchester, UK</div>
+  <div class="footer-links"><a href="/">Home</a><a href="/check/">Check</a><a href="/comply/">Comply</a></div>
+</footer>
+
+<script>
+const PER = 3;
+let page = 0, cat = 'all', visible = [];
+
+function filter(c, btn) {
+  cat = c; page = 0;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function render() {
+  const all = Array.from(document.querySelectorAll('.pcard'));
+  visible = cat === 'all' ? all : all.filter(c => c.dataset.cat === cat);
+  all.forEach(c => c.classList.add('hidden'));
+  visible.slice(page * PER, page * PER + PER).forEach(c => c.classList.remove('hidden'));
+  const total = Math.ceil(visible.length / PER);
+  const nav = document.getElementById('nav');
+  nav.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === page ? ' active' : '');
+    const pi = i; d.onclick = () => { page = pi; render(); };
+    nav.appendChild(d);
+  }
+  const wrap = document.createElement('div'); wrap.style.display='flex'; wrap.style.gap='8px'; wrap.style.marginLeft='8px';
+  const prev = document.createElement('button'); prev.className='arr'; prev.innerHTML='<i class="fa-solid fa-chevron-left"></i>'; prev.disabled = page===0; prev.onclick=()=>{if(page>0){page--;render();}};
+  const next = document.createElement('button'); next.className='arr'; next.innerHTML='<i class="fa-solid fa-chevron-right"></i>'; next.disabled = page>=total-1; next.onclick=()=>{if(page<total-1){page++;render();}};
+  wrap.appendChild(prev); wrap.appendChild(next); nav.appendChild(wrap);
+}
+render();
+</script>
+</body>
+</html>
