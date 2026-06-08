@@ -185,7 +185,13 @@ async function verifyPayment(request, env, json) {
 // ── Send report email ─────────────────────────────────────────
 async function sendReport(request, env, json) {
   const body = await request.json();
-  const { to, subject, html, companyName } = body;
+
+  // Support both {to, subject, html} and {email, report, product} formats
+  const to = body.to || body.email;
+  const html = body.html || (body.report ? `<pre style="font-family:monospace;font-size:13px;white-space:pre-wrap">${JSON.stringify(body.report, null, 2)}</pre>` : null);
+  const subject = body.subject || `Your Cracked Minds ${body.product || "Check"} report`;
+  const companyName = body.companyName || body.report?.company_name || "";
+
   if (!to || !html) return json({ error: "Missing required fields" }, 400);
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -197,7 +203,7 @@ async function sendReport(request, env, json) {
     body: JSON.stringify({
       from: "reports@crackedminds.co.uk",
       to: [to],
-      subject: subject || `Your Cracked Minds report — ${companyName || ""}`,
+      subject: `${subject}${companyName ? " — " + companyName : ""}`,
       html,
     }),
   });
