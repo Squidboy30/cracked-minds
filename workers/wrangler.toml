@@ -1,4 +1,1 @@
-name = "crackedminds-api"
-main = "index.js"
-compatibility_date = "2026-06-03"
-compatibility_flags = ["nodejs_compat"]
+name = 'cracked-minds'
