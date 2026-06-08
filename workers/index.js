@@ -44,6 +44,17 @@ export default {
       if (path === "/api/contact" && request.method === "POST") {
         return await handleContact(request, env, cors);
       }
+      if (path === "/api/debug-env" && request.method === "GET") {
+        return new Response(JSON.stringify({
+          has_stripe_secret: !!env.STRIPE_SECRET_KEY,
+          has_check_single: !!env.STRIPE_PRICE_CHECK_SINGLE,
+          has_check_pro: !!env.STRIPE_PRICE_CHECK_PRO,
+          check_single_val: env.STRIPE_PRICE_CHECK_SINGLE || "MISSING",
+          has_ch_key: !!env.CH_API_KEY,
+          has_fca_key: !!env.FCA_API_KEY,
+          has_resend: !!env.RESEND_API_KEY,
+        }), { headers: { "Content-Type": "application/json", ...cors } });
+      }
       return new Response("Not found", { status: 404, headers: cors });
     } catch (err) {
       return json({ error: err.message }, 500);
