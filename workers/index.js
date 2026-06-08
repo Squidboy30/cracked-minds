@@ -181,8 +181,8 @@ async function handleFCASearch(request, env, cors) {
 // ── Stripe price lookup ───────────────────────────────────────
 function getPrice(product, reportType, env) {
   const prices = {
-    check:  { one_off: env.CHECK_SINGLE_PRICE,  subscription: env.CHECK_PRO_PRICE },
-    comply: { one_off: env.COMPLY_SINGLE_PRICE, subscription: env.COMPLY_PRO_PRICE },
+    check:  { one_off: env.STRIPE_PRICE_CHECK_SINGLE,  subscription: env.STRIPE_PRICE_CHECK_PRO },
+    comply: { one_off: env.STRIPE_PRICE_COMPLY_SINGLE, subscription: env.STRIPE_PRICE_COMPLY_PRO },
   };
   // All new products fall back to Check pricing until dedicated prices are set
   return (prices[product] || prices.check)[reportType] || null;
