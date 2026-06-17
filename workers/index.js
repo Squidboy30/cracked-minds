@@ -72,12 +72,13 @@ function getPrice(product, reportType, env) {
 }
 
 async function createCheckout(request, env, json) {
-  const { product, reportType, companyNumber, companyName } = await request.json();
-  const priceId = getPrice(product, reportType, env);
+  const { product, reportType, companyNumber, companyName, priceId: directPriceId } = await request.json();
+  const priceId = directPriceId || getPrice(product, reportType, env);
   if (!priceId) return json({ error: `No price for ${product}/${reportType}` }, 400);
   const knownBases = {
     check: "https://crackedminds.co.uk/check/index.html",
     comply: "https://crackedminds.co.uk/comply/index.html",
+    boltwork: "https://crackedminds.co.uk/boltwork/buy/index.html",
     "land-registry": "https://crackedminds.co.uk/land-registry/index.html",
     vat: "https://crackedminds.co.uk/vat/index.html",
     patent: "https://crackedminds.co.uk/patent/index.html",
