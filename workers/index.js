@@ -93,7 +93,7 @@ async function createCheckout(request, env, json) {
     "line_items[0][price]": priceId,
     "line_items[0][quantity]": "1",
     "mode": reportType === "subscription" ? "subscription" : "payment",
-    "success_url": `${base}?success=true&session_id={CHECKOUT_SESSION_ID}&ref=${encodeURIComponent(companyNumber || "")}`,
+    "success_url": product === "boltwork" ? `${base}?success=true&session_id={CHECKOUT_SESSION_ID}&email=${encodeURIComponent(companyName || "")}` : `${base}?success=true&session_id={CHECKOUT_SESSION_ID}&ref=${encodeURIComponent(companyNumber || "")}`,
     "cancel_url": `${base}?ref=${encodeURIComponent(companyNumber || "")}`,
     "metadata[company_number]": companyNumber || "",
     "metadata[company_name]": companyName || "",
