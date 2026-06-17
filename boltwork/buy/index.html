@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boltwork API Credits — Cracked Minds</title>
+<meta name="description" content="Buy Boltwork API credits. Pay by card, get an API key, use immediately. No Lightning wallet needed.">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a08;--surface:#111110;--surface2:#1a1a18;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#f0ede8;--text2:#a8a49f;--text3:#6b6865;--teal:#0d9488;--teal2:#0f766e;--teal-dim:rgba(13,148,136,0.12);--amber:#f59e0b;--mono:'IBM Plex Mono',monospace;--sans:'Syne',sans-serif;}
+body{font-family:var(--mono);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.4}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,8,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}.logo-mark{color:var(--teal)}
+nav{display:flex;align-items:center;gap:32px}nav a{font-size:13px;color:var(--text2);text-decoration:none}nav a:hover{color:var(--text)}
+.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff!important;background:var(--teal);padding:8px 20px;border-radius:4px}
+.page{max-width:860px;margin:0 auto;padding:140px 40px 80px}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--teal);background:var(--teal-dim);border:0.5px solid rgba(13,148,136,0.3);padding:5px 14px;border-radius:2px;margin-bottom:24px;letter-spacing:0.08em;text-transform:uppercase}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+h1{font-family:var(--sans);font-size:clamp(36px,5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.04em;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--teal)}
+.sub{font-size:15px;color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:48px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:48px}
+.plan{background:var(--surface);padding:28px;display:flex;flex-direction:column;gap:12px;transition:background 0.15s;cursor:pointer;border:2px solid transparent;position:relative}
+.plan:hover{background:var(--surface2)}
+.plan.selected{border-color:var(--teal);background:var(--surface2)}
+.plan-badge{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.plan-name{font-family:var(--sans);font-size:1.2rem;font-weight:700}
+.plan-price{font-family:var(--sans);font-size:2rem;font-weight:800;letter-spacing:-0.04em}
+.plan-price span{font-size:14px;font-weight:400;color:var(--text3)}
+.plan-credits{font-size:13px;color:var(--teal);font-weight:500}
+.plan-calls{font-size:12px;color:var(--text3);margin-top:4px}
+.plan-features{list-style:none;margin-top:8px}
+.plan-features li{font-size:13px;color:var(--text2);padding:4px 0;display:flex;align-items:center;gap:8px}
+.plan-features li::before{content:'✓';color:var(--teal);font-weight:600}
+.popular-tag{position:absolute;top:12px;right:12px;background:var(--teal);color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:2px;text-transform:uppercase;letter-spacing:0.06em}
+.checkout-section{background:var(--surface);border:0.5px solid var(--border2);border-radius:8px;padding:28px}
+.checkout-title{font-family:var(--sans);font-size:1rem;font-weight:700;margin-bottom:16px}
+.form-group{margin-bottom:16px}
+.form-group label{font-size:12px;color:var(--text3);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.04em}
+.form-group input{width:100%;background:var(--surface2);border:0.5px solid var(--border2);border-radius:4px;padding:10px 14px;font-size:14px;color:var(--text);font-family:var(--mono);outline:none;transition:border-color 0.15s}
+.form-group input:focus{border-color:var(--teal)}
+.btn-buy{width:100%;padding:14px;background:var(--teal);color:#fff;border:none;border-radius:4px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:background 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-buy:hover{background:var(--teal2)}
+.btn-buy:disabled{opacity:0.5;cursor:not-allowed}
+.secure{font-size:12px;color:var(--text3);text-align:center;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px}
+
+/* Success state */
+.success-box{display:none;background:rgba(13,148,136,0.08);border:0.5px solid rgba(13,148,136,0.3);border-radius:8px;padding:28px}
+.success-box h2{font-family:var(--sans);font-size:1.3rem;font-weight:700;color:var(--teal);margin-bottom:16px}
+.api-key-display{background:var(--surface);border:0.5px solid var(--border2);border-radius:4px;padding:14px;font-family:var(--mono);font-size:14px;color:var(--text);word-break:break-all;margin:12px 0}
+.copy-btn{padding:8px 20px;background:var(--surface2);border:0.5px solid var(--border2);color:var(--text2);border-radius:4px;font-size:13px;cursor:pointer;font-family:var(--mono);transition:all 0.15s}
+.copy-btn:hover{border-color:var(--teal);color:var(--teal)}
+.config-block{background:var(--surface);border:0.5px solid var(--border2);border-radius:4px;padding:16px;margin:12px 0;font-size:13px;line-height:1.7;overflow-x:auto}
+.config-block pre{color:#e0e0e0}
+.config-block .key{color:#9FE1CB}
+.config-block .val{color:#FAC775}
+
+.costs-table{width:100%;border-collapse:collapse;margin-top:32px}
+.costs-table th{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);text-align:left;padding:8px 12px;border-bottom:0.5px solid var(--border2)}
+.costs-table td{font-size:13px;color:var(--text2);padding:10px 12px;border-bottom:0.5px solid var(--border)}
+.costs-table td:first-child{font-family:var(--mono);color:var(--teal)}
+.costs-table tr:last-child td{border-bottom:none}
+
+footer{padding:32px 40px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-left{font-size:13px;color:var(--text3)}.footer-links{display:flex;gap:24px}.footer-links a{font-size:13px;color:var(--text3);text-decoration:none}
+@media(max-width:768px){header{padding:16px 20px}nav a:not(.nav-cta){display:none}.page{padding:100px 20px 60px}.plans{grid-template-columns:1fr}footer{padding:24px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo"><span class="logo-mark">⚡</span>Cracked Minds</a>
+  <nav><a href="/">Home</a><a href="/boltwork/">Boltwork</a><a href="/products/">AI Searches</a><a href="/backlog/" class="nav-cta">Backlog</a></nav>
+</header>
+
+<div class="page">
+  <div class="badge">Boltwork API Credits · Pay by Card</div>
+  <h1>Buy API credits.<br><em>No Lightning needed.</em></h1>
+  <p class="sub">Pay by card, get an API key instantly. Use Boltwork from any MCP client without a Lightning wallet. Credits never expire.</p>
+
+  <!-- Plan selector -->
+  <div class="plans">
+    <div class="plan selected" onclick="selectPlan(this,'price_1TjJalH5v95zsFpRtnAjSSOv','Starter — 10,000 sats credits')">
+      <div class="plan-badge">Starter</div>
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">£2.99<span>/once</span></div>
+      <div class="plan-credits">10,000 sats credits</div>
+      <div class="plan-calls">~20 code reviews · ~100 webpage extracts</div>
+      <ul class="plan-features">
+        <li>Full API access</li>
+        <li>All 15 tools</li>
+        <li>Credits never expire</li>
+      </ul>
+    </div>
+    <div class="plan" onclick="selectPlan(this,'price_1TjJalH5v95zsFpR6QObi6d1','Pro — 50,000 sats credits')">
+      <div class="popular-tag">Popular</div>
+      <div class="plan-badge">Pro</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">£9.99<span>/once</span></div>
+      <div class="plan-credits">50,000 sats credits</div>
+      <div class="plan-calls">~100 code reviews · ~500 webpage extracts</div>
+      <ul class="plan-features">
+        <li>Full API access</li>
+        <li>All 15 tools</li>
+        <li>Credits never expire</li>
+      </ul>
+    </div>
+    <div class="plan" onclick="selectPlan(this,'price_1TjJalH5v95zsFpR8DTGvxjc','Team — 200,000 sats credits')">
+      <div class="plan-badge">Team</div>
+      <div class="plan-name">Team</div>
+      <div class="plan-price">£29.99<span>/once</span></div>
+      <div class="plan-credits">200,000 sats credits</div>
+      <div class="plan-calls">~400 code reviews · 2,000 webpage extracts</div>
+      <ul class="plan-features">
+        <li>Full API access</li>
+        <li>All 15 tools</li>
+        <li>Credits never expire</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Checkout form -->
+  <div class="checkout-section" id="checkout-section">
+    <div class="checkout-title">Get your API key</div>
+    <div class="form-group">
+      <label>Email address</label>
+      <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email">
+    </div>
+    <button class="btn-buy" id="buy-btn" onclick="checkout()">
+      <i class="fa-solid fa-credit-card"></i>
+      <span id="buy-label">Pay £2.99 — Get API Key</span>
+    </button>
+    <div class="secure"><i class="fa-solid fa-lock"></i> Secured by Stripe · Credits issued instantly after payment</div>
+  </div>
+
+  <!-- Success state -->
+  <div class="success-box" id="success-box">
+    <h2>✓ Payment confirmed — here's your API key</h2>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:12px">Save this key — it won't be shown again.</p>
+    <div class="api-key-display" id="api-key-display">—</div>
+    <button class="copy-btn" onclick="copyKey()">Copy API key</button>
+    <p style="font-size:14px;color:var(--text2);margin:20px 0 8px;font-family:var(--sans);font-weight:600">Add to your MCP config:</p>
+    <div class="config-block">
+      <pre>{
+  "mcpServers": {
+    "boltwork": {
+      "command": "uvx",
+      "args": ["boltwork-mcp"],
+      "env": {
+        <span class="key">"BOLTWORK_API_KEY"</span>: <span class="val" id="config-key">"bw_your_key_here"</span>
+      }
+    }
+  }
+}</pre>
+    </div>
+    <p style="font-size:13px;color:var(--text3);margin-top:16px">Credits remaining: <strong id="credits-remaining" style="color:var(--teal)">—</strong></p>
+  </div>
+
+  <!-- Cost table -->
+  <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-top:48px;margin-bottom:16px">Cost per call</p>
+  <table class="costs-table">
+    <tr><th>Tool</th><th>Credits used</th><th>Starter pack calls</th></tr>
+    <tr><td>review_code</td><td>2,000 sats</td><td>5 calls</td></tr>
+    <tr><td>summarise_pdf</td><td>500 sats</td><td>20 calls</td></tr>
+    <tr><td>compare_documents</td><td>500 sats</td><td>20 calls</td></tr>
+    <tr><td>extract_data</td><td>200 sats</td><td>50 calls</td></tr>
+    <tr><td>translate</td><td>150 sats</td><td>66 calls</td></tr>
+    <tr><td>extract_webpage</td><td>100 sats</td><td>100 calls</td></tr>
+    <tr><td>memory_store</td><td>10 sats</td><td>1,000 calls</td></tr>
+    <tr><td>memory_retrieve</td><td>5 sats</td><td>2,000 calls</td></tr>
+  </table>
+</div>
+
+<footer>
+  <div class="footer-left">© 2026 Cracked Minds Ltd · Manchester, UK</div>
+  <div class="footer-links"><a href="/">Home</a><a href="/boltwork/">Boltwork docs</a><a href="https://parsebit.fly.dev">Live API</a></div>
+</footer>
+
+<script>
+const API = 'https://parsebit.fly.dev';
+let selectedPriceId = 'price_1TjJalH5v95zsFpRtnAjSSOv';
+let selectedLabel = 'Starter — 10,000 sats credits';
+let apiKey = '';
+
+function selectPlan(el, priceId, label) {
+  document.querySelectorAll('.plan').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPriceId = priceId;
+  selectedLabel = label;
+  const prices = {'price_1TjJalH5v95zsFpRtnAjSSOv':'£2.99','price_1TjJalH5v95zsFpR6QObi6d1':'£9.99','price_1TjJalH5v95zsFpR8DTGvxjc':'£29.99'};
+  document.getElementById('buy-label').textContent = `Pay ${prices[priceId]} — Get API Key`;
+}
+
+async function checkout() {
+  const email = document.getElementById('email-input').value.trim();
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  const btn = document.getElementById('buy-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Redirecting to Stripe…';
+  try {
+    const res = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        product: 'boltwork',
+        reportType: 'one_off',
+        priceId: selectedPriceId,
+        companyNumber: email,
+        companyName: selectedLabel,
+      })
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'Checkout failed');
+    }
+  } catch(e) {
+    alert('Checkout failed: ' + e.message);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-credit-card"></i> <span id="buy-label">Pay — Get API Key</span>';
+  }
+}
+
+async function redeemAfterPayment(sessionId, email) {
+  try {
+    const res = await fetch(`${API}/credits/redeem`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId, email })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      apiKey = data.api_key;
+      document.getElementById('api-key-display').textContent = apiKey;
+      document.getElementById('config-key').textContent = `"${apiKey}"`;
+      document.getElementById('credits-remaining').textContent = data.credits.toLocaleString() + ' sats';
+      document.getElementById('checkout-section').style.display = 'none';
+      document.getElementById('success-box').style.display = 'block';
+      document.querySelector('.plans').style.display = 'none';
+    } else {
+      alert('Could not issue API key: ' + (data.detail || data.error));
+    }
+  } catch(e) {
+    alert('Error issuing API key: ' + e.message);
+  }
+}
+
+function copyKey() {
+  navigator.clipboard.writeText(apiKey).then(() => {
+    document.querySelector('.copy-btn').textContent = 'Copied!';
+    setTimeout(() => document.querySelector('.copy-btn').textContent = 'Copy API key', 2000);
+  });
+}
+
+// Handle Stripe return
+(async function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('success') === 'true' && params.get('session_id')) {
+    const email = params.get('email') || localStorage.getItem('boltwork_email') || '';
+    await redeemAfterPayment(params.get('session_id'), email);
+  }
+})();
+</script>
+<script async src="https://cdn.counter.dev/script.js" data-id="crackedminds" data-utcoffset="1"></script>
+</body>
+</html>
